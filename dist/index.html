@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantq Component: main</title>
+</head>
+<body>
+    <div id="app-root"></div>
+    <script type="module">
+        import render from './component.js';
+
+        // Assuming render function returns a DOM node or fragment
+        const rootElement = document.getElementById('app-root');
+        const componentTree = render(); // Call the render function to get the DOM tree
+
+        if (componentTree.type === 'Fragment' && componentTree.children) {
+            // If it's a fragment from _createFragment, append its actual DOM children
+            componentTree.children.forEach(child => {
+                if (child instanceof Node) {
+                    rootElement.appendChild(child);
+                }
+            });
+        } else if (componentTree instanceof Node) {
+            // If it's a single DOM node
+            rootElement.appendChild(componentTree);
+        } else {
+            console.error("Render function did not return a valid DOM node or fragment:", componentTree);
+        }
+
+        // TODO: Integrate component lifecycle (mount, destroy) here later.
+        // For a full component, we'd instantiate a class and manage its lifecycle.
+    </script>
+</body>
+</html>

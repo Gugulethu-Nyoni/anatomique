@@ -9,7 +9,7 @@ class TranspilerContext {
         this.symbolTable = new SymbolTable();
         this.diagnosticReporter = new DiagnosticReporter();
         this.runtimeHelpers = new Set(); // To track required runtime imports
-        this.currentFile = 'component.sq'; // Placeholder for actual file name
+        //this.currentFile = 'component.sq'; // Placeholder for actual file name
         this.componentHasStyles = false; // To determine if <style> output is needed
         this.componentHasScript = false; // To determine if <script> output is needed
         this.componentMethods = new Set(); // To store method names found in jsAST
@@ -43,6 +43,11 @@ class TranspilerCore {
 
     // Utility to generate code for children (e.g., of Element or Fragment)
     generateChildren(childrenNodes) {
+        // Ensure childrenNodes is an array before mapping
+        if (!Array.isArray(childrenNodes)) {
+            this.context.diagnosticReporter.report('error', `Expected an array of children nodes, but got: ${typeof childrenNodes}`, null);
+            return '';
+        }
         return childrenNodes
             .map(child => this.visit(child))
             .filter(Boolean) // Remove empty strings from skipped nodes (e.g., comments)
@@ -52,6 +57,15 @@ class TranspilerCore {
     // Utility to generate code for attributes
     // Returns a string suitable for a JavaScript object literal's properties
     generateAttributes(attributeNodes) {
+        if (!Array.isArray(attributeNodes)) {
+            // If attributes is null (as in your h1/h3 example), treat as empty array
+            if (attributeNodes === null) {
+                return '';
+            }
+            this.context.diagnosticReporter.report('error', `Expected an array of attribute nodes, but got: ${typeof attributeNodes}`, null);
+            return '';
+        }
+
         const attributesMap = {}; // Use a map to handle potential duplicate attributes (last one wins)
         attributeNodes.forEach(attrNode => {
             const attr = this.visit(attrNode); // Each visit returns an object like { name: "...", value: "..." }
@@ -66,6 +80,7 @@ class TranspilerCore {
     }
 
     // Placeholder for JS expression handling (will be delegated to ExpressionTranspiler later)
+    // This method is now used as a fallback for JS nodes not handled by specific visit methods
     handleJSExpression(node) {
         this.context.diagnosticReporter.report('error', `JS Expression transpilation not yet implemented for node type: ${node.type}`, node.loc);
         return '/* JS Expression Not Transpiled */';
@@ -77,10 +92,14 @@ class TranspilerCore {
         return '/* CSS Not Transpiled */';
     }
 
-    // Placeholder for JS script block transpilation (will be delegated to JSTranspiler later)
+    // This method now actually processes the JS Program node
     handleScript(node) {
-        this.context.diagnosticReporter.report('error', `Script block transpilation not yet implemented for node type: ${node.type}`, node.loc);
-        return '/* Script Not Transpiled */';
+        if (node.type !== 'Program' || !Array.isArray(node.body)) {
+            this.context.diagnosticReporter.report('error', `Expected a Program node with a body array for script transpilation, but got: ${node.type}`, node.loc);
+            return '';
+        }
+        // Transpile each statement in the program body
+        return node.body.map(statement => this.visit(statement) + ';').join('\n');
     }
 }
 
@@ -109,7 +128,7 @@ export class SemantqToJsTranspiler extends TranspilerCore {
         switch (node.type) {
             // --- Top-Level Structure ---
             case 'Program': return this.visitProgram(node);
-            case 'CustomAST': return this.visitCustomAST(node);
+            case 'CustomAST': return this.visitCustomAST(node); // This case is actually for the 'content' of customAST
 
             // --- Custom AST Nodes (HTML-like template) ---
             case 'Element': return this.visitElement(node);
@@ -136,26 +155,27 @@ export class SemantqToJsTranspiler extends TranspilerCore {
                 return ''; // Return empty string for unimplemented custom nodes for now
 
             // --- JS AST Nodes (from jsAST property) ---
-            // These will be handled by ExpressionTranspiler and JSTranspiler later
+            // These are now actively transpiled
+            case 'ExpressionStatement': return this.visitExpressionStatement(node);
+            case 'CallExpression': return this.visitCallExpression(node);
+            case 'MemberExpression': return this.visitMemberExpression(node);
+            case 'Identifier': return this.visitIdentifier(node);
+            case 'Literal': return this.visitLiteral(node);
+
+            // --- Remaining JS AST Nodes (still placeholders) ---
             case 'VariableDeclaration':
             case 'FunctionDeclaration':
             case 'ArrowFunctionExpression':
-            case 'CallExpression':
-            case 'MemberExpression':
-            case 'Identifier':
-            case 'Literal':
             case 'BinaryExpression':
             case 'UnaryExpression':
             case 'ConditionalExpression': // Ternary
             case 'BlockStatement':
-            case 'ExpressionStatement':
             case 'ReturnStatement':
-                // Delegate to handleScript or handleJSExpression (which will then delegate to ExpressionTranspiler)
-                this.context.diagnosticReporter.report('warning', `Transpilation for JS AST node type '${node.type}' not yet implemented.`, node.loc);
+                this.context.diagnosticReporter.report('warning', `Transpilation for JS AST node type '${node.type}' not yet fully implemented.`, node.loc);
                 return ''; // Placeholder for JS nodes
 
             // --- CSS AST Nodes (from cssAST property) ---
-            case 'CssRoot':
+            case 'CssRoot': // This is the 'type' of cssAST.content
             case 'CssRule':
             case 'CssDeclaration':
                 // Delegate to handleCSS (which will then delegate to CSSTranspiler)
@@ -171,14 +191,17 @@ export class SemantqToJsTranspiler extends TranspilerCore {
     // --- Implement visit methods for Top-Level Structure ---
 
     visitProgram(node) {
-        // Set context flags based on presence of JS/CSS ASTs
+        // node.jsAST is now directly the Program node
+        // node.cssAST is now directly the CssRoot node
+        // node.customAST is now directly the Fragment node
+
         this.context.componentHasStyles = node.cssAST && node.cssAST.nodes && node.cssAST.nodes.length > 0;
         this.context.componentHasScript = node.jsAST && node.jsAST.body && node.jsAST.body.length > 0;
 
         // Transpile customAST (the main HTML-like template)
-        const customContentJs = this.visit(node.customAST);
+        const customContentJs = node.customAST ? this.visit(node.customAST) : '';
 
-        // Transpile JS AST (placeholder for now)
+        // Transpile JS AST
         const jsCode = this.context.componentHasScript ? this.handleScript(node.jsAST) : '';
 
         // Transpile CSS AST (placeholder for now)
@@ -228,6 +251,7 @@ export class SemantqToJsTranspiler extends TranspilerCore {
         const tagName = JSON.stringify(node.name);
 
         // Attributes are processed by generateAttributes, which calls visit on each attribute node
+        // Ensure node.attributes is an array or null before passing
         const attributesJs = this.generateAttributes(node.attributes);
 
         // Children are processed by generateChildren, which calls visit on each child node
@@ -256,10 +280,66 @@ export class SemantqToJsTranspiler extends TranspilerCore {
         return node.value; // Returns the raw string value (e.g., "image.jpg")
     }
 
+    // --- Implement visit methods for Basic JS AST Nodes ---
+
+    visitExpressionStatement(node) {
+        // An ExpressionStatement simply wraps an expression, so we visit the expression
+        return this.visit(node.expression);
+    }
+
+    visitCallExpression(node) {
+        // A CallExpression has a callee (the function being called) and arguments
+        const callee = this.visit(node.callee);
+        const args = node.arguments.map(arg => this.visit(arg)).join(', ');
+        return `${callee}(${args})`;
+    }
+
+    visitMemberExpression(node) {
+        // A MemberExpression represents property access (e.g., console.log)
+        const object = this.visit(node.object);
+        const property = this.visit(node.property); // property is an Identifier node
+        // If 'computed' is true, it's obj[prop]; otherwise, obj.prop
+        return node.computed ? `${object}[${property}]` : `${object}.${property}`;
+    }
+
+    visitIdentifier(node) {
+        // An Identifier is a variable name or function name
+        return node.name;
+    }
+
+    visitLiteral(node) {
+        // A Literal is a string, number, boolean, null, etc.
+        // We use node.raw to preserve original formatting (e.g., 'hello' vs "hello")
+        return node.raw;
+    }
+
     // Public method to start the transpilation process from the root AST
-    transpile(ast) {
+    transpile(rootAstObject) { // Renamed 'ast' to 'rootAstObject' for clarity
         this.context.diagnosticReporter.clear();
-        const code = this.visit(ast); // Start traversal from the Program node
+
+        // Check if the root object has the expected sub-ASTs
+        if (!rootAstObject || typeof rootAstObject !== 'object' || (!rootAstObject.jsAST && !rootAstObject.cssAST && !rootAstObject.customAST)) {
+            this.context.diagnosticReporter.report('error', 'Root AST object does not contain expected "jsAST", "cssAST", or "customAST" properties.', null);
+            throw new Error("Transpilation failed due to errors. Check diagnostics.");
+        }
+
+        // Create a synthetic "Program" node that wraps the content
+        // of your main.ast for visitProgram.
+        // This allows 'visitProgram' to be the single entry point for processing
+        // the combined JS, CSS, and HTML-like ASTs.
+        const syntheticProgramNode = {
+            type: 'Program', // This is the type that visit() expects
+            jsAST: rootAstObject.jsAST.content, // Pass the actual JS Program node content
+            cssAST: rootAstObject.cssAST.content, // Pass the actual CSS root content
+            customAST: rootAstObject.customAST.content.html // Pass the actual HTML-like root content
+            // You might want to add 'start', 'end', 'loc' properties here if your
+            // diagnostic reporting relies on them for this top-level node.
+            // For now, we'll omit them as they aren't strictly necessary for the transpilation logic.
+        };
+
+        // Call visitProgram directly with the synthetic node
+        const code = this.visitProgram(syntheticProgramNode);
+
         if (this.context.diagnosticReporter.hasErrors()) {
             throw new Error("Transpilation failed due to errors. Check diagnostics.");
         }
