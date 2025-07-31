@@ -1,0 +1,48 @@
+{
+  "jsAST": {
+    "type": "JavaScript",
+    "content": {
+      "type": "Program",
+      "body": [
+        {
+          "type": "ExpressionStatement",
+          "expression": {
+            "type": "CallExpression",
+            "callee": {},
+            "arguments": []
+          }
+        }
+      ]
+    }
+  },
+  "cssAST": {
+    "type": "CSS",
+    "content": {
+      "type": "root",
+      "nodes": []
+    }
+  },
+  "customAST": {
+    "type": "HTML",
+    "content": {
+      "html": {
+        "type": "Fragment",
+        "children": [
+          {
+            "type": "Element",
+            "name": "customSyntax",
+            "attributes": [],
+            "children": [
+              {
+                "type": "Element",
+                "name": "",
+                "attributes": [],
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

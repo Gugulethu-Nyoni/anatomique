@@ -1,101 +1,137 @@
 // src/runtime.js
 
-// Function to create a DOM element
+// DOM Node creation utilities
 export function _createElement(tagName, attributes = {}, children = []) {
     const element = document.createElement(tagName);
 
-    // Apply attributes
-    for (const key in attributes) {
-        if (Object.prototype.hasOwnProperty.call(attributes, key)) {
-            const value = attributes[key];
-            if (key === 'className') { // Special case for class as it's often 'class' in HTML
-                element.className = value;
+    // Handle attributes
+    for (const [key, value] of Object.entries(attributes)) {
+        if (value === undefined || value === null) continue;
+
+        // Special cases for different attribute types
+        if (key === 'className') {
+            element.className = value;
+        } else if (key === 'style' && typeof value === 'string') {
+            element.style.cssText = value;
+        } else if (key.startsWith('on') && typeof value === 'string') {
+            // Handle inline event handlers
+            element.addEventListener(key.substring(2), function(e) {
+                new Function('event', value).call(element, e);
+            });
+        } else if (typeof value === 'boolean') {
+            // Boolean attributes (e.g., disabled, checked)
+            if (value) {
+                element.setAttribute(key, '');
             } else {
-                element.setAttribute(key, value);
+                element.removeAttribute(key);
             }
+        } else {
+            // Regular attributes
+            element.setAttribute(key, value);
         }
     }
 
     // Append children
-    children.forEach(child => {
-        // Handle cases where child might be a DOM Node, a string, or a fragment
+    const normalizedChildren = normalizeChildren(children);
+    normalizedChildren.forEach(child => {
         if (child instanceof Node) {
             element.appendChild(child);
-        } else if (typeof child === 'string' || typeof child === 'number') {
-            element.appendChild(document.createTextNode(String(child)));
-        } else if (child && typeof child === 'object' && child.type === 'Fragment') {
-            // If a child is a fragment from _createFragment, append its contents
-            child.children.forEach(fragChild => {
-                if (fragChild instanceof Node) {
-                    element.appendChild(fragChild);
-                } else if (typeof fragChild === 'string' || typeof fragChild === 'number') {
-                    element.appendChild(document.createTextNode(String(fragChild)));
-                }
-            });
+        } else {
+            console.warn(`Skipping invalid child node for ${tagName}:`, child);
         }
-        // Future: handle reactive nodes, etc.
     });
 
     return element;
 }
 
-// Function to create a DOM text node
 export function _createTextNode(value) {
     return document.createTextNode(String(value));
 }
 
-// Function to create a document fragment (for multiple top-level elements or content bodies)
 export function _createFragment(children = []) {
-    // A simple object to represent a fragment before it's appended to the real DOM
-    // This allows _createElement to handle it correctly.
-    return {
-        type: 'Fragment',
-        children: children.map(child => {
-            if (child instanceof Node) return child;
-            if (typeof child === 'string' || typeof child === 'number') return document.createTextNode(String(child));
-            return child; // Pass through other AST-like objects for now
-        })
-    };
+    const fragment = document.createDocumentFragment();
+    const normalizedChildren = normalizeChildren(children);
+    
+    normalizedChildren.forEach(child => {
+        if (child instanceof Node) {
+            fragment.appendChild(child);
+        } else {
+            console.warn(`Skipping invalid child node in fragment:`, child);
+        }
+    });
+
+    return fragment;
 }
 
-// --- Lifecycle Management Helpers (Placeholders for now) ---
-// These will be used when we build the component render class
-const _mountCallbacks = new WeakMap();
-const _destroyCallbacks = new WeakMap();
+// Helper to normalize children (strings, numbers, arrays, etc.)
+function normalizeChildren(children) {
+    const result = [];
+    
+    const processChild = (child) => {
+        if (child === null || child === undefined || child === false) {
+            return; // Skip falsy values
+        }
+        
+        if (Array.isArray(child)) {
+            child.forEach(processChild);
+        } else if (child instanceof Node) {
+            result.push(child);
+        } else if (typeof child === 'string' || typeof child === 'number') {
+            result.push(document.createTextNode(String(child)));
+        } else if (child && typeof child === 'object' && child.nodeType) {
+            // Handle existing DOM nodes that might be wrapped
+            result.push(child);
+        } else {
+            console.warn(`Unsupported child type:`, child);
+        }
+    };
+
+    processChild(children);
+    return result;
+}
+
+// Component lifecycle management
+const lifecycleCallbacks = new WeakMap();
 
 export function _onMount(componentInstance, callback) {
-    if (!_mountCallbacks.has(componentInstance)) {
-        _mountCallbacks.set(componentInstance, []);
+    if (!lifecycleCallbacks.has(componentInstance)) {
+        lifecycleCallbacks.set(componentInstance, { mount: [], destroy: [] });
     }
-    _mountCallbacks.get(componentInstance).push(callback);
+    lifecycleCallbacks.get(componentInstance).mount.push(callback);
 }
 
 export function _onDestroy(componentInstance, callback) {
-    if (!_destroyCallbacks.has(componentInstance)) {
-        _destroyCallbacks.set(componentInstance, []);
+    if (!lifecycleCallbacks.has(componentInstance)) {
+        lifecycleCallbacks.set(componentInstance, { mount: [], destroy: [] });
     }
-    _destroyCallbacks.get(componentInstance).push(callback);
+    lifecycleCallbacks.get(componentInstance).destroy.push(callback);
 }
 
 export function _triggerMount(componentInstance) {
-    const callbacks = _mountCallbacks.get(componentInstance);
-    if (callbacks) {
-        callbacks.forEach(cb => cb());
-        _mountCallbacks.delete(componentInstance); // Run once, then clear
+    const callbacks = lifecycleCallbacks.get(componentInstance);
+    if (callbacks?.mount) {
+        callbacks.mount.forEach(cb => cb());
+        callbacks.mount = []; // Clear after triggering
     }
 }
 
 export function _triggerDestroy(componentInstance) {
-    const callbacks = _destroyCallbacks.get(componentInstance);
-    if (callbacks) {
-        callbacks.forEach(cb => cb());
-        _destroyCallbacks.delete(componentInstance);
+    const callbacks = lifecycleCallbacks.get(componentInstance);
+    if (callbacks?.destroy) {
+        callbacks.destroy.forEach(cb => cb());
+        callbacks.destroy = []; // Clear after triggering
     }
 }
 
-// Future: _createIfBlock, _createEachBlock, _reactiveText, _updateAttribute, _createEventHandler etc.
+// Event handler helper
 export function _createEventHandler(eventName, handler) {
-    // This helper provides metadata for _createElement or a separate mount function
-    // to attach the listener.
-    return { type: 'EventHandlerDescriptor', name: eventName, handler: handler };
+    return {
+        type: 'EventHandler',
+        eventName,
+        handler,
+        attachTo(element) {
+            element.addEventListener(this.eventName, this.handler);
+            return () => element.removeEventListener(this.eventName, this.handler);
+        }
+    };
 }

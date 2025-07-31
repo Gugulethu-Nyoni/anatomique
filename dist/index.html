@@ -3,33 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semantq Component: main</title>
+    <title>main Component</title>
+    <style>
+        body { margin: 20px; font-family: sans-serif; }
+        #app { border: 1px solid #eee; padding: 20px; max-width: 600px; margin: 0 auto; }
+    </style>
 </head>
 <body>
-    <div id="app-root"></div>
+    <h1>main Component Output</h1>
+    <div id="app"></div>
+    <script type="module" src="./main.js"></script>
     <script type="module">
-        import render from './component.js';
+        // **FIXED**: Import the named export for the component class
+        import { MainComponent } from './main.js'; 
 
-        // Assuming render function returns a DOM node or fragment
-        const rootElement = document.getElementById('app-root');
-        const componentTree = render(); // Call the render function to get the DOM tree
-
-        if (componentTree.type === 'Fragment' && componentTree.children) {
-            // If it's a fragment from _createFragment, append its actual DOM children
-            componentTree.children.forEach(child => {
-                if (child instanceof Node) {
-                    rootElement.appendChild(child);
-                }
-            });
-        } else if (componentTree instanceof Node) {
-            // If it's a single DOM node
-            rootElement.appendChild(componentTree);
-        } else {
-            console.error("Render function did not return a valid DOM node or fragment:", componentTree);
-        }
-
-        // TODO: Integrate component lifecycle (mount, destroy) here later.
-        // For a full component, we'd instantiate a class and manage its lifecycle.
+        document.addEventListener('DOMContentLoaded', () => {
+            const appRoot = document.getElementById('app');
+            const componentInstance = new MainComponent(); // Instantiate the component
+            
+            // Assuming the component has a 'mount' method
+            componentInstance.mount(appRoot); 
+            console.log('main component mounted to #app');
+        });
     </script>
 </body>
 </html>
