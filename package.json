@@ -1,0 +1,25 @@
+{
+  "name": "anatomique",
+  "version": "0.0.1",
+  "description": "A transpiler for Semantq components.",
+  "main": "src/anatomique.js",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/cli.js",
+    "build:main": "npm run build main",
+    "build:home": "npm run build home",
+    "serve": "npx serve dist -l 3000"
+  },
+  "keywords": [
+    "semantq",
+    "transpiler",
+    "compiler",
+    "html",
+    "js"
+  ],
+  "author": "Gugulethu Nyoni",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}

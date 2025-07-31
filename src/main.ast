@@ -1,0 +1,44 @@
+{
+  "type": "Program",
+  "jsAST": {
+    "body": []
+  },
+  "cssAST": {
+    "nodes": []
+  },
+  "customAST": {
+    "type": "CustomAST",
+    "children": [
+      {
+        "type": "Element",
+        "name": "div",
+        "attributes": [],
+        "children": [
+          {
+            "type": "TextNode",
+            "value": "Hello, "
+          },
+          {
+            "type": "MustacheTag",
+            "expression": "name"
+          },
+          {
+            "type": "TextNode",
+            "value": "!"
+          }
+        ]
+      },
+      {
+        "type": "Element",
+        "name": "p",
+        "attributes": [],
+        "children": [
+          {
+            "type": "TextNode",
+            "value": "This component demonstrates text interpolation."
+          }
+        ]
+      }
+    ]
+  }
+}
