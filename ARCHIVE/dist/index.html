@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main Component</title>
+    <style>
+        body { margin: 20px; font-family: sans-serif; }
+        #app { border: 1px solid #eee; padding: 20px; max-width: 600px; margin: 0 auto; }
+    </style>
+</head>
+<body>
+    <h1>main Component Output</h1>
+    <div id="app"></div>
+    <script type="module" src="./main.js"></script>
+    <script type="module">
+        // **FIXED**: Import the named export for the component class
+        import { MainComponent } from './main.js'; 
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const appRoot = document.getElementById('app');
+            const componentInstance = new MainComponent(); // Instantiate the component
+            
+            // Assuming the component has a 'mount' method
+            componentInstance.mount(appRoot); 
+            console.log('main component mounted to #app');
+        });
+    </script>
+</body>
+</html>

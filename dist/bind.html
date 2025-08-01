@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Bind Possibilities Demo (Single File)</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+        .container { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], input[type="number"], textarea, select {
+            width: calc(100% - 10px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .radio-group label { display: inline-block; margin-right: 15px; font-weight: normal; }
+        img { max-width: 100%; height: auto; display: block; margin-top: 10px; border: 1px solid #eee; }
+        button { padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; }
+        button:disabled { background-color: #cccccc; cursor: not-allowed; }
+        .divider { border-top: 1px solid #eee; margin: 30px 0; }
+
+        /* Styles for bindClass examples */
+        .highlighted-card {
+            border: 2px solid #28a745; /* Green */
+            background-color: #e6ffed;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        .status-active {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .error-message {
+            color: #dc3545; /* Red */
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        .loading-button {
+            background-color: #ffc107; /* Yellow */
+            cursor: wait;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Binding Showcase</h1>
+
+    <div class="container">
+        <h2>1. Two-Way Data Binding (`bind()`)</h2>
+
+        <label for="usernameInput">Username:</label>
+        <input type="text" id="usernameInput" placeholder="e.g., JaneDoe">
+        <p>Current Username: <span id="displayUsername"></span></p>
+
+        <label for="ageInput">Age:</label>
+        <input type="number" id="ageInput" min="0" max="120">
+        <p>Current Age: <span id="displayAge"></span></p>
+
+        <label>
+            <input type="checkbox" id="termsCheckbox"> I agree to the terms and conditions.
+        </label>
+        <p>Terms Agreed: <span id="displayTermsAgreed"></span></p>
+
+        <fieldset class="radio-group">
+            <legend>Favorite Animal:</legend>
+            <label><input type="radio" name="favAnimal" value="cat" id="radioCat"> Cat</label>
+            <label><input type="radio" name="favAnimal" value="dog" id="radioDog"> Dog</label>
+            <label><input type="radio" name="favAnimal" value="bird" id="radioBird"> Bird</label>
+        </fieldset>
+        <p>Selected Animal: <span id="displayAnimal"></span></p>
+
+        <label for="messageArea">Your Message:</label>
+        <textarea id="messageArea" rows="4" placeholder="Enter your message here..."></textarea>
+        <p>Message Preview: <span id="displayMessage"></span></p>
+
+        <label for="countrySelect">Select Country:</label>
+        <select id="countrySelect">
+            <option value="usa">United States</option>
+            <option value="can">Canada</option>
+            <option value="mex">Mexico</option>
+        </select>
+        <p>Selected Country: <span id="displayCountry"></span></p>
+
+        <label for="hobbiesSelect">Select Hobbies:</label>
+        <select id="hobbiesSelect" multiple size="4">
+            <option value="reading">Reading</option>
+            <option value="hiking">Hiking</option>
+            <option value="gaming">Gaming</option>
+            <option value="cooking">Cooking</option>
+        </select>
+        <p>Selected Hobbies: <span id="displayHobbies"></span></p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="container">
+        <h2>2. One-Way Text Content Binding (`bindText()`)</h2>
+
+        <h1 id="pageHeading">Default Page Title</h1>
+        <p>The current temperature is: <strong id="temperatureDisplay">--</strong> degrees Celsius.</p>
+        <div>
+            <p>Welcome, <span id="greetingSpan">Guest</span>!</p>
+            <p>Latest notification: <em id="notificationText">No new notifications.</em></p>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="container">
+        <h2>3. One-Way Attribute Binding (`bindAttr()`)</h2>
+
+        <label for="imageSourceInput">Image URL:</label>
+        <input type="text" id="imageSourceInput" value="https://via.placeholder.com/100/FF0000/FFFFFF?text=Initial">
+        <img id="dynamicImage" src="" alt="Dynamic Image Placeholder">
+        <p>Image Alt Text: <span id="imageAltDisplay"></span></p>
+
+        <button id="submitFormButton">Submit</button>
+        <p>Button Status: <span id="buttonStatus">Enabled</span></p>
+
+        <a id="externalLink" href="#">Visit External Site</a>
+        <p>Link Target: <span id="linkTargetDisplay"></span></p>
+
+        <div id="productInfo" data-product-id="">
+            <p>Product Details</p>
+            <p>Product ID: <span id="productIdDisplay"></span></p>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="container">
+        <h2>4. One-Way Class Toggling (`bindClass()`)</h2>
+
+        <div id="statusCard" class="default-card">
+            Status: <span id="currentStatusText">Inactive</span>
+        </div>
+        <button id="toggleStatusBtn">Toggle Status</button>
+
+        <p>Validation: <span id="validationFeedback"></span></p>
+
+        <button id="processBtn">Process Data</button>
+    </div>
+
+    <script type="module">
+        // main.js content starts here (consolidated into a single file)
+
+        // Adjust this path based on where your index.js (re-exporting $state, bind, etc.) is located
+        // If index.js is in a 'state' folder one level up, this path is correct.
+        import { $state, bind, bindText, bindAttr, bindClass } from './state/index.js'; // Adjust path if needed
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- State Variables ---
+            // Two-Way Binding
+            const username = $state('Guest');
+            const age = $state(20);
+            const termsAgreed = $state(false);
+            const favAnimal = $state('dog');
+            const userMessage = $state('Hello from the demo!');
+            const selectedCountry = $state('can');
+            const selectedHobbies = $state(['gaming', 'hiking']);
+
+            // One-Way Text Content
+            const pageTitle = $state('Dynamic Demo Page');
+            const temperature = $state(25);
+            const greetingName = $state('User');
+            const notification = $state('No new messages.');
+
+            // One-Way Attribute Binding
+            const dynamicImageUrl = $state('https://via.placeholder.com/150/0000FF/FFFFFF?text=Initial');
+            const dynamicImageAlt = $state('My Dynamic Placeholder');
+            const isButtonDisabled = $state(false);
+            const externalLinkHref = $state('https://www.google.com');
+            const productId = $state('ABCD-123');
+
+            // One-Way Class Toggling
+            const isActiveStatus = $state(false);
+            const hasValidationError = $state(false);
+            const isProcessing = $state(false);
+
+
+            // --- 1. Two-Way Data Binding (`bind()`) ---
+            bind('#usernameInput', username);
+            bindText('#displayUsername', username); // Display username
+            bind('#ageInput', age);
+            bindText('#displayAge', age);           // Display age
+            bind('#termsCheckbox', termsAgreed);
+            bindText('#displayTermsAgreed', termsAgreed); // Display checkbox state
+            bind('#radioCat', favAnimal);           // Bind one radio, the function handles the group
+            bindText('#displayAnimal', favAnimal);  // Display selected animal
+            bind('#messageArea', userMessage);
+            bindText('#displayMessage', userMessage); // Display message
+            bind('#countrySelect', selectedCountry);
+            bindText('#displayCountry', selectedCountry); // Display selected country
+            bind('#hobbiesSelect', selectedHobbies);
+            // For multiple select, join the array for display
+            bindText('#displayHobbies', $state(() => selectedHobbies.value.join(', ')));
+
+
+            // --- 2. One-Way Text Content Binding (`bindText()`) ---
+            bindText('#pageHeading', pageTitle);
+            bindText('#temperatureDisplay', temperature);
+            bindText('#greetingSpan', greetingName);
+            bindText('#notificationText', notification);
+
+
+            // --- 3. One-Way Attribute Binding (`bindAttr()`) ---
+            bindAttr('#imageSourceInput', 'value', dynamicImageUrl); // Bind input's value to state for easy URL change
+            bindAttr('#dynamicImage', 'src', dynamicImageUrl);
+            bindAttr('#dynamicImage', 'alt', dynamicImageAlt);
+            bindAttr('#submitFormButton', 'disabled', isButtonDisabled);
+            // For display of button status, use bindText
+            bindText('#buttonStatus', $state(() => isButtonDisabled.value ? 'Disabled' : 'Enabled'));
+            bindAttr('#externalLink', 'href', externalLinkHref);
+            bindText('#linkTargetDisplay', externalLinkHref);
+            bindAttr('#productInfo', 'data-product-id', productId);
+            bindText('#productIdDisplay', productId);
+
+
+            // --- 4. One-Way Class Toggling (`bindClass()`) ---
+            bindClass('#statusCard', 'highlighted-card', isActiveStatus);
+            bindText('#currentStatusText', $state(() => isActiveStatus.value ? 'Active' : 'Inactive'));
+            bindClass('#validationFeedback', 'error-message', hasValidationError);
+            bindText('#validationFeedback', $state(() => hasValidationError.value ? 'Invalid Input!' : 'Input is valid.'));
+            bindClass('#processBtn', 'loading-button', isProcessing);
+            bindText('#processBtn', $state(() => isProcessing.value ? 'Processing...' : 'Process Data'));
+
+
+            // --- Demonstration of Programmatic State Changes (to show reactivity) ---
+            setTimeout(() => {
+                console.log("--- Programmatic State Changes ---");
+
+                // bind() examples
+                username.value = 'NewUserBob';
+                age.value = 45;
+                termsAgreed.value = true;
+                favAnimal.value = 'cat';
+                userMessage.value = 'This message was updated by JavaScript!';
+                selectedCountry.value = 'usa';
+                selectedHobbies.value = ['reading', 'cooking'];
+
+                // bindText() examples
+                pageTitle.value = 'Updated Page Title!';
+                temperature.value = 30;
+                greetingName.value = 'Administrator';
+                notification.value = 'New notification: System update available.';
+
+                // bindAttr() examples
+                dynamicImageUrl.value = 'https://via.placeholder.com/150/00FF00/FFFFFF?text=Updated';
+                dynamicImageAlt.value = 'Updated Image';
+                isButtonDisabled.value = true;
+                externalLinkHref.value = 'https://www.bing.com';
+                productId.value = 'XYZ-789';
+
+                // bindClass() examples
+                isActiveStatus.value = true;
+                hasValidationError.value = true;
+                isProcessing.value = true;
+
+                console.log("State updated. Check the page.");
+            }, 4000); // Change state after 4 seconds
+
+            setTimeout(() => {
+                isProcessing.value = false; // Stop processing
+                hasValidationError.value = false; // Clear error
+                isButtonDisabled.value = false; // Enable button
+            }, 8000); // Revert some states after another 4 seconds
+        });
+    </script>
+</body>
+</html>

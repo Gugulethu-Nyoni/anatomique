@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two-Way Binding Example</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        input[type="text"] {
+            padding: 10px;
+            margin-top: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 250px;
+            font-size: 16px;
+        }
+        p {
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #333;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Two-Way Data Binding</h1>
+        <label for="nameInput">Enter your name:</label>
+        <input type="text" id="nameInput" placeholder="Type here...">
+        <p>Hello, <span id="display-name"></span>!</p>
+        <button id="resetButton">Reset Name</button>
+    </div>
+
+    <script type="module">
+        // Import the necessary utilities from your library
+        import { $state, bind, bindText } from '../state/index.js'; // Adjust path if needed
+
+        // 1. Create a reactive state variable
+        const userName = $state('Guest');
+
+        // 2. Bind the input field to the 'userName' state
+        // The 'bind' function handles the two-way connection for input elements.
+        bind('#nameInput', userName);
+
+        // 3. Bind a text element to display the value of 'userName'
+        // 'bindText' ensures the <span> updates reactively when 'userName' changes.
+        bindText('#display-name', userName);
+
+        // Optional: Add a button to demonstrate programmatic state changes
+        const resetButton = document.getElementById('resetButton');
+        if (resetButton) {
+            resetButton.addEventListener('click', () => {
+                userName.value = 'User'; // Programmatically change the state
+            });
+        }
+    </script>
+</body>
+</html>
