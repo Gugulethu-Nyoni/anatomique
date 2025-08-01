@@ -1,17 +1,17 @@
 // src/util/scope.js
 
-// Placeholder for now. Full implementation inspired by Periscopic comes later.
-
 export class Scope {
     constructor(parent = null, isBlockScope = false) {
         this.parent = parent;
         this.isBlockScope = isBlockScope;
-        this.declarations = new Map(); // Map<string, AstNode>
-        this.references = new Set();    // Set<string>
+        // declarations: Map<string, { type: string, isReactive?: boolean, node?: any }>
+        this.declarations = new Map();
+        // this.references = new Set(); // Optional: For more advanced static analysis
     }
 
-    addDeclaration(name, node) {
-        this.declarations.set(name, node);
+    // Add metadata directly
+    addDeclaration(name, metadata) {
+        this.declarations.set(name, metadata);
     }
 
     has(name) {
@@ -26,7 +26,7 @@ export class Scope {
 
 export class SymbolTable {
     constructor() {
-        this.scopes = []; // Stack of active scopes
+        this.scopes = [];
         this.currentScope = new Scope(null, false); // Global scope initially
         this.scopes.push(this.currentScope);
     }
@@ -46,11 +46,24 @@ export class SymbolTable {
         }
     }
 
-    declare(name, node) {
-        this.currentScope.addDeclaration(name, node);
+    // Declare now accepts full metadata
+    declare(name, metadata) {
+        this.currentScope.addDeclaration(name, metadata);
     }
 
+    // Resolve returns the scope that owns the declaration
     resolve(name) {
         return this.currentScope.findOwner(name);
+    }
+
+    /**
+     * Looks up a symbol and returns its metadata.
+     * This method is used by the transpiler to get symbol type (e.g., if it's reactive).
+     * @param {string} name - The name of the symbol to look up.
+     * @returns {{type: string, isReactive?: boolean, node?: any}|null} The symbol metadata if found, otherwise null.
+     */
+    lookup(name) {
+        const ownerScope = this.resolve(name);
+        return ownerScope ? ownerScope.declarations.get(name) : null;
     }
 }

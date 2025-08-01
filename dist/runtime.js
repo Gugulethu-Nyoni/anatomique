@@ -1,6 +1,7 @@
 // src/runtime.js
 
 // DOM Node creation utilities
+// DOM Node creation utilities
 export function _createElement(tagName, attributes = {}, children = []) {
     const element = document.createElement(tagName);
 
@@ -11,12 +12,24 @@ export function _createElement(tagName, attributes = {}, children = []) {
         // Special cases for different attribute types
         if (key === 'className') {
             element.className = value;
+        } else if (key === 'style' && typeof value === 'object') {
+            // Handle style objects
+            Object.assign(element.style, value);
         } else if (key === 'style' && typeof value === 'string') {
             element.style.cssText = value;
+        } else if (key.startsWith('on') && typeof value === 'function') {
+            // Handle function event handlers
+            const eventType = key.substring(2).toLowerCase();
+            element.addEventListener(eventType, value);
         } else if (key.startsWith('on') && typeof value === 'string') {
-            // Handle inline event handlers
+            // Handle string event handlers (deprecated, but supported)
+            console.warn('String event handlers are deprecated. Use functions instead.');
             element.addEventListener(key.substring(2), function(e) {
-                new Function('event', value).call(element, e);
+                try {
+                    new Function('event', value).call(element, e);
+                } catch (err) {
+                    console.error('Error executing event handler:', err);
+                }
             });
         } else if (typeof value === 'boolean') {
             // Boolean attributes (e.g., disabled, checked)
@@ -25,6 +38,9 @@ export function _createElement(tagName, attributes = {}, children = []) {
             } else {
                 element.removeAttribute(key);
             }
+        } else if (key === 'htmlFor') {
+            // Special case for 'for' attribute
+            element.setAttribute('for', value);
         } else {
             // Regular attributes
             element.setAttribute(key, value);
@@ -34,10 +50,14 @@ export function _createElement(tagName, attributes = {}, children = []) {
     // Append children
     const normalizedChildren = normalizeChildren(children);
     normalizedChildren.forEach(child => {
-        if (child instanceof Node) {
-            element.appendChild(child);
-        } else {
-            console.warn(`Skipping invalid child node for ${tagName}:`, child);
+        try {
+            if (child instanceof Node) {
+                element.appendChild(child);
+            } else {
+                console.warn(`Skipping invalid child node for ${tagName}:`, child);
+            }
+        } catch (err) {
+            console.error('Error appending child:', err);
         }
     });
 
@@ -53,10 +73,14 @@ export function _createFragment(children = []) {
     const normalizedChildren = normalizeChildren(children);
     
     normalizedChildren.forEach(child => {
-        if (child instanceof Node) {
-            fragment.appendChild(child);
-        } else {
-            console.warn(`Skipping invalid child node in fragment:`, child);
+        try {
+            if (child instanceof Node) {
+                fragment.appendChild(child);
+            } else {
+                console.warn(`Skipping invalid child node in fragment:`, child);
+            }
+        } catch (err) {
+            console.error('Error appending to fragment:', err);
         }
     });
 
@@ -86,7 +110,13 @@ function normalizeChildren(children) {
         }
     };
 
-    processChild(children);
+    // Handle single child or array
+    if (!Array.isArray(children)) {
+        processChild(children);
+    } else {
+        children.forEach(processChild);
+    }
+    
     return result;
 }
 
@@ -110,7 +140,13 @@ export function _onDestroy(componentInstance, callback) {
 export function _triggerMount(componentInstance) {
     const callbacks = lifecycleCallbacks.get(componentInstance);
     if (callbacks?.mount) {
-        callbacks.mount.forEach(cb => cb());
+        callbacks.mount.forEach(cb => {
+            try {
+                cb();
+            } catch (err) {
+                console.error('Error in mount callback:', err);
+            }
+        });
         callbacks.mount = []; // Clear after triggering
     }
 }
@@ -118,7 +154,13 @@ export function _triggerMount(componentInstance) {
 export function _triggerDestroy(componentInstance) {
     const callbacks = lifecycleCallbacks.get(componentInstance);
     if (callbacks?.destroy) {
-        callbacks.destroy.forEach(cb => cb());
+        callbacks.destroy.forEach(cb => {
+            try {
+                cb();
+            } catch (err) {
+                console.error('Error in destroy callback:', err);
+            }
+        });
         callbacks.destroy = []; // Clear after triggering
     }
 }
@@ -130,8 +172,43 @@ export function _createEventHandler(eventName, handler) {
         eventName,
         handler,
         attachTo(element) {
-            element.addEventListener(this.eventName, this.handler);
-            return () => element.removeEventListener(this.eventName, this.handler);
+            if (!(element instanceof Node)) {
+                console.error('Cannot attach event handler to non-node element');
+                return () => {};
+            }
+            
+            const wrappedHandler = (e) => {
+                try {
+                    handler.call(this, e);
+                } catch (err) {
+                    console.error(`Error in ${eventName} handler:`, err);
+                }
+            };
+            
+            element.addEventListener(eventName, wrappedHandler);
+            return () => element.removeEventListener(eventName, wrappedHandler);
         }
     };
+}
+
+// Additional helper functions
+export function _setAttributes(element, attributes) {
+    for (const [key, value] of Object.entries(attributes)) {
+        if (key.startsWith('on') && typeof value === 'function') {
+            const eventType = key.substring(2).toLowerCase();
+            element.addEventListener(eventType, value);
+        } else {
+            element.setAttribute(key, value);
+        }
+    }
+}
+
+export function _removeAttributes(element, ...attributeNames) {
+    attributeNames.forEach(name => {
+        if (name.startsWith('on')) {
+            // TODO: Need to track event handlers to properly remove them
+            console.warn('Removing event handlers not yet implemented');
+        }
+        element.removeAttribute(name);
+    });
 }

@@ -1,13 +1,25 @@
 import { _createFragment } from './runtime.js';
-import { _createElement } from './runtime.js';
 import { _createTextNode } from './runtime.js';
+import { _createElement } from './runtime.js';
 
 
 export class MainComponent {
     constructor(props = {}) {
         this.props = props;
         this.element = null; // To hold the root DOM element of the component
-        console.log("MainComponent constructor called");
+        this.state = {"count":0}; // Initialize state from parsed declarations
+        console.log("MainComponent constructor called. Initial state:", this.state);
+
+        // Debugging: Log 'this' in constructor
+        console.log("Constructor 'this':", this);
+        console.log("Does alerter exist in constructor (should be undefined before methods are fully defined)?", typeof this.alerter);
+    }
+
+    // setState method for reactive updates
+    setState(newState) {
+        Object.assign(this.state, newState);
+        console.log("MainComponent state updated:", this.state);
+        this.update(); // Trigger re-render
     }
 
     // Lifecycle method: Called when the component is first attached to the DOM
@@ -18,8 +30,6 @@ export class MainComponent {
         }
         
         console.log("Basic html working - MainComponent mounting");
-        alert('Within 2!!');
-        console.log("Basic html working"); // Injected JS statements from AST
         
         this.element = this.render();
         targetElement.appendChild(this.element);
@@ -29,8 +39,10 @@ export class MainComponent {
 
     // Lifecycle method: Called when component's state or props change, triggering a re-render
     update(newProps) {
-        // This is a placeholder. A real update would involve diffing and patching the DOM.
-        console.log("MainComponent update called with new props:", newProps);
+        console.log("MainComponent update called. New props:", newProps);
+        if (newProps) {
+            Object.assign(this.props, newProps); // Update props if provided
+        }
         if (this.element && this.element.parentNode) {
             const oldElement = this.element;
             this.element = this.render();
@@ -50,9 +62,21 @@ export class MainComponent {
 
     // The core render function, transpiled from your AST
     render() {
-        const renderedContent = _createFragment([_createElement("customSyntax", {}, [_createElement("h1", {"id": "myid", "class": "first second", "someblattr": true}, [_createTextNode("Real Time AST Output For the Node in Focus")]), _createElement("br", {}, []), _createElement("input", {"type": "text", "disabled": true, "placeholder": "Disabled Text Input"}, []), _createElement("h3", {"data-user-id": "42", "data-role": "admin"}, [_createTextNode("Hello World")]), _createElement("button", {"onclick": "alert('Hello')", "aria-label": "Close", "aria-hidden": "true"}, [_createTextNode("Click me")]), _createElement("div", {"style": "color: red; font-weight: bold;"}, [_createTextNode("Red Div")]), _createElement("svg", {"xmlns:xlink": "http://www.w3.org/1999/xlink"}, []), _createElement("svg", {"width": "200", "height": "200", "xmlns": "http://www.w3.org/2000/svg", "xmlns:xlink": "http://www.w3.org/1999/xlink"}, [_createFragment([_createFragment([_createElement("defs", {}, [_createElement("circle", {"id": "myCircle", "cx": "50", "cy": "50", "r": "40", "stroke": "black", "stroke-width": "3", "fill": "lightblue"}, [])]), _createElement("use", {"xlink:href": "#myCircle", "x": "0", "y": "0"}, []), _createElement("use", {"xlink:href": "#myCircle", "x": "100", "y": "100", "fill": "lightgreen"}, [])])])]), _createElement("iframe", {"srcdoc": "<p>Hello</p>"}, [])])]); // Fallback to an empty fragment
+        // Debugging: Log 'this' in render
+        console.log("Render method 'this':", this);
+        console.log("Does alerter exist in render?", typeof this.alerter);
+
+        const renderedContent = _createFragment([_createElement("custom-syntax", {}, [_createElement("h1", {}, [_createTextNode("EventHandler and Reactivity")]), _createElement("div", {"value": this.state.count, "oninput": (e) => this.setState({ count: e.target.value })}, []), _createElement("button", {"onclick": this.increment.bind(this)}, [_createTextNode("+")]), _createElement("button", {"onclick": this.decrement.bind(this)}, [_createTextNode("-")])])]);
         console.log("DEBUG: render() returning:", renderedContent, "Type:", typeof renderedContent);
         return renderedContent;
     }
+
+    // Injected JS statements/functions from AST (these are now class methods/properties)
+    increment() {
+    this.setState({ count: this.state.count + 1 });
+}
+    decrement() {
+    this.setState({ count: this.state.count - 1 });
+}
 }
         

@@ -4,71 +4,126 @@
     "content": {
       "type": "Program",
       "start": 0,
-      "end": 58,
+      "end": 102,
       "body": [
         {
-          "type": "ExpressionStatement",
-          "start": 2,
-          "end": 22,
-          "expression": {
-            "type": "CallExpression",
-            "start": 2,
-            "end": 21,
-            "callee": {
-              "type": "Identifier",
-              "start": 2,
-              "end": 7,
-              "name": "alert"
-            },
-            "arguments": [
-              {
-                "type": "Literal",
-                "start": 8,
-                "end": 20,
-                "value": "Within 2!!",
-                "raw": "'Within 2!!'"
+          "type": "VariableDeclaration",
+          "start": 3,
+          "end": 25,
+          "declarations": [
+            {
+              "type": "VariableDeclarator",
+              "start": 7,
+              "end": 24,
+              "id": {
+                "type": "Identifier",
+                "start": 7,
+                "end": 12,
+                "name": "count"
+              },
+              "init": {
+                "type": "CallExpression",
+                "start": 15,
+                "end": 24,
+                "callee": {
+                  "type": "Identifier",
+                  "start": 15,
+                  "end": 21,
+                  "name": "$state"
+                },
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "start": 22,
+                    "end": 23,
+                    "value": 0,
+                    "raw": "0"
+                  }
+                ],
+                "optional": false
               }
-            ],
-            "optional": false
+            }
+          ],
+          "kind": "let"
+        },
+        {
+          "type": "FunctionDeclaration",
+          "start": 27,
+          "end": 62,
+          "id": {
+            "type": "Identifier",
+            "start": 36,
+            "end": 45,
+            "name": "increment"
+          },
+          "expression": false,
+          "generator": false,
+          "async": false,
+          "params": [],
+          "body": {
+            "type": "BlockStatement",
+            "start": 48,
+            "end": 62,
+            "body": [
+              {
+                "type": "ExpressionStatement",
+                "start": 51,
+                "end": 60,
+                "expression": {
+                  "type": "UpdateExpression",
+                  "start": 51,
+                  "end": 59,
+                  "operator": "++",
+                  "prefix": false,
+                  "argument": {
+                    "type": "Identifier",
+                    "start": 51,
+                    "end": 56,
+                    "name": "count"
+                  }
+                }
+              }
+            ]
           }
         },
         {
-          "type": "ExpressionStatement",
-          "start": 23,
-          "end": 57,
-          "expression": {
-            "type": "CallExpression",
-            "start": 23,
-            "end": 56,
-            "callee": {
-              "type": "MemberExpression",
-              "start": 23,
-              "end": 34,
-              "object": {
-                "type": "Identifier",
-                "start": 23,
-                "end": 30,
-                "name": "console"
-              },
-              "property": {
-                "type": "Identifier",
-                "start": 31,
-                "end": 34,
-                "name": "log"
-              },
-              "computed": false,
-              "optional": false
-            },
-            "arguments": [
+          "type": "FunctionDeclaration",
+          "start": 65,
+          "end": 100,
+          "id": {
+            "type": "Identifier",
+            "start": 74,
+            "end": 83,
+            "name": "decrement"
+          },
+          "expression": false,
+          "generator": false,
+          "async": false,
+          "params": [],
+          "body": {
+            "type": "BlockStatement",
+            "start": 87,
+            "end": 100,
+            "body": [
               {
-                "type": "Literal",
-                "start": 35,
-                "end": 55,
-                "value": "Basic html working",
-                "raw": "\"Basic html working\""
+                "type": "ExpressionStatement",
+                "start": 90,
+                "end": 98,
+                "expression": {
+                  "type": "UpdateExpression",
+                  "start": 90,
+                  "end": 97,
+                  "operator": "--",
+                  "prefix": false,
+                  "argument": {
+                    "type": "Identifier",
+                    "start": 90,
+                    "end": 95,
+                    "name": "count"
+                  }
+                }
               }
-            ],
-            "optional": false
+            ]
           }
         }
       ],
@@ -108,700 +163,167 @@
     "content": {
       "html": {
         "start": 0,
-        "end": 953,
+        "end": 186,
         "type": "Fragment",
         "children": [
           {
             "start": 0,
-            "end": 953,
+            "end": 186,
             "type": "Element",
             "name": "customSyntax",
             "attributes": [],
             "children": [
               {
                 "start": 17,
-                "end": 115,
+                "end": 57,
                 "type": "Element",
                 "name": "h1",
-                "attributes": [
-                  {
-                    "start": 21,
-                    "end": 31,
-                    "type": "KeyValueAttribute",
-                    "name": "id",
-                    "value": [
-                      {
-                        "start": 25,
-                        "end": 29,
-                        "type": "Text",
-                        "raw": "myid",
-                        "data": "myid"
-                      }
-                    ]
-                  },
-                  {
-                    "start": 31,
-                    "end": 52,
-                    "type": "KeyValueAttribute",
-                    "name": "class",
-                    "value": [
-                      {
-                        "start": 38,
-                        "end": 50,
-                        "type": "Text",
-                        "raw": "first second",
-                        "data": "first second"
-                      }
-                    ]
-                  },
-                  {
-                    "start": 52,
-                    "end": 63,
-                    "type": "Attribute",
-                    "smqtype": "BooleanAttribute",
-                    "name": {
-                      "type": "Identifier",
-                      "start": {
-                        "offset": 52,
-                        "line": 4,
-                        "column": 36
-                      },
-                      "end": {
-                        "offset": 62,
-                        "line": 4,
-                        "column": 46
-                      },
-                      "name": "someblattr"
-                    },
-                    "value": true
-                  }
-                ],
+                "attributes": null,
                 "children": [
                   {
                     "type": "TextNode",
-                    "value": "Real Time AST Output For the Node in Focus",
+                    "value": "EventHandler and Reactivity",
                     "start": {
-                      "offset": 65,
+                      "offset": 22,
                       "line": 4,
-                      "column": 49
+                      "column": 6
                     },
                     "end": {
-                      "offset": 108,
+                      "offset": 50,
                       "line": 4,
-                      "column": 92
+                      "column": 34
                     }
                   }
                 ]
               },
               {
-                "type": "Element",
-                "start": 115,
-                "end": 122,
-                "name": "br",
-                "attributes": null
-              },
-              {
-                "type": "Element",
-                "start": 122,
-                "end": 188,
-                "name": "input",
-                "attributes": [
-                  {
-                    "start": 129,
-                    "end": 141,
-                    "type": "KeyValueAttribute",
-                    "name": "type",
-                    "value": [
-                      {
-                        "start": 135,
-                        "end": 139,
-                        "type": "Text",
-                        "raw": "text",
-                        "data": "text"
-                      }
-                    ]
-                  },
-                  {
-                    "start": 141,
-                    "end": 150,
-                    "type": "Attribute",
-                    "smqtype": "BooleanAttribute",
-                    "name": {
-                      "type": "Identifier",
-                      "start": {
-                        "offset": 141,
-                        "line": 8,
-                        "column": 20
-                      },
-                      "end": {
-                        "offset": 149,
-                        "line": 8,
-                        "column": 28
-                      },
-                      "name": "disabled"
-                    },
-                    "value": true
-                  },
-                  {
-                    "start": 150,
-                    "end": 184,
-                    "type": "KeyValueAttribute",
-                    "name": "placeholder",
-                    "value": [
-                      {
-                        "start": 163,
-                        "end": 182,
-                        "type": "Text",
-                        "raw": "Disabled Text Input",
-                        "data": "Disabled Text Input"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "start": 188,
-                "end": 248,
-                "type": "Element",
-                "name": "h3",
-                "attributes": [
-                  {
-                    "start": 192,
-                    "end": 210,
-                    "type": "KeyValueAttribute",
-                    "name": "data-user-id",
-                    "value": [
-                      {
-                        "start": 206,
-                        "end": 208,
-                        "type": "Text",
-                        "raw": "42",
-                        "data": "42"
-                      }
-                    ]
-                  },
-                  {
-                    "start": 210,
-                    "end": 227,
-                    "type": "KeyValueAttribute",
-                    "name": "data-role",
-                    "value": [
-                      {
-                        "start": 221,
-                        "end": 226,
-                        "type": "Text",
-                        "raw": "admin",
-                        "data": "admin"
-                      }
-                    ]
-                  }
-                ],
-                "children": [
-                  {
-                    "type": "TextNode",
-                    "value": "Hello World",
-                    "start": {
-                      "offset": 229,
-                      "line": 10,
-                      "column": 42
-                    },
-                    "end": {
-                      "offset": 241,
-                      "line": 10,
-                      "column": 54
-                    }
-                  }
-                ]
-              },
-              {
-                "start": 248,
-                "end": 338,
-                "type": "Element",
-                "name": "button",
-                "attributes": [
-                  {
-                    "start": 256,
-                    "end": 281,
-                    "type": "KeyValueAttribute",
-                    "name": "onclick",
-                    "value": [
-                      {
-                        "start": 265,
-                        "end": 279,
-                        "type": "Text",
-                        "raw": "alert('Hello')",
-                        "data": "alert('Hello')"
-                      }
-                    ]
-                  },
-                  {
-                    "start": 281,
-                    "end": 300,
-                    "type": "KeyValueAttribute",
-                    "name": "aria-label",
-                    "value": [
-                      {
-                        "start": 293,
-                        "end": 298,
-                        "type": "Text",
-                        "raw": "Close",
-                        "data": "Close"
-                      }
-                    ]
-                  },
-                  {
-                    "start": 300,
-                    "end": 318,
-                    "type": "KeyValueAttribute",
-                    "name": "aria-hidden",
-                    "value": [
-                      {
-                        "start": 313,
-                        "end": 317,
-                        "type": "Text",
-                        "raw": "true",
-                        "data": "true"
-                      }
-                    ]
-                  }
-                ],
-                "children": [
-                  {
-                    "type": "TextNode",
-                    "value": "Click me",
-                    "start": {
-                      "offset": 319,
-                      "line": 12,
-                      "column": 72
-                    },
-                    "end": {
-                      "offset": 327,
-                      "line": 12,
-                      "column": 80
-                    }
-                  }
-                ]
-              },
-              {
-                "start": 338,
-                "end": 400,
+                "start": 57,
+                "end": 90,
                 "type": "Element",
                 "name": "div",
                 "attributes": [
                   {
-                    "start": 343,
-                    "end": 381,
-                    "type": "KeyValueAttribute",
-                    "name": "style",
-                    "value": [
-                      {
-                        "start": 350,
-                        "end": 380,
-                        "type": "Text",
-                        "raw": "color: red; font-weight: bold;",
-                        "data": "color: red; font-weight: bold;"
+                    "start": 62,
+                    "end": 80,
+                    "type": "TwoWayBindingAttribute",
+                    "name": "value",
+                    "expression": {
+                      "type": "Identifier",
+                      "start": {
+                        "offset": 74,
+                        "line": 6,
+                        "column": 18
+                      },
+                      "end": {
+                        "offset": 79,
+                        "line": 6,
+                        "column": 23
+                      },
+                      "name": "count"
+                    }
+                  }
+                ],
+                "children": null
+              },
+              {
+                "start": 90,
+                "end": 131,
+                "type": "Element",
+                "name": "button",
+                "attributes": [
+                  {
+                    "start": 98,
+                    "end": 116,
+                    "type": "EventHandler",
+                    "name": "click",
+                    "modifiers": null,
+                    "value": {
+                      "start": 105,
+                      "end": 116,
+                      "type": "MustacheAttribute",
+                      "expression": {
+                        "type": "Identifier",
+                        "start": {
+                          "offset": 106,
+                          "line": 8,
+                          "column": 17
+                        },
+                        "end": {
+                          "offset": 115,
+                          "line": 8,
+                          "column": 26
+                        },
+                        "name": "increment"
                       }
-                    ]
+                    }
                   }
                 ],
                 "children": [
                   {
                     "type": "TextNode",
-                    "value": "Red Div",
+                    "value": "+",
                     "start": {
-                      "offset": 383,
-                      "line": 14,
-                      "column": 46
+                      "offset": 118,
+                      "line": 8,
+                      "column": 29
                     },
                     "end": {
-                      "offset": 391,
-                      "line": 14,
-                      "column": 54
+                      "offset": 120,
+                      "line": 8,
+                      "column": 31
                     }
                   }
                 ]
               },
               {
-                "start": 400,
-                "end": 457,
+                "start": 131,
+                "end": 171,
                 "type": "Element",
-                "name": "svg",
+                "name": "button",
                 "attributes": [
                   {
-                    "start": 405,
-                    "end": 447,
-                    "type": "KeyValueAttribute",
-                    "name": "xmlns:xlink",
-                    "value": [
-                      {
-                        "start": 418,
-                        "end": 446,
-                        "type": "Text",
-                        "raw": "http://www.w3.org/1999/xlink",
-                        "data": "http://www.w3.org/1999/xlink"
+                    "start": 139,
+                    "end": 157,
+                    "type": "EventHandler",
+                    "name": "click",
+                    "modifiers": null,
+                    "value": {
+                      "start": 146,
+                      "end": 157,
+                      "type": "MustacheAttribute",
+                      "expression": {
+                        "type": "Identifier",
+                        "start": {
+                          "offset": 147,
+                          "line": 10,
+                          "column": 17
+                        },
+                        "end": {
+                          "offset": 156,
+                          "line": 10,
+                          "column": 26
+                        },
+                        "name": "decrement"
                       }
-                    ]
-                  }
-                ],
-                "children": null
-              },
-              {
-                "start": 457,
-                "end": 898,
-                "type": "Element",
-                "name": "svg",
-                "attributes": [
-                  {
-                    "start": 462,
-                    "end": 474,
-                    "type": "KeyValueAttribute",
-                    "name": "width",
-                    "value": [
-                      {
-                        "start": 469,
-                        "end": 472,
-                        "type": "Text",
-                        "raw": "200",
-                        "data": "200"
-                      }
-                    ]
-                  },
-                  {
-                    "start": 474,
-                    "end": 487,
-                    "type": "KeyValueAttribute",
-                    "name": "height",
-                    "value": [
-                      {
-                        "start": 482,
-                        "end": 485,
-                        "type": "Text",
-                        "raw": "200",
-                        "data": "200"
-                      }
-                    ]
-                  },
-                  {
-                    "start": 487,
-                    "end": 522,
-                    "type": "KeyValueAttribute",
-                    "name": "xmlns",
-                    "value": [
-                      {
-                        "start": 494,
-                        "end": 520,
-                        "type": "Text",
-                        "raw": "http://www.w3.org/2000/svg",
-                        "data": "http://www.w3.org/2000/svg"
-                      }
-                    ]
-                  },
-                  {
-                    "start": 522,
-                    "end": 564,
-                    "type": "KeyValueAttribute",
-                    "name": "xmlns:xlink",
-                    "value": [
-                      {
-                        "start": 535,
-                        "end": 563,
-                        "type": "Text",
-                        "raw": "http://www.w3.org/1999/xlink",
-                        "data": "http://www.w3.org/1999/xlink"
-                      }
-                    ]
+                    }
                   }
                 ],
                 "children": [
                   {
-                    "type": "Fragment",
-                    "end": 890,
-                    "children": [
-                      {
-                        "type": "CommentBlock",
-                        "content": " Define the reusable circle inside <defs> "
-                      },
-                      {
-                        "type": "Fragment",
-                        "start": 616,
-                        "end": 890,
-                        "children": [
-                          {
-                            "start": 616,
-                            "end": 729,
-                            "type": "Element",
-                            "name": "defs",
-                            "attributes": null,
-                            "children": [
-                              {
-                                "type": "Element",
-                                "start": 623,
-                                "end": 720,
-                                "name": "circle",
-                                "attributes": [
-                                  {
-                                    "start": 631,
-                                    "end": 645,
-                                    "type": "KeyValueAttribute",
-                                    "name": "id",
-                                    "value": [
-                                      {
-                                        "start": 635,
-                                        "end": 643,
-                                        "type": "Text",
-                                        "raw": "myCircle",
-                                        "data": "myCircle"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "start": 645,
-                                    "end": 653,
-                                    "type": "KeyValueAttribute",
-                                    "name": "cx",
-                                    "value": [
-                                      {
-                                        "start": 649,
-                                        "end": 651,
-                                        "type": "Text",
-                                        "raw": "50",
-                                        "data": "50"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "start": 653,
-                                    "end": 661,
-                                    "type": "KeyValueAttribute",
-                                    "name": "cy",
-                                    "value": [
-                                      {
-                                        "start": 657,
-                                        "end": 659,
-                                        "type": "Text",
-                                        "raw": "50",
-                                        "data": "50"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "start": 661,
-                                    "end": 668,
-                                    "type": "KeyValueAttribute",
-                                    "name": "r",
-                                    "value": [
-                                      {
-                                        "start": 664,
-                                        "end": 666,
-                                        "type": "Text",
-                                        "raw": "40",
-                                        "data": "40"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "start": 668,
-                                    "end": 683,
-                                    "type": "KeyValueAttribute",
-                                    "name": "stroke",
-                                    "value": [
-                                      {
-                                        "start": 676,
-                                        "end": 681,
-                                        "type": "Text",
-                                        "raw": "black",
-                                        "data": "black"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "start": 683,
-                                    "end": 700,
-                                    "type": "KeyValueAttribute",
-                                    "name": "stroke-width",
-                                    "value": [
-                                      {
-                                        "start": 697,
-                                        "end": 698,
-                                        "type": "Text",
-                                        "raw": "3",
-                                        "data": "3"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "start": 700,
-                                    "end": 717,
-                                    "type": "KeyValueAttribute",
-                                    "name": "fill",
-                                    "value": [
-                                      {
-                                        "start": 706,
-                                        "end": 715,
-                                        "type": "Text",
-                                        "raw": "lightblue",
-                                        "data": "lightblue"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "type": "CommentBlock",
-                            "content": " Reuse the circle in two different positions "
-                          },
-                          {
-                            "type": "Element",
-                            "start": 782,
-                            "end": 825,
-                            "name": "use",
-                            "attributes": [
-                              {
-                                "start": 787,
-                                "end": 810,
-                                "type": "KeyValueAttribute",
-                                "name": "xlink:href",
-                                "value": [
-                                  {
-                                    "start": 799,
-                                    "end": 808,
-                                    "type": "Text",
-                                    "raw": "#myCircle",
-                                    "data": "#myCircle"
-                                  }
-                                ]
-                              },
-                              {
-                                "start": 810,
-                                "end": 816,
-                                "type": "KeyValueAttribute",
-                                "name": "x",
-                                "value": [
-                                  {
-                                    "start": 813,
-                                    "end": 814,
-                                    "type": "Text",
-                                    "raw": "0",
-                                    "data": "0"
-                                  }
-                                ]
-                              },
-                              {
-                                "start": 816,
-                                "end": 822,
-                                "type": "KeyValueAttribute",
-                                "name": "y",
-                                "value": [
-                                  {
-                                    "start": 819,
-                                    "end": 820,
-                                    "type": "Text",
-                                    "raw": "0",
-                                    "data": "0"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "type": "Element",
-                            "start": 825,
-                            "end": 890,
-                            "name": "use",
-                            "attributes": [
-                              {
-                                "start": 830,
-                                "end": 853,
-                                "type": "KeyValueAttribute",
-                                "name": "xlink:href",
-                                "value": [
-                                  {
-                                    "start": 842,
-                                    "end": 851,
-                                    "type": "Text",
-                                    "raw": "#myCircle",
-                                    "data": "#myCircle"
-                                  }
-                                ]
-                              },
-                              {
-                                "start": 853,
-                                "end": 861,
-                                "type": "KeyValueAttribute",
-                                "name": "x",
-                                "value": [
-                                  {
-                                    "start": 856,
-                                    "end": 859,
-                                    "type": "Text",
-                                    "raw": "100",
-                                    "data": "100"
-                                  }
-                                ]
-                              },
-                              {
-                                "start": 861,
-                                "end": 869,
-                                "type": "KeyValueAttribute",
-                                "name": "y",
-                                "value": [
-                                  {
-                                    "start": 864,
-                                    "end": 867,
-                                    "type": "Text",
-                                    "raw": "100",
-                                    "data": "100"
-                                  }
-                                ]
-                              },
-                              {
-                                "start": 869,
-                                "end": 887,
-                                "type": "KeyValueAttribute",
-                                "name": "fill",
-                                "value": [
-                                  {
-                                    "start": 875,
-                                    "end": 885,
-                                    "type": "Text",
-                                    "raw": "lightgreen",
-                                    "data": "lightgreen"
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
+                    "type": "TextNode",
+                    "value": "-",
+                    "start": {
+                      "offset": 159,
+                      "line": 10,
+                      "column": 29
+                    },
+                    "end": {
+                      "offset": 161,
+                      "line": 10,
+                      "column": 31
+                    }
                   }
                 ]
-              },
-              {
-                "start": 898,
-                "end": 938,
-                "type": "Element",
-                "name": "iframe",
-                "attributes": [
-                  {
-                    "start": 906,
-                    "end": 927,
-                    "type": "KeyValueAttribute",
-                    "name": "srcdoc",
-                    "value": [
-                      {
-                        "start": 914,
-                        "end": 926,
-                        "type": "Text",
-                        "raw": "<p>Hello</p>",
-                        "data": "<p>Hello</p>"
-                      }
-                    ]
-                  }
-                ],
-                "children": null
               }
             ]
           }
