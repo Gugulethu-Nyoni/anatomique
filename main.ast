@@ -4,38 +4,38 @@
     "content": {
       "type": "Program",
       "start": 0,
-      "end": 57,
+      "end": 774,
       "body": [
         {
           "type": "VariableDeclaration",
-          "start": 1,
-          "end": 23,
+          "start": 64,
+          "end": 90,
           "declarations": [
             {
               "type": "VariableDeclarator",
-              "start": 5,
-              "end": 22,
+              "start": 70,
+              "end": 89,
               "id": {
                 "type": "Identifier",
-                "start": 5,
-                "end": 10,
-                "name": "count"
+                "start": 70,
+                "end": 77,
+                "name": "celsius"
               },
               "init": {
                 "type": "CallExpression",
-                "start": 13,
-                "end": 22,
+                "start": 80,
+                "end": 89,
                 "callee": {
                   "type": "Identifier",
-                  "start": 13,
-                  "end": 19,
+                  "start": 80,
+                  "end": 86,
                   "name": "$state"
                 },
                 "arguments": [
                   {
                     "type": "Literal",
-                    "start": 20,
-                    "end": 21,
+                    "start": 87,
+                    "end": 88,
                     "value": 0,
                     "raw": "0"
                   }
@@ -44,40 +44,40 @@
               }
             }
           ],
-          "kind": "let"
+          "kind": "const"
         },
         {
           "type": "VariableDeclaration",
-          "start": 24,
-          "end": 56,
+          "start": 91,
+          "end": 121,
           "declarations": [
             {
               "type": "VariableDeclarator",
-              "start": 30,
-              "end": 55,
+              "start": 97,
+              "end": 120,
               "id": {
                 "type": "Identifier",
-                "start": 30,
-                "end": 37,
-                "name": "message"
+                "start": 97,
+                "end": 107,
+                "name": "fahrenheit"
               },
               "init": {
                 "type": "CallExpression",
-                "start": 40,
-                "end": 55,
+                "start": 110,
+                "end": 120,
                 "callee": {
                   "type": "Identifier",
-                  "start": 40,
-                  "end": 46,
+                  "start": 110,
+                  "end": 116,
                   "name": "$state"
                 },
                 "arguments": [
                   {
                     "type": "Literal",
-                    "start": 47,
-                    "end": 54,
-                    "value": "World",
-                    "raw": "'World'"
+                    "start": 117,
+                    "end": 119,
+                    "value": 32,
+                    "raw": "32"
                   }
                 ],
                 "optional": false
@@ -85,6 +85,544 @@
             }
           ],
           "kind": "const"
+        },
+        {
+          "type": "FunctionDeclaration",
+          "start": 273,
+          "end": 421,
+          "id": {
+            "type": "Identifier",
+            "start": 282,
+            "end": 295,
+            "name": "updateCelsius"
+          },
+          "expression": false,
+          "generator": false,
+          "async": false,
+          "params": [
+            {
+              "type": "Identifier",
+              "start": 296,
+              "end": 301,
+              "name": "event"
+            }
+          ],
+          "body": {
+            "type": "BlockStatement",
+            "start": 303,
+            "end": 421,
+            "body": [
+              {
+                "type": "VariableDeclaration",
+                "start": 305,
+                "end": 346,
+                "declarations": [
+                  {
+                    "type": "VariableDeclarator",
+                    "start": 311,
+                    "end": 345,
+                    "id": {
+                      "type": "Identifier",
+                      "start": 311,
+                      "end": 312,
+                      "name": "c"
+                    },
+                    "init": {
+                      "type": "CallExpression",
+                      "start": 315,
+                      "end": 345,
+                      "callee": {
+                        "type": "Identifier",
+                        "start": 315,
+                        "end": 325,
+                        "name": "parseFloat"
+                      },
+                      "arguments": [
+                        {
+                          "type": "MemberExpression",
+                          "start": 326,
+                          "end": 344,
+                          "object": {
+                            "type": "MemberExpression",
+                            "start": 326,
+                            "end": 338,
+                            "object": {
+                              "type": "Identifier",
+                              "start": 326,
+                              "end": 331,
+                              "name": "event"
+                            },
+                            "property": {
+                              "type": "Identifier",
+                              "start": 332,
+                              "end": 338,
+                              "name": "target"
+                            },
+                            "computed": false,
+                            "optional": false
+                          },
+                          "property": {
+                            "type": "Identifier",
+                            "start": 339,
+                            "end": 344,
+                            "name": "value"
+                          },
+                          "computed": false,
+                          "optional": false
+                        }
+                      ],
+                      "optional": false
+                    }
+                  }
+                ],
+                "kind": "const"
+              },
+              {
+                "type": "IfStatement",
+                "start": 347,
+                "end": 419,
+                "test": {
+                  "type": "UnaryExpression",
+                  "start": 351,
+                  "end": 360,
+                  "operator": "!",
+                  "prefix": true,
+                  "argument": {
+                    "type": "CallExpression",
+                    "start": 352,
+                    "end": 360,
+                    "callee": {
+                      "type": "Identifier",
+                      "start": 352,
+                      "end": 357,
+                      "name": "isNaN"
+                    },
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "start": 358,
+                        "end": 359,
+                        "name": "c"
+                      }
+                    ],
+                    "optional": false
+                  }
+                },
+                "consequent": {
+                  "type": "BlockStatement",
+                  "start": 362,
+                  "end": 419,
+                  "body": [
+                    {
+                      "type": "ExpressionStatement",
+                      "start": 364,
+                      "end": 382,
+                      "expression": {
+                        "type": "AssignmentExpression",
+                        "start": 364,
+                        "end": 381,
+                        "operator": "=",
+                        "left": {
+                          "type": "MemberExpression",
+                          "start": 364,
+                          "end": 377,
+                          "object": {
+                            "type": "Identifier",
+                            "start": 364,
+                            "end": 371,
+                            "name": "celsius"
+                          },
+                          "property": {
+                            "type": "Identifier",
+                            "start": 372,
+                            "end": 377,
+                            "name": "value"
+                          },
+                          "computed": false,
+                          "optional": false
+                        },
+                        "right": {
+                          "type": "Identifier",
+                          "start": 380,
+                          "end": 381,
+                          "name": "c"
+                        }
+                      }
+                    },
+                    {
+                      "type": "ExpressionStatement",
+                      "start": 383,
+                      "end": 417,
+                      "expression": {
+                        "type": "AssignmentExpression",
+                        "start": 383,
+                        "end": 416,
+                        "operator": "=",
+                        "left": {
+                          "type": "MemberExpression",
+                          "start": 383,
+                          "end": 399,
+                          "object": {
+                            "type": "Identifier",
+                            "start": 383,
+                            "end": 393,
+                            "name": "fahrenheit"
+                          },
+                          "property": {
+                            "type": "Identifier",
+                            "start": 394,
+                            "end": 399,
+                            "name": "value"
+                          },
+                          "computed": false,
+                          "optional": false
+                        },
+                        "right": {
+                          "type": "BinaryExpression",
+                          "start": 402,
+                          "end": 416,
+                          "left": {
+                            "type": "BinaryExpression",
+                            "start": 403,
+                            "end": 410,
+                            "left": {
+                              "type": "BinaryExpression",
+                              "start": 403,
+                              "end": 408,
+                              "left": {
+                                "type": "Identifier",
+                                "start": 403,
+                                "end": 404,
+                                "name": "c"
+                              },
+                              "operator": "*",
+                              "right": {
+                                "type": "Literal",
+                                "start": 407,
+                                "end": 408,
+                                "value": 9,
+                                "raw": "9"
+                              }
+                            },
+                            "operator": "/",
+                            "right": {
+                              "type": "Literal",
+                              "start": 409,
+                              "end": 410,
+                              "value": 5,
+                              "raw": "5"
+                            }
+                          },
+                          "operator": "+",
+                          "right": {
+                            "type": "Literal",
+                            "start": 414,
+                            "end": 416,
+                            "value": 32,
+                            "raw": "32"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "alternate": null
+              }
+            ]
+          }
+        },
+        {
+          "type": "FunctionDeclaration",
+          "start": 576,
+          "end": 727,
+          "id": {
+            "type": "Identifier",
+            "start": 585,
+            "end": 601,
+            "name": "updateFahrenheit"
+          },
+          "expression": false,
+          "generator": false,
+          "async": false,
+          "params": [
+            {
+              "type": "Identifier",
+              "start": 602,
+              "end": 607,
+              "name": "event"
+            }
+          ],
+          "body": {
+            "type": "BlockStatement",
+            "start": 609,
+            "end": 727,
+            "body": [
+              {
+                "type": "VariableDeclaration",
+                "start": 611,
+                "end": 652,
+                "declarations": [
+                  {
+                    "type": "VariableDeclarator",
+                    "start": 617,
+                    "end": 651,
+                    "id": {
+                      "type": "Identifier",
+                      "start": 617,
+                      "end": 618,
+                      "name": "f"
+                    },
+                    "init": {
+                      "type": "CallExpression",
+                      "start": 621,
+                      "end": 651,
+                      "callee": {
+                        "type": "Identifier",
+                        "start": 621,
+                        "end": 631,
+                        "name": "parseFloat"
+                      },
+                      "arguments": [
+                        {
+                          "type": "MemberExpression",
+                          "start": 632,
+                          "end": 650,
+                          "object": {
+                            "type": "MemberExpression",
+                            "start": 632,
+                            "end": 644,
+                            "object": {
+                              "type": "Identifier",
+                              "start": 632,
+                              "end": 637,
+                              "name": "event"
+                            },
+                            "property": {
+                              "type": "Identifier",
+                              "start": 638,
+                              "end": 644,
+                              "name": "target"
+                            },
+                            "computed": false,
+                            "optional": false
+                          },
+                          "property": {
+                            "type": "Identifier",
+                            "start": 645,
+                            "end": 650,
+                            "name": "value"
+                          },
+                          "computed": false,
+                          "optional": false
+                        }
+                      ],
+                      "optional": false
+                    }
+                  }
+                ],
+                "kind": "const"
+              },
+              {
+                "type": "IfStatement",
+                "start": 653,
+                "end": 725,
+                "test": {
+                  "type": "UnaryExpression",
+                  "start": 657,
+                  "end": 666,
+                  "operator": "!",
+                  "prefix": true,
+                  "argument": {
+                    "type": "CallExpression",
+                    "start": 658,
+                    "end": 666,
+                    "callee": {
+                      "type": "Identifier",
+                      "start": 658,
+                      "end": 663,
+                      "name": "isNaN"
+                    },
+                    "arguments": [
+                      {
+                        "type": "Identifier",
+                        "start": 664,
+                        "end": 665,
+                        "name": "f"
+                      }
+                    ],
+                    "optional": false
+                  }
+                },
+                "consequent": {
+                  "type": "BlockStatement",
+                  "start": 668,
+                  "end": 725,
+                  "body": [
+                    {
+                      "type": "ExpressionStatement",
+                      "start": 670,
+                      "end": 691,
+                      "expression": {
+                        "type": "AssignmentExpression",
+                        "start": 670,
+                        "end": 690,
+                        "operator": "=",
+                        "left": {
+                          "type": "MemberExpression",
+                          "start": 670,
+                          "end": 686,
+                          "object": {
+                            "type": "Identifier",
+                            "start": 670,
+                            "end": 680,
+                            "name": "fahrenheit"
+                          },
+                          "property": {
+                            "type": "Identifier",
+                            "start": 681,
+                            "end": 686,
+                            "name": "value"
+                          },
+                          "computed": false,
+                          "optional": false
+                        },
+                        "right": {
+                          "type": "Identifier",
+                          "start": 689,
+                          "end": 690,
+                          "name": "f"
+                        }
+                      }
+                    },
+                    {
+                      "type": "ExpressionStatement",
+                      "start": 692,
+                      "end": 723,
+                      "expression": {
+                        "type": "AssignmentExpression",
+                        "start": 692,
+                        "end": 722,
+                        "operator": "=",
+                        "left": {
+                          "type": "MemberExpression",
+                          "start": 692,
+                          "end": 705,
+                          "object": {
+                            "type": "Identifier",
+                            "start": 692,
+                            "end": 699,
+                            "name": "celsius"
+                          },
+                          "property": {
+                            "type": "Identifier",
+                            "start": 700,
+                            "end": 705,
+                            "name": "value"
+                          },
+                          "computed": false,
+                          "optional": false
+                        },
+                        "right": {
+                          "type": "BinaryExpression",
+                          "start": 708,
+                          "end": 722,
+                          "left": {
+                            "type": "BinaryExpression",
+                            "start": 708,
+                            "end": 720,
+                            "left": {
+                              "type": "BinaryExpression",
+                              "start": 709,
+                              "end": 715,
+                              "left": {
+                                "type": "Identifier",
+                                "start": 709,
+                                "end": 710,
+                                "name": "f"
+                              },
+                              "operator": "-",
+                              "right": {
+                                "type": "Literal",
+                                "start": 713,
+                                "end": 715,
+                                "value": 32,
+                                "raw": "32"
+                              }
+                            },
+                            "operator": "*",
+                            "right": {
+                              "type": "Literal",
+                              "start": 719,
+                              "end": 720,
+                              "value": 5,
+                              "raw": "5"
+                            }
+                          },
+                          "operator": "/",
+                          "right": {
+                            "type": "Literal",
+                            "start": 721,
+                            "end": 722,
+                            "value": 9,
+                            "raw": "9"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "alternate": null
+              }
+            ]
+          }
+        },
+        {
+          "type": "FunctionDeclaration",
+          "start": 729,
+          "end": 773,
+          "id": {
+            "type": "Identifier",
+            "start": 738,
+            "end": 745,
+            "name": "alerter"
+          },
+          "expression": false,
+          "generator": false,
+          "async": false,
+          "params": [],
+          "body": {
+            "type": "BlockStatement",
+            "start": 749,
+            "end": 773,
+            "body": [
+              {
+                "type": "ExpressionStatement",
+                "start": 752,
+                "end": 771,
+                "expression": {
+                  "type": "CallExpression",
+                  "start": 752,
+                  "end": 771,
+                  "callee": {
+                    "type": "Identifier",
+                    "start": 752,
+                    "end": 757,
+                    "name": "alert"
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "start": 758,
+                      "end": 770,
+                      "value": "NAZOKE!!!!",
+                      "raw": "\"NAZOKE!!!!\""
+                    }
+                  ],
+                  "optional": false
+                }
+              }
+            ]
+          }
         }
       ],
       "sourceType": "module"
@@ -94,17 +632,395 @@
     "type": "CSS",
     "content": {
       "raws": {
-        "after": "\n\n"
+        "semicolon": false,
+        "after": "\n"
       },
       "type": "root",
-      "nodes": [],
-      "source": {
-        "input": {
-          "css": "\n\n",
-          "hasBOM": false,
-          "document": "\n\n",
-          "file": "/Users/gugulethu/code/semantq_sites/gram/style"
+      "nodes": [
+        {
+          "raws": {
+            "before": "\n",
+            "between": " ",
+            "semicolon": true,
+            "after": "\n"
+          },
+          "type": "rule",
+          "nodes": [
+            {
+              "raws": {
+                "before": "\n",
+                "between": ": "
+              },
+              "type": "decl",
+              "parent": null,
+              "source": {
+                "input": {
+                  "css": "\n.converter-container {\ndisplay: flex;\njustify-content: center;\nalign-items: center;\ngap: 1rem;\npadding: 2rem;\nfont-family: 'Inter', sans-serif;\n}\n\ninput[type='number'] {\nmax-width: 10ch;\npadding: 0.5rem;\nborder: 1px solid #ccc;\nborder-radius: 8px;\nfont-size: 1rem;\ntext-align: right;\n}\n\ninput[type='number']:focus {\nborder-color: #3498db;\noutline: none;\nbox-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);\n}\n",
+                  "hasBOM": false,
+                  "document": "\n.converter-container {\ndisplay: flex;\njustify-content: center;\nalign-items: center;\ngap: 1rem;\npadding: 2rem;\nfont-family: 'Inter', sans-serif;\n}\n\ninput[type='number'] {\nmax-width: 10ch;\npadding: 0.5rem;\nborder: 1px solid #ccc;\nborder-radius: 8px;\nfont-size: 1rem;\ntext-align: right;\n}\n\ninput[type='number']:focus {\nborder-color: #3498db;\noutline: none;\nbox-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);\n}\n",
+                  "file": "/Users/gugulethu/code/semantq_sites/gram/style"
+                },
+                "start": {
+                  "column": 1,
+                  "line": 3,
+                  "offset": 24
+                },
+                "end": {
+                  "column": 14,
+                  "line": 3,
+                  "offset": 38
+                }
+              },
+              "prop": "display",
+              "value": "flex"
+            },
+            {
+              "raws": null,
+              "type": "decl",
+              "parent": null,
+              "source": {
+                "input": null,
+                "start": {
+                  "column": 1,
+                  "line": 4,
+                  "offset": 39
+                },
+                "end": {
+                  "column": 24,
+                  "line": 4,
+                  "offset": 63
+                }
+              },
+              "prop": "justify-content",
+              "value": "center"
+            },
+            {
+              "raws": null,
+              "type": "decl",
+              "parent": null,
+              "source": {
+                "input": null,
+                "start": {
+                  "column": 1,
+                  "line": 5,
+                  "offset": 64
+                },
+                "end": {
+                  "column": 20,
+                  "line": 5,
+                  "offset": 84
+                }
+              },
+              "prop": "align-items",
+              "value": "center"
+            },
+            {
+              "raws": null,
+              "type": "decl",
+              "parent": null,
+              "source": {
+                "input": null,
+                "start": {
+                  "column": 1,
+                  "line": 6,
+                  "offset": 85
+                },
+                "end": {
+                  "column": 10,
+                  "line": 6,
+                  "offset": 95
+                }
+              },
+              "prop": "gap",
+              "value": "1rem"
+            },
+            {
+              "raws": null,
+              "type": "decl",
+              "parent": null,
+              "source": {
+                "input": null,
+                "start": {
+                  "column": 1,
+                  "line": 7,
+                  "offset": 96
+                },
+                "end": {
+                  "column": 14,
+                  "line": 7,
+                  "offset": 110
+                }
+              },
+              "prop": "padding",
+              "value": "2rem"
+            },
+            {
+              "raws": null,
+              "type": "decl",
+              "parent": null,
+              "source": {
+                "input": null,
+                "start": {
+                  "column": 1,
+                  "line": 8,
+                  "offset": 111
+                },
+                "end": {
+                  "column": 33,
+                  "line": 8,
+                  "offset": 144
+                }
+              },
+              "prop": "font-family",
+              "value": "'Inter', sans-serif"
+            }
+          ],
+          "parent": null,
+          "source": {
+            "input": null,
+            "start": {
+              "column": 1,
+              "line": 2,
+              "offset": 1
+            },
+            "end": {
+              "column": 1,
+              "line": 9,
+              "offset": 146
+            }
+          },
+          "selector": ".converter-container"
         },
+        {
+          "raws": {
+            "before": "\n\n",
+            "between": " ",
+            "semicolon": true,
+            "after": "\n"
+          },
+          "type": "rule",
+          "nodes": [
+            {
+              "raws": null,
+              "type": "decl",
+              "parent": null,
+              "source": {
+                "input": null,
+                "start": {
+                  "column": 1,
+                  "line": 12,
+                  "offset": 171
+                },
+                "end": {
+                  "column": 16,
+                  "line": 12,
+                  "offset": 187
+                }
+              },
+              "prop": "max-width",
+              "value": "10ch"
+            },
+            {
+              "raws": null,
+              "type": "decl",
+              "parent": null,
+              "source": {
+                "input": null,
+                "start": {
+                  "column": 1,
+                  "line": 13,
+                  "offset": 188
+                },
+                "end": {
+                  "column": 16,
+                  "line": 13,
+                  "offset": 204
+                }
+              },
+              "prop": "padding",
+              "value": "0.5rem"
+            },
+            {
+              "raws": null,
+              "type": "decl",
+              "parent": null,
+              "source": {
+                "input": null,
+                "start": {
+                  "column": 1,
+                  "line": 14,
+                  "offset": 205
+                },
+                "end": {
+                  "column": 23,
+                  "line": 14,
+                  "offset": 228
+                }
+              },
+              "prop": "border",
+              "value": "1px solid #ccc"
+            },
+            {
+              "raws": null,
+              "type": "decl",
+              "parent": null,
+              "source": {
+                "input": null,
+                "start": {
+                  "column": 1,
+                  "line": 15,
+                  "offset": 229
+                },
+                "end": {
+                  "column": 19,
+                  "line": 15,
+                  "offset": 248
+                }
+              },
+              "prop": "border-radius",
+              "value": "8px"
+            },
+            {
+              "raws": null,
+              "type": "decl",
+              "parent": null,
+              "source": {
+                "input": null,
+                "start": {
+                  "column": 1,
+                  "line": 16,
+                  "offset": 249
+                },
+                "end": {
+                  "column": 16,
+                  "line": 16,
+                  "offset": 265
+                }
+              },
+              "prop": "font-size",
+              "value": "1rem"
+            },
+            {
+              "raws": null,
+              "type": "decl",
+              "parent": null,
+              "source": {
+                "input": null,
+                "start": {
+                  "column": 1,
+                  "line": 17,
+                  "offset": 266
+                },
+                "end": {
+                  "column": 18,
+                  "line": 17,
+                  "offset": 284
+                }
+              },
+              "prop": "text-align",
+              "value": "right"
+            }
+          ],
+          "parent": null,
+          "source": {
+            "input": null,
+            "start": {
+              "column": 1,
+              "line": 11,
+              "offset": 148
+            },
+            "end": {
+              "column": 1,
+              "line": 18,
+              "offset": 286
+            }
+          },
+          "selector": "input[type='number']"
+        },
+        {
+          "raws": null,
+          "type": "rule",
+          "nodes": [
+            {
+              "raws": null,
+              "type": "decl",
+              "parent": null,
+              "source": {
+                "input": null,
+                "start": {
+                  "column": 1,
+                  "line": 21,
+                  "offset": 317
+                },
+                "end": {
+                  "column": 22,
+                  "line": 21,
+                  "offset": 339
+                }
+              },
+              "prop": "border-color",
+              "value": "#3498db"
+            },
+            {
+              "raws": null,
+              "type": "decl",
+              "parent": null,
+              "source": {
+                "input": null,
+                "start": {
+                  "column": 1,
+                  "line": 22,
+                  "offset": 340
+                },
+                "end": {
+                  "column": 14,
+                  "line": 22,
+                  "offset": 354
+                }
+              },
+              "prop": "outline",
+              "value": "none"
+            },
+            {
+              "raws": null,
+              "type": "decl",
+              "parent": null,
+              "source": {
+                "input": null,
+                "start": {
+                  "column": 1,
+                  "line": 23,
+                  "offset": 355
+                },
+                "end": {
+                  "column": 46,
+                  "line": 23,
+                  "offset": 401
+                }
+              },
+              "prop": "box-shadow",
+              "value": "0 0 0 3px rgba(52, 152, 219, 0.2)"
+            }
+          ],
+          "parent": null,
+          "source": {
+            "input": null,
+            "start": {
+              "column": 1,
+              "line": 20,
+              "offset": 288
+            },
+            "end": {
+              "column": 1,
+              "line": 24,
+              "offset": 403
+            }
+          },
+          "selector": "input[type='number']:focus"
+        }
+      ],
+      "source": {
+        "input": null,
         "start": {
           "column": 1,
           "line": 1,
@@ -112,8 +1028,8 @@
         },
         "end": {
           "column": 1,
-          "line": 3,
-          "offset": 2
+          "line": 25,
+          "offset": 404
         }
       }
     }
@@ -123,137 +1039,46 @@
     "content": {
       "html": {
         "start": 0,
-        "end": 229,
+        "end": 444,
         "type": "Fragment",
         "children": [
           {
             "start": 0,
-            "end": 229,
+            "end": 444,
             "type": "Element",
             "name": "customSyntax",
             "attributes": [],
             "children": [
               {
                 "start": 17,
-                "end": 46,
+                "end": 92,
                 "type": "Element",
                 "name": "h1",
-                "attributes": null,
-                "children": [
-                  {
-                    "type": "Fragment",
-                    "start": {
-                      "offset": 22,
-                      "line": 4,
-                      "column": 6
-                    },
-                    "end": {
-                      "offset": 40,
-                      "line": 4,
-                      "column": 24
-                    },
-                    "children": [
-                      {
-                        "type": "TextNode",
-                        "value": "Hello",
-                        "start": null,
-                        "end": {
-                          "offset": 28,
-                          "line": 4,
-                          "column": 12
-                        }
-                      },
-                      {
-                        "type": "MustacheTag",
-                        "expression": {
-                          "type": "Identifier",
-                          "start": {
-                            "offset": 30,
-                            "line": 4,
-                            "column": 14
-                          },
-                          "end": {
-                            "offset": 37,
-                            "line": 4,
-                            "column": 21
-                          },
-                          "name": "message"
-                        },
-                        "start": null,
-                        "end": null
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "start": 46,
-                "end": 77,
-                "type": "Element",
-                "name": "h2",
-                "attributes": null,
-                "children": [
-                  {
-                    "type": "Fragment",
-                    "start": {
-                      "offset": 51,
-                      "line": 5,
-                      "column": 6
-                    },
-                    "end": {
-                      "offset": 70,
-                      "line": 5,
-                      "column": 25
-                    },
-                    "children": [
-                      {
-                        "type": "TextNode",
-                        "value": "MyCount:",
-                        "start": null,
-                        "end": {
-                          "offset": 60,
-                          "line": 5,
-                          "column": 15
-                        }
-                      },
-                      {
-                        "type": "MustacheTag",
-                        "expression": {
-                          "type": "Identifier",
-                          "start": {
-                            "offset": 62,
-                            "line": 5,
-                            "column": 17
-                          },
-                          "end": {
-                            "offset": 67,
-                            "line": 5,
-                            "column": 22
-                          },
-                          "name": "count"
-                        },
-                        "start": null,
-                        "end": null
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "start": 77,
-                "end": 214,
-                "type": "Element",
-                "name": "div",
                 "attributes": [
                   {
-                    "start": 82,
-                    "end": 114,
+                    "start": 21,
+                    "end": 40,
+                    "type": "KeyValueAttribute",
+                    "name": "style",
+                    "value": [
+                      {
+                        "start": 28,
+                        "end": 38,
+                        "type": "Text",
+                        "raw": "color: red",
+                        "data": "color: red"
+                      }
+                    ]
+                  },
+                  {
+                    "start": 40,
+                    "end": 72,
                     "type": "KeyValueAttribute",
                     "name": "class",
                     "value": [
                       {
-                        "start": 89,
-                        "end": 113,
+                        "start": 47,
+                        "end": 71,
                         "type": "Text",
                         "raw": "container grid something",
                         "data": "container grid something"
@@ -263,20 +1088,104 @@
                 ],
                 "children": [
                   {
+                    "type": "TextNode",
+                    "value": "Node Stuff",
+                    "start": {
+                      "offset": 74,
+                      "line": 4,
+                      "column": 58
+                    },
+                    "end": {
+                      "offset": 85,
+                      "line": 4,
+                      "column": 69
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "Element",
+                "start": 92,
+                "end": 151,
+                "name": "input",
+                "attributes": [
+                  {
+                    "start": 99,
+                    "end": 111,
+                    "type": "KeyValueAttribute",
+                    "name": "type",
+                    "value": [
+                      {
+                        "start": 105,
+                        "end": 109,
+                        "type": "Text",
+                        "raw": "text",
+                        "data": "text"
+                      }
+                    ]
+                  },
+                  {
+                    "start": 111,
+                    "end": 139,
+                    "type": "KeyValueAttribute",
+                    "name": "placeholder",
+                    "value": [
+                      {
+                        "start": 124,
+                        "end": 137,
+                        "type": "Text",
+                        "raw": "DISABLED TEXT",
+                        "data": "DISABLED TEXT"
+                      }
+                    ]
+                  },
+                  {
+                    "start": 139,
+                    "end": 147,
+                    "type": "BooleanAttribute",
+                    "name": "disabled",
+                    "value": true
+                  }
+                ]
+              },
+              {
+                "start": 151,
+                "end": 384,
+                "type": "Element",
+                "name": "div",
+                "attributes": [
+                  {
+                    "start": 156,
+                    "end": 183,
+                    "type": "KeyValueAttribute",
+                    "name": "class",
+                    "value": [
+                      {
+                        "start": 163,
+                        "end": 182,
+                        "type": "Text",
+                        "raw": "converter-container",
+                        "data": "converter-container"
+                      }
+                    ]
+                  }
+                ],
+                "children": [
+                  {
                     "type": "Element",
-                    "start": 117,
-                    "end": 162,
+                    "start": 185,
+                    "end": 254,
                     "name": "input",
                     "attributes": [
                       {
-                        "start": 124,
-                        "end": 138,
+                        "start": 192,
+                        "end": 206,
                         "type": "KeyValueAttribute",
                         "name": "type",
                         "value": [
                           {
-                            "start": 130,
-                            "end": 136,
+                            "start": 198,
+                            "end": 204,
                             "type": "Text",
                             "raw": "number",
                             "data": "number"
@@ -284,69 +1193,240 @@
                         ]
                       },
                       {
-                        "start": 138,
-                        "end": 156,
-                        "type": "TwoWayBindingAttribute",
+                        "start": 206,
+                        "end": 227,
+                        "type": "MustacheAttribute",
                         "name": "value",
+                        "expression": {
+                          "type": "MemberExpression",
+                          "object": {
+                            "type": "Identifier",
+                            "start": {
+                              "offset": 213,
+                              "line": 11,
+                              "column": 8
+                            },
+                            "end": {
+                              "offset": 220,
+                              "line": 11,
+                              "column": 15
+                            },
+                            "name": "celsius"
+                          },
+                          "property": {
+                            "type": "Identifier",
+                            "start": {
+                              "offset": 221,
+                              "line": 11,
+                              "column": 16
+                            },
+                            "end": {
+                              "offset": 226,
+                              "line": 11,
+                              "column": 21
+                            },
+                            "name": "value"
+                          },
+                          "computed": false,
+                          "optional": false
+                        }
+                      },
+                      {
+                        "type": "EventHandler",
+                        "start": 228,
+                        "end": 251,
+                        "name": "input",
+                        "modifiers": null,
                         "expression": {
                           "type": "Identifier",
                           "start": {
-                            "offset": 150,
-                            "line": 9,
-                            "column": 34
+                            "offset": 236,
+                            "line": 12,
+                            "column": 9
                           },
                           "end": {
-                            "offset": 155,
-                            "line": 9,
-                            "column": 39
+                            "offset": 249,
+                            "line": 12,
+                            "column": 22
                           },
-                          "name": "count"
+                          "name": "updateCelsius"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "start": 254,
+                    "end": 277,
+                    "type": "Element",
+                    "name": "span",
+                    "attributes": null,
+                    "children": [
+                      {
+                        "type": "TextNode",
+                        "value": "Celsius =",
+                        "start": {
+                          "offset": 260,
+                          "line": 14,
+                          "column": 7
+                        },
+                        "end": {
+                          "offset": 269,
+                          "line": 14,
+                          "column": 16
                         }
                       }
                     ]
                   },
                   {
                     "type": "Element",
-                    "start": 162,
-                    "end": 207,
+                    "start": 277,
+                    "end": 352,
                     "name": "input",
                     "attributes": [
                       {
-                        "start": 169,
-                        "end": 181,
+                        "start": 284,
+                        "end": 298,
                         "type": "KeyValueAttribute",
                         "name": "type",
                         "value": [
                           {
-                            "start": 175,
-                            "end": 179,
+                            "start": 290,
+                            "end": 296,
                             "type": "Text",
-                            "raw": "text",
-                            "data": "text"
+                            "raw": "number",
+                            "data": "number"
                           }
                         ]
                       },
                       {
-                        "start": 181,
-                        "end": 201,
-                        "type": "TwoWayBindingAttribute",
+                        "start": 298,
+                        "end": 322,
+                        "type": "MustacheAttribute",
                         "name": "value",
+                        "expression": {
+                          "type": "MemberExpression",
+                          "object": {
+                            "type": "Identifier",
+                            "start": {
+                              "offset": 305,
+                              "line": 17,
+                              "column": 8
+                            },
+                            "end": {
+                              "offset": 315,
+                              "line": 17,
+                              "column": 18
+                            },
+                            "name": "fahrenheit"
+                          },
+                          "property": {
+                            "type": "Identifier",
+                            "start": {
+                              "offset": 316,
+                              "line": 17,
+                              "column": 19
+                            },
+                            "end": {
+                              "offset": 321,
+                              "line": 17,
+                              "column": 24
+                            },
+                            "name": "value"
+                          },
+                          "computed": false,
+                          "optional": false
+                        }
+                      },
+                      {
+                        "type": "EventHandler",
+                        "start": 323,
+                        "end": 349,
+                        "name": "input",
+                        "modifiers": null,
                         "expression": {
                           "type": "Identifier",
                           "start": {
-                            "offset": 193,
-                            "line": 12,
-                            "column": 32
+                            "offset": 331,
+                            "line": 18,
+                            "column": 9
                           },
                           "end": {
-                            "offset": 200,
-                            "line": 12,
-                            "column": 39
+                            "offset": 347,
+                            "line": 18,
+                            "column": 25
                           },
-                          "name": "message"
+                          "name": "updateFahrenheit"
                         }
                       }
                     ]
+                  },
+                  {
+                    "start": 352,
+                    "end": 376,
+                    "type": "Element",
+                    "name": "span",
+                    "attributes": null,
+                    "children": [
+                      {
+                        "type": "TextNode",
+                        "value": "Fahrenheit",
+                        "start": {
+                          "offset": 358,
+                          "line": 20,
+                          "column": 7
+                        },
+                        "end": {
+                          "offset": 368,
+                          "line": 20,
+                          "column": 17
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "start": 384,
+                "end": 429,
+                "type": "Element",
+                "name": "button",
+                "attributes": [
+                  {
+                    "type": "EventHandler",
+                    "start": 392,
+                    "end": 408,
+                    "name": "click",
+                    "modifiers": null,
+                    "expression": {
+                      "type": "Identifier",
+                      "start": {
+                        "offset": 400,
+                        "line": 23,
+                        "column": 17
+                      },
+                      "end": {
+                        "offset": 407,
+                        "line": 23,
+                        "column": 24
+                      },
+                      "name": "alerter"
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "TextNode",
+                    "value": "Click Me",
+                    "start": {
+                      "offset": 410,
+                      "line": 23,
+                      "column": 27
+                    },
+                    "end": {
+                      "offset": 419,
+                      "line": 23,
+                      "column": 36
+                    }
                   }
                 ]
               }

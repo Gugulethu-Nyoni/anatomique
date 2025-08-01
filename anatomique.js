@@ -19,17 +19,17 @@ export default class Anatomique {
 
         this.nodeToTranspilerMap = {
             Element: this.Element.bind(this),
-            Attribute: this.Attribute.bind(this),
             KeyValueAttribute: this.Attribute.bind(this),
             BooleanAttribute: this.Attribute.bind(this),
             EventHandler: this.Attribute.bind(this),
             TwoWayBindingAttribute: this.Attribute.bind(this),
             MustacheAttribute: this.Attribute.bind(this),
-            MustacheAttributeValueWithParams: this.Attribute.bind(this),
+            BooleanIdentifierAttribute: this.Attribute.bind(this),
+            // Note: Attribute and MustacheAttributeValueWithParams are not top-level nodes in the corrected AST,
+            // so they're removed from the map.
         };
 
         this.transpiledJSContent += `const appRoot = document.getElementById('${this.appRootId}');\n\n`;
-
         this.traverse();
         this.output();
     }
@@ -74,7 +74,8 @@ export default class Anatomique {
 
         if (Array.isArray(node.attributes)) {
             for (const attr of node.attributes) {
-                this.Attribute(attr, varName, node);
+                const transpileFn = this.nodeToTranspilerMap[attr.type];
+                if (transpileFn) transpileFn(attr, varName);
             }
         }
 
@@ -103,8 +104,6 @@ export default class Anatomique {
         if (textParts.length > 0) {
             if (containsDynamicText) {
                 const derivedExpressionString = textParts.map(part => {
-                    // CRITICAL FIX: Append '.value' to reactive variables in derived expressions
-                    // This prevents the output from being '[object Object]'
                     if (part.startsWith('"')) {
                         return part;
                     } else {
@@ -128,7 +127,7 @@ export default class Anatomique {
         this.transpiledJSContent += '\n';
     }
 
-    Attribute(attr, elementVarName, node) {
+    Attribute(attr, elementVarName) {
         switch (attr.type) {
             case "KeyValueAttribute": {
                 const attrName = attr.name;
@@ -140,32 +139,47 @@ export default class Anatomique {
             case "TwoWayBindingAttribute": {
                 const bindProp = attr.name;
                 const bindVarName = attr.expression?.name || "undefinedVar";
-
                 this.transpiledJSContent += `${elementVarName}.${bindProp} = ${bindVarName}.value;\n`;
                 this.transpiledJSContent += `bind('#' + ${elementVarName}.id, ${bindVarName});\n`;
                 break;
             }
-
+            
             case "MustacheAttribute": {
                 const dynAttr = attr.name;
-                const dynValue = attr.value?.expression?.name || "undefinedValue";
-                this.transpiledJSContent += `bindAttr(${elementVarName}, "${dynAttr}", ${dynValue});\n`;
-                break;
-            }
+                const expression = attr.expression;
+                
+                if (!expression) {
+                    console.error("MustacheAttribute: Missing expression for", dynAttr);
+                    return;
+                }
 
-            case "MustacheAttributeValueWithParams": {
-                const dynAttrFunc = attr.name;
-                const dynFuncCall = attr.value?.expression?.name
-                    ? `${attr.value.expression.name}()`
-                    : "undefinedCall()";
-                this.transpiledJSContent += `${elementVarName}.setAttribute("${dynAttrFunc}", ${dynFuncCall});\n`;
+                const dynValueCode = escodegen.generate(expression);
+                
+                if (dynAttr === 'value') {
+                    this.transpiledJSContent += `
+                        // Reactive 'value' attribute
+                        $effect(() => {
+                            ${elementVarName}.value = ${dynValueCode};
+                        });
+                    `;
+                } else {
+                    this.transpiledJSContent += `bindAttr(${elementVarName}, "${dynAttr}", () => ${dynValueCode});\n`;
+                }
                 break;
             }
 
             case "EventHandler": {
                 const eventName = attr.name;
-                const eventHandlerCode = escodegen.generate(attr.value.expression);
-                this.transpiledJSContent += `${elementVarName}.addEventListener("${eventName}", () => { ${eventHandlerCode} });\n`;
+                const eventHandlerCode = escodegen.generate(attr.expression);
+                this.transpiledJSContent += `${elementVarName}.addEventListener("${eventName}", ${eventHandlerCode});\n`;
+                break;
+            }
+
+            case "BooleanAttribute":
+            case "BooleanIdentifierAttribute": {
+                const attrName = attr.name;
+                const attrValue = attr.value;
+                this.transpiledJSContent += `${elementVarName}.toggleAttribute("${attrName}", ${attrValue});\n`;
                 break;
             }
 
@@ -189,9 +203,6 @@ export default class Anatomique {
             console.error("MustacheTag: Expected an identifier for expression, but got:", node.expression);
             return;
         }
-        // This is for a single MustacheTag inside an element, it is handled by the Element method's logic.
-        // For a top-level MustacheTag, this would be needed. In this case, it is not used.
-        // It should also use .value if it were ever to be used.
         this.transpiledJSContent += `bindText('#' + ${parentVar}.id, ${exprName});\n`;
     }
 
