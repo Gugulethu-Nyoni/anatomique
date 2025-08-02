@@ -4,7 +4,7 @@
     "content": {
       "type": "Program",
       "start": 0,
-      "end": 121,
+      "end": 164,
       "body": [
         {
           "type": "VariableDeclaration",
@@ -35,56 +35,56 @@
         {
           "type": "VariableDeclaration",
           "start": 25,
-          "end": 119,
+          "end": 162,
           "declarations": [
             {
               "type": "VariableDeclarator",
               "start": 31,
-              "end": 118,
+              "end": 161,
               "id": {
                 "type": "Identifier",
                 "start": 31,
-                "end": 37,
-                "name": "people"
+                "end": 36,
+                "name": "items"
               },
               "init": {
                 "type": "CallExpression",
-                "start": 40,
-                "end": 118,
+                "start": 39,
+                "end": 161,
                 "callee": {
                   "type": "Identifier",
-                  "start": 40,
-                  "end": 46,
+                  "start": 39,
+                  "end": 45,
                   "name": "$state"
                 },
                 "arguments": [
                   {
                     "type": "ArrayExpression",
-                    "start": 47,
-                    "end": 117,
+                    "start": 46,
+                    "end": 160,
                     "elements": [
                       {
                         "type": "ObjectExpression",
-                        "start": 49,
-                        "end": 69,
+                        "start": 48,
+                        "end": 83,
                         "properties": [
                           {
                             "type": "Property",
-                            "start": 50,
-                            "end": 55,
+                            "start": 49,
+                            "end": 54,
                             "method": false,
                             "shorthand": false,
                             "computed": false,
                             "key": {
                               "type": "Identifier",
-                              "start": 50,
-                              "end": 52,
+                              "start": 49,
+                              "end": 51,
                               "name": "id"
                             },
                             "value": {
                               "type": "Literal",
-                              "start": 54,
-                              "end": 55,
+                              "start": 53,
+                              "end": 54,
                               "value": 1,
                               "raw": "1"
                             },
@@ -92,23 +92,45 @@
                           },
                           {
                             "type": "Property",
-                            "start": 57,
-                            "end": 68,
+                            "start": 56,
+                            "end": 67,
                             "method": false,
                             "shorthand": false,
                             "computed": false,
                             "key": {
                               "type": "Identifier",
-                              "start": 57,
-                              "end": 61,
+                              "start": 56,
+                              "end": 60,
                               "name": "name"
                             },
                             "value": {
                               "type": "Literal",
-                              "start": 62,
-                              "end": 68,
+                              "start": 61,
+                              "end": 67,
                               "value": "John",
                               "raw": "'John'"
+                            },
+                            "kind": "init"
+                          },
+                          {
+                            "type": "Property",
+                            "start": 69,
+                            "end": 82,
+                            "method": false,
+                            "shorthand": false,
+                            "computed": false,
+                            "key": {
+                              "type": "Identifier",
+                              "start": 69,
+                              "end": 75,
+                              "name": "active"
+                            },
+                            "value": {
+                              "type": "Literal",
+                              "start": 77,
+                              "end": 82,
+                              "value": false,
+                              "raw": "false"
                             },
                             "kind": "init"
                           }
@@ -116,26 +138,26 @@
                       },
                       {
                         "type": "ObjectExpression",
-                        "start": 71,
-                        "end": 92,
+                        "start": 85,
+                        "end": 120,
                         "properties": [
                           {
                             "type": "Property",
-                            "start": 72,
-                            "end": 77,
+                            "start": 86,
+                            "end": 91,
                             "method": false,
                             "shorthand": false,
                             "computed": false,
                             "key": {
                               "type": "Identifier",
-                              "start": 72,
-                              "end": 74,
+                              "start": 86,
+                              "end": 88,
                               "name": "id"
                             },
                             "value": {
                               "type": "Literal",
-                              "start": 76,
-                              "end": 77,
+                              "start": 90,
+                              "end": 91,
                               "value": 2,
                               "raw": "2"
                             },
@@ -143,23 +165,45 @@
                           },
                           {
                             "type": "Property",
-                            "start": 79,
-                            "end": 91,
+                            "start": 93,
+                            "end": 105,
                             "method": false,
                             "shorthand": false,
                             "computed": false,
                             "key": {
                               "type": "Identifier",
-                              "start": 79,
-                              "end": 83,
+                              "start": 93,
+                              "end": 97,
                               "name": "name"
                             },
                             "value": {
                               "type": "Literal",
-                              "start": 85,
-                              "end": 91,
+                              "start": 99,
+                              "end": 105,
                               "value": "Musa",
                               "raw": "'Musa'"
+                            },
+                            "kind": "init"
+                          },
+                          {
+                            "type": "Property",
+                            "start": 107,
+                            "end": 119,
+                            "method": false,
+                            "shorthand": false,
+                            "computed": false,
+                            "key": {
+                              "type": "Identifier",
+                              "start": 107,
+                              "end": 113,
+                              "name": "active"
+                            },
+                            "value": {
+                              "type": "Literal",
+                              "start": 115,
+                              "end": 119,
+                              "value": true,
+                              "raw": "true"
                             },
                             "kind": "init"
                           }
@@ -167,26 +211,26 @@
                       },
                       {
                         "type": "ObjectExpression",
-                        "start": 94,
-                        "end": 115,
+                        "start": 122,
+                        "end": 158,
                         "properties": [
                           {
                             "type": "Property",
-                            "start": 95,
-                            "end": 100,
+                            "start": 123,
+                            "end": 128,
                             "method": false,
                             "shorthand": false,
                             "computed": false,
                             "key": {
                               "type": "Identifier",
-                              "start": 95,
-                              "end": 97,
+                              "start": 123,
+                              "end": 125,
                               "name": "id"
                             },
                             "value": {
                               "type": "Literal",
-                              "start": 99,
-                              "end": 100,
+                              "start": 127,
+                              "end": 128,
                               "value": 3,
                               "raw": "3"
                             },
@@ -194,23 +238,45 @@
                           },
                           {
                             "type": "Property",
-                            "start": 102,
-                            "end": 114,
+                            "start": 130,
+                            "end": 142,
                             "method": false,
                             "shorthand": false,
                             "computed": false,
                             "key": {
                               "type": "Identifier",
-                              "start": 102,
-                              "end": 106,
+                              "start": 130,
+                              "end": 134,
                               "name": "name"
                             },
                             "value": {
                               "type": "Literal",
-                              "start": 108,
-                              "end": 114,
+                              "start": 136,
+                              "end": 142,
                               "value": "Jane",
                               "raw": "'Jane'"
+                            },
+                            "kind": "init"
+                          },
+                          {
+                            "type": "Property",
+                            "start": 144,
+                            "end": 157,
+                            "method": false,
+                            "shorthand": false,
+                            "computed": false,
+                            "key": {
+                              "type": "Identifier",
+                              "start": 144,
+                              "end": 150,
+                              "name": "active"
+                            },
+                            "value": {
+                              "type": "Literal",
+                              "start": 152,
+                              "end": 157,
+                              "value": false,
+                              "raw": "false"
                             },
                             "kind": "init"
                           }
@@ -287,94 +353,326 @@
     "content": {
       "html": {
         "start": 0,
-        "end": 85,
+        "end": 222,
         "type": "Fragment",
         "children": [
           {
             "start": 0,
-            "end": 85,
+            "end": 222,
             "type": "Element",
             "name": "customSyntax",
             "attributes": [],
             "children": [
               {
-                "type": "EachStatement",
+                "start": 16,
+                "end": 36,
+                "type": "Element",
+                "name": "h1",
+                "attributes": null,
+                "children": [
+                  {
+                    "type": "TextNode",
+                    "value": "Azkhale ",
+                    "raw": "Azkhale ",
+                    "start": {
+                      "offset": 21,
+                      "line": 3,
+                      "column": 6
+                    },
+                    "end": {
+                      "offset": 29,
+                      "line": 3,
+                      "column": 14
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "IfStatement",
                 "start": {
-                  "offset": 17,
-                  "line": 4,
+                  "offset": 36,
+                  "line": 5,
                   "column": 1
                 },
                 "end": {
-                  "offset": 70,
-                  "line": 7,
+                  "offset": 207,
+                  "line": 16,
                   "column": 1
                 },
-                "source": {
-                  "type": "Identifier",
+                "test": {
+                  "type": "BinaryExpression",
                   "start": {
-                    "offset": 23,
-                    "line": 4,
-                    "column": 7
+                    "offset": 40,
+                    "line": 5,
+                    "column": 5
                   },
                   "end": {
-                    "offset": 29,
-                    "line": 4,
-                    "column": 13
+                    "offset": 56,
+                    "line": 5,
+                    "column": 21
                   },
-                  "name": "people"
+                  "left": {
+                    "type": "MemberExpression",
+                    "object": {
+                      "type": "Identifier",
+                      "start": null,
+                      "end": {
+                        "offset": 45,
+                        "line": 5,
+                        "column": 10
+                      },
+                      "name": "items"
+                    },
+                    "property": {
+                      "type": "Identifier",
+                      "start": {
+                        "offset": 46,
+                        "line": 5,
+                        "column": 11
+                      },
+                      "end": {
+                        "offset": 52,
+                        "line": 5,
+                        "column": 17
+                      },
+                      "name": "length"
+                    },
+                    "computed": false,
+                    "optional": false
+                  },
+                  "operator": ">",
+                  "right": {
+                    "type": "Literal",
+                    "start": {
+                      "offset": 55,
+                      "line": 5,
+                      "column": 20
+                    },
+                    "end": null,
+                    "value": 0,
+                    "raw": "0"
+                  }
                 },
-                "item": {
-                  "type": "Identifier",
-                  "start": {
-                    "offset": 33,
-                    "line": 4,
-                    "column": 17
-                  },
-                  "end": {
-                    "offset": 39,
-                    "line": 4,
-                    "column": 23
-                  },
-                  "name": "person"
-                },
-                "key": null,
-                "body": {
+                "consequent": {
                   "type": "BlockStatement",
                   "start": null,
                   "end": null,
                   "body": [
                     {
-                      "start": 41,
-                      "end": 61,
+                      "type": "EachStatement",
+                      "start": {
+                        "offset": 58,
+                        "line": 6,
+                        "column": 1
+                      },
+                      "end": {
+                        "offset": 168,
+                        "line": 13,
+                        "column": 1
+                      },
+                      "source": {
+                        "type": "Identifier",
+                        "start": {
+                          "offset": 64,
+                          "line": 6,
+                          "column": 7
+                        },
+                        "end": {
+                          "offset": 69,
+                          "line": 6,
+                          "column": 12
+                        },
+                        "name": "items"
+                      },
+                      "item": {
+                        "type": "Identifier",
+                        "start": {
+                          "offset": 73,
+                          "line": 6,
+                          "column": 16
+                        },
+                        "end": {
+                          "offset": 77,
+                          "line": 6,
+                          "column": 20
+                        },
+                        "name": "item"
+                      },
+                      "key": null,
+                      "body": {
+                        "type": "BlockStatement",
+                        "start": null,
+                        "end": null,
+                        "body": [
+                          {
+                            "type": "IfStatement",
+                            "start": {
+                              "offset": 79,
+                              "line": 7,
+                              "column": 1
+                            },
+                            "end": {
+                              "offset": 159,
+                              "line": 12,
+                              "column": 1
+                            },
+                            "test": {
+                              "type": "MemberExpression",
+                              "object": {
+                                "type": "Identifier",
+                                "start": {
+                                  "offset": 83,
+                                  "line": 7,
+                                  "column": 5
+                                },
+                                "end": {
+                                  "offset": 87,
+                                  "line": 7,
+                                  "column": 9
+                                },
+                                "name": "item"
+                              },
+                              "property": {
+                                "type": "Identifier",
+                                "start": {
+                                  "offset": 88,
+                                  "line": 7,
+                                  "column": 10
+                                },
+                                "end": {
+                                  "offset": 94,
+                                  "line": 7,
+                                  "column": 16
+                                },
+                                "name": "active"
+                              },
+                              "computed": false,
+                              "optional": false
+                            },
+                            "consequent": {
+                              "type": "BlockStatement",
+                              "start": null,
+                              "end": null,
+                              "body": [
+                                {
+                                  "start": 96,
+                                  "end": 117,
+                                  "type": "Element",
+                                  "name": "li",
+                                  "attributes": null,
+                                  "children": [
+                                    {
+                                      "type": "MustacheTag",
+                                      "expression": {
+                                        "type": "MemberExpression",
+                                        "object": {
+                                          "type": "Identifier",
+                                          "start": {
+                                            "offset": 101,
+                                            "line": 8,
+                                            "column": 6
+                                          },
+                                          "end": {
+                                            "offset": 105,
+                                            "line": 8,
+                                            "column": 10
+                                          },
+                                          "name": "item"
+                                        },
+                                        "property": {
+                                          "type": "Identifier",
+                                          "start": {
+                                            "offset": 106,
+                                            "line": 8,
+                                            "column": 11
+                                          },
+                                          "end": {
+                                            "offset": 110,
+                                            "line": 8,
+                                            "column": 15
+                                          },
+                                          "name": "name"
+                                        },
+                                        "computed": false,
+                                        "optional": false
+                                      },
+                                      "start": {
+                                        "offset": 100,
+                                        "line": 8,
+                                        "column": 5
+                                      },
+                                      "end": {
+                                        "offset": 111,
+                                        "line": 8,
+                                        "column": 16
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            "alternate": {
+                              "type": "BlockStatement",
+                              "start": null,
+                              "end": null,
+                              "body": [
+                                {
+                                  "start": 123,
+                                  "end": 152,
+                                  "type": "Element",
+                                  "name": "li",
+                                  "attributes": null,
+                                  "children": [
+                                    {
+                                      "type": "TextNode",
+                                      "value": "Member is inactive",
+                                      "raw": "Member is inactive",
+                                      "start": {
+                                        "offset": 128,
+                                        "line": 10,
+                                        "column": 6
+                                      },
+                                      "end": {
+                                        "offset": 146,
+                                        "line": 10,
+                                        "column": 24
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "alternate": {
+                  "type": "BlockStatement",
+                  "start": null,
+                  "end": null,
+                  "body": [
+                    {
+                      "start": 174,
+                      "end": 200,
                       "type": "Element",
                       "name": "p",
                       "attributes": null,
                       "children": [
                         {
-                          "type": "MustacheTag",
-                          "expression": {
-                            "type": "Identifier",
-                            "start": {
-                              "offset": 47,
-                              "line": 5,
-                              "column": 7
-                            },
-                            "end": {
-                              "offset": 53,
-                              "line": 5,
-                              "column": 13
-                            },
-                            "name": "person"
-                          },
+                          "type": "TextNode",
+                          "value": "No items available",
+                          "raw": "No items available",
                           "start": {
-                            "offset": 45,
-                            "line": 5,
-                            "column": 5
+                            "offset": 177,
+                            "line": 14,
+                            "column": 4
                           },
                           "end": {
-                            "offset": 55,
-                            "line": 5,
-                            "column": 15
+                            "offset": 195,
+                            "line": 14,
+                            "column": 22
                           }
                         }
                       ]
