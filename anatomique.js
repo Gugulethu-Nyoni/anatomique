@@ -1,7 +1,7 @@
 import { writeFile, mkdir } from 'node:fs/promises';
 import { join, basename } from 'node:path';
 import escodegen from 'escodegen';
-import { parse } from 'acorn';
+import { parse } from 'acorn'; // Keep acorn for parsing JS content
 
 export default class Anatomique {
     constructor(jsAST, cssAST, customAST, filePath) {
@@ -16,6 +16,11 @@ export default class Anatomique {
         this.transpiledHTML = '';
         this.distDir = './dist';
         this.addState = true;
+        // New: Store reactive variable names
+        this.reactiveVariables = new Set();
+
+        // Analyze JS AST to identify reactive variables
+        this.analyzeJsAST();
 
         this.nodeToTranspilerMap = {
             Element: this.Element.bind(this),
@@ -25,13 +30,33 @@ export default class Anatomique {
             TwoWayBindingAttribute: this.Attribute.bind(this),
             MustacheAttribute: this.Attribute.bind(this),
             BooleanIdentifierAttribute: this.Attribute.bind(this),
-            // Note: Attribute and MustacheAttributeValueWithParams are not top-level nodes in the corrected AST,
-            // so they're removed from the map.
         };
 
         this.transpiledJSContent += `const appRoot = document.getElementById('${this.appRootId}');\n\n`;
         this.traverse();
         this.output();
+    }
+
+    // New method: Analyze the JavaScript AST to identify reactive variables
+    analyzeJsAST() {
+        const jsBody = this.jsAST.content.body;
+        for (const node of jsBody) {
+            if (node.type === 'VariableDeclaration') {
+                for (const declaration of node.declarations) {
+                    if (declaration.init && declaration.init.type === 'CallExpression') {
+                        const callee = declaration.init.callee;
+                        if (callee.type === 'Identifier' && (callee.name === '$state' || callee.name === '$derived')) {
+                            this.reactiveVariables.add(declaration.id.name);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // New method: Check if a variable is reactive
+    isReactiveVariable(varName) {
+        return this.reactiveVariables.has(varName);
     }
 
     traverse() {
@@ -80,7 +105,8 @@ export default class Anatomique {
         }
 
         let textParts = [];
-        let containsDynamicText = false;
+        let hasMustacheTag = false; // Renamed to accurately reflect the presence of *any* mustache tag
+        let allPartsStatic = true; // New: Flag to check if all parts are static
 
         const processChildren = (children) => {
             if (!Array.isArray(children)) return;
@@ -88,10 +114,24 @@ export default class Anatomique {
                 if (child.type === 'Fragment') {
                     processChildren(child.children);
                 } else if (child.type === 'TextNode') {
-                    textParts.push(JSON.stringify(child.value));
+                    textParts.push({ type: 'static', value: JSON.stringify(child.value) });
                 } else if (child.type === 'MustacheTag') {
-                    containsDynamicText = true;
-                    textParts.push(child.expression?.name);
+                    hasMustacheTag = true;
+                    const exprName = child.expression?.name;
+                    if (exprName) {
+                        if (this.isReactiveVariable(exprName)) {
+                            textParts.push({ type: 'reactive', value: exprName });
+                            allPartsStatic = false; // If there's a reactive part, it's not all static
+                        } else {
+                            textParts.push({ type: 'static_variable', value: exprName });
+                            // If it's a static variable, it contributes to overall static text content
+                            // but still means we need to evaluate the expression once.
+                        }
+                    } else {
+                        console.error("MustacheTag: Expected an identifier for expression, but got:", child.expression);
+                        // Fallback: treat as empty or error string
+                        textParts.push({ type: 'static', value: "''" });
+                    }
                 } else {
                     const transpileFn = this.nodeToTranspilerMap[child.type];
                     if (transpileFn) transpileFn(child, varName);
@@ -102,12 +142,15 @@ export default class Anatomique {
         processChildren(node.children);
 
         if (textParts.length > 0) {
-            if (containsDynamicText) {
+            if (hasMustacheTag && !allPartsStatic) {
+                // At least one mustache tag and at least one reactive variable
                 const derivedExpressionString = textParts.map(part => {
-                    if (part.startsWith('"')) {
-                        return part;
-                    } else {
-                        return `${part}.value`;
+                    if (part.type === 'static') {
+                        return part.value;
+                    } else if (part.type === 'reactive') {
+                        return `${part.value}.value`; // Access .value for reactive variables
+                    } else if (part.type === 'static_variable') {
+                        return part.value; // Access static variable directly
                     }
                 }).join(' + ');
 
@@ -116,11 +159,30 @@ export default class Anatomique {
                 this.transpiledJSContent += `bindText('#' + ${varName}.id, ${derivedVarName});\n`;
 
             } else {
-                const staticContent = textParts.map(part => JSON.parse(part)).join('');
-                const textNodeId = Math.random().toString(36).slice(2, 8);
-                const textVarName = `text_${textNodeId}_node`;
-                this.transpiledJSContent += `const ${textVarName} = document.createTextNode(${JSON.stringify(staticContent)});\n`;
-                this.transpiledJSContent += `${varName}.appendChild(${textVarName});\n`;
+                // No mustache tags OR mustache tags only contain static variables
+                // In this case, calculate the final content once and set textContent
+                const staticContentParts = [];
+                for (const part of textParts) {
+                    if (part.type === 'static') {
+                        staticContentParts.push(JSON.parse(part.value));
+                    } else if (part.type === 'static_variable') {
+                        // This assumes the static variable is a simple identifier directly in scope
+                        // For more complex expressions, `escodegen.generate` would be needed.
+                        staticContentParts.push(`\$\{${part.value}\}`); // Use template literal for evaluation
+                    } else {
+                        // This case should ideally not happen if allPartsStatic is true
+                        // but as a fallback, include its raw value
+                        staticContentParts.push(part.value);
+                    }
+                }
+                const finalStaticContent = staticContentParts.join('');
+
+                // If any static_variable was found, use template literal for evaluation
+                if (textParts.some(p => p.type === 'static_variable')) {
+                     this.transpiledJSContent += `${varName}.textContent = \`${finalStaticContent}\`;\n`;
+                } else {
+                     this.transpiledJSContent += `${varName}.textContent = ${JSON.stringify(finalStaticContent)};\n`;
+                }
             }
         }
 
@@ -139,7 +201,9 @@ export default class Anatomique {
             case "TwoWayBindingAttribute": {
                 const bindProp = attr.name;
                 const bindVarName = attr.expression?.name || "undefinedVar";
-                this.transpiledJSContent += `${elementVarName}.${bindProp} = ${bindVarName}.value;\n`;
+                // Ensure we access .value for reactive variables
+                const valueAccess = this.isReactiveVariable(bindVarName) ? `${bindVarName}.value` : bindVarName;
+                this.transpiledJSContent += `${elementVarName}.${bindProp} = ${valueAccess};\n`;
                 this.transpiledJSContent += `bind('#' + ${elementVarName}.id, ${bindVarName});\n`;
                 break;
             }
@@ -153,17 +217,31 @@ export default class Anatomique {
                     return;
                 }
 
+                // Generate code for the expression, handling reactive variables correctly
+                // This requires a deeper analysis if the expression itself contains reactive variables.
+                // For now, assuming simple identifier expressions within MustacheAttribute.
                 const dynValueCode = escodegen.generate(expression);
-                
+                const variableUsedInExpression = expression.type === 'Identifier' ? expression.name : null;
+
                 if (dynAttr === 'value') {
-                    this.transpiledJSContent += `
-                        // Reactive 'value' attribute
-                        $effect(() => {
-                            ${elementVarName}.value = ${dynValueCode};
-                        });
-                    `;
+                    // Reactive 'value' attribute
+                    if (variableUsedInExpression && this.isReactiveVariable(variableUsedInExpression)) {
+                        this.transpiledJSContent += `
+                            $effect(() => {
+                                ${elementVarName}.value = ${variableUsedInExpression}.value;
+                            });
+                        `;
+                    } else {
+                        // If it's not a reactive variable, set it once
+                        this.transpiledJSContent += `${elementVarName}.value = ${dynValueCode};\n`;
+                    }
                 } else {
-                    this.transpiledJSContent += `bindAttr(${elementVarName}, "${dynAttr}", () => ${dynValueCode});\n`;
+                    // For other attributes, use bindAttr if it contains a reactive variable, otherwise set directly
+                    if (variableUsedInExpression && this.isReactiveVariable(variableUsedInExpression)) {
+                        this.transpiledJSContent += `bindAttr(${elementVarName}, "${dynAttr}", () => ${variableUsedInExpression}.value);\n`;
+                    } else {
+                        this.transpiledJSContent += `${elementVarName}.setAttribute("${dynAttr}", ${dynValueCode});\n`;
+                    }
                 }
                 break;
             }
@@ -178,8 +256,16 @@ export default class Anatomique {
             case "BooleanAttribute":
             case "BooleanIdentifierAttribute": {
                 const attrName = attr.name;
-                const attrValue = attr.value;
-                this.transpiledJSContent += `${elementVarName}.toggleAttribute("${attrName}", ${attrValue});\n`;
+                const attrValue = attr.value; // This should be a boolean literal or an identifier
+                // If attrValue is an identifier, check its reactivity
+                let toggleValue = attrValue;
+                if (typeof attrValue === 'string' && this.isReactiveVariable(attrValue)) {
+                    toggleValue = `${attrValue}.value`;
+                    // If it's a reactive boolean, use $effect to update
+                    this.transpiledJSContent += `$effect(() => { ${elementVarName}.toggleAttribute("${attrName}", ${toggleValue}); });\n`;
+                } else {
+                    this.transpiledJSContent += `${elementVarName}.toggleAttribute("${attrName}", ${toggleValue});\n`;
+                }
                 break;
             }
 
@@ -197,13 +283,23 @@ export default class Anatomique {
         this.transpiledJSContent += `${parentVar}.appendChild(${varName});\n`;
     }
 
+    // This method is now effectively handled by the Element's text processing,
+    // as it combines TextNodes and MustacheTags.
+    // If a standalone MustacheTag ever appears outside an element, this would be relevant.
+    // For now, it's safer to leave it as it might be called in other contexts.
     MustacheTag(node, parentVar) {
         const exprName = node.expression.name;
         if (!exprName) {
             console.error("MustacheTag: Expected an identifier for expression, but got:", node.expression);
             return;
         }
-        this.transpiledJSContent += `bindText('#' + ${parentVar}.id, ${exprName});\n`;
+
+        if (this.isReactiveVariable(exprName)) {
+            this.transpiledJSContent += `bindText('#' + ${parentVar}.id, ${exprName});\n`;
+        } else {
+            // For a standalone mustache tag that is static, set textContent directly
+            this.transpiledJSContent += `${parentVar}.textContent = ${exprName};\n`;
+        }
     }
 
     generateStateImports() {
