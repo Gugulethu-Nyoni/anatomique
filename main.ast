@@ -4,7 +4,7 @@
     "content": {
       "type": "Program",
       "start": 0,
-      "end": 297,
+      "end": 380,
       "body": [
         {
           "type": "VariableDeclaration",
@@ -165,13 +165,53 @@
           "kind": "let"
         },
         {
+          "type": "VariableDeclaration",
+          "start": 207,
+          "end": 227,
+          "declarations": [
+            {
+              "type": "VariableDeclarator",
+              "start": 211,
+              "end": 226,
+              "id": {
+                "type": "Identifier",
+                "start": 211,
+                "end": 214,
+                "name": "sum"
+              },
+              "init": {
+                "type": "CallExpression",
+                "start": 217,
+                "end": 226,
+                "callee": {
+                  "type": "Identifier",
+                  "start": 217,
+                  "end": 223,
+                  "name": "$state"
+                },
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "start": 224,
+                    "end": 225,
+                    "value": 0,
+                    "raw": "0"
+                  }
+                ],
+                "optional": false
+              }
+            }
+          ],
+          "kind": "let"
+        },
+        {
           "type": "FunctionDeclaration",
-          "start": 208,
-          "end": 249,
+          "start": 229,
+          "end": 270,
           "id": {
             "type": "Identifier",
-            "start": 217,
-            "end": 226,
+            "start": 238,
+            "end": 247,
             "name": "increment"
           },
           "expression": false,
@@ -180,33 +220,33 @@
           "params": [],
           "body": {
             "type": "BlockStatement",
-            "start": 230,
-            "end": 249,
+            "start": 251,
+            "end": 270,
             "body": [
               {
                 "type": "ExpressionStatement",
-                "start": 233,
-                "end": 247,
+                "start": 254,
+                "end": 268,
                 "expression": {
                   "type": "UpdateExpression",
-                  "start": 233,
-                  "end": 246,
+                  "start": 254,
+                  "end": 267,
                   "operator": "++",
                   "prefix": false,
                   "argument": {
                     "type": "MemberExpression",
-                    "start": 233,
-                    "end": 244,
+                    "start": 254,
+                    "end": 265,
                     "object": {
                       "type": "Identifier",
-                      "start": 233,
-                      "end": 238,
+                      "start": 254,
+                      "end": 259,
                       "name": "count"
                     },
                     "property": {
                       "type": "Identifier",
-                      "start": 239,
-                      "end": 244,
+                      "start": 260,
+                      "end": 265,
                       "name": "value"
                     },
                     "computed": false,
@@ -219,12 +259,12 @@
         },
         {
           "type": "FunctionDeclaration",
-          "start": 253,
-          "end": 294,
+          "start": 274,
+          "end": 315,
           "id": {
             "type": "Identifier",
-            "start": 262,
-            "end": 271,
+            "start": 283,
+            "end": 292,
             "name": "decrement"
           },
           "expression": false,
@@ -233,37 +273,120 @@
           "params": [],
           "body": {
             "type": "BlockStatement",
-            "start": 275,
-            "end": 294,
+            "start": 296,
+            "end": 315,
             "body": [
               {
                 "type": "ExpressionStatement",
-                "start": 278,
-                "end": 292,
+                "start": 299,
+                "end": 313,
                 "expression": {
                   "type": "UpdateExpression",
-                  "start": 278,
-                  "end": 291,
+                  "start": 299,
+                  "end": 312,
                   "operator": "--",
                   "prefix": false,
                   "argument": {
                     "type": "MemberExpression",
-                    "start": 278,
-                    "end": 289,
+                    "start": 299,
+                    "end": 310,
                     "object": {
                       "type": "Identifier",
-                      "start": 278,
-                      "end": 283,
+                      "start": 299,
+                      "end": 304,
                       "name": "count"
                     },
                     "property": {
                       "type": "Identifier",
-                      "start": 284,
-                      "end": 289,
+                      "start": 305,
+                      "end": 310,
                       "name": "value"
                     },
                     "computed": false,
                     "optional": false
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "FunctionDeclaration",
+          "start": 318,
+          "end": 377,
+          "id": {
+            "type": "Identifier",
+            "start": 327,
+            "end": 330,
+            "name": "add"
+          },
+          "expression": false,
+          "generator": false,
+          "async": false,
+          "params": [
+            {
+              "type": "Identifier",
+              "start": 332,
+              "end": 336,
+              "name": "left"
+            },
+            {
+              "type": "Identifier",
+              "start": 338,
+              "end": 343,
+              "name": "right"
+            }
+          ],
+          "body": {
+            "type": "BlockStatement",
+            "start": 345,
+            "end": 377,
+            "body": [
+              {
+                "type": "ExpressionStatement",
+                "start": 348,
+                "end": 373,
+                "expression": {
+                  "type": "AssignmentExpression",
+                  "start": 348,
+                  "end": 372,
+                  "operator": "=",
+                  "left": {
+                    "type": "MemberExpression",
+                    "start": 348,
+                    "end": 357,
+                    "object": {
+                      "type": "Identifier",
+                      "start": 348,
+                      "end": 351,
+                      "name": "sum"
+                    },
+                    "property": {
+                      "type": "Identifier",
+                      "start": 352,
+                      "end": 357,
+                      "name": "value"
+                    },
+                    "computed": false,
+                    "optional": false
+                  },
+                  "right": {
+                    "type": "BinaryExpression",
+                    "start": 360,
+                    "end": 372,
+                    "left": {
+                      "type": "Identifier",
+                      "start": 360,
+                      "end": 364,
+                      "name": "left"
+                    },
+                    "operator": "+",
+                    "right": {
+                      "type": "Identifier",
+                      "start": 367,
+                      "end": 372,
+                      "name": "right"
+                    }
                   }
                 }
               }
@@ -307,19 +430,19 @@
     "content": {
       "html": {
         "start": 0,
-        "end": 428,
+        "end": 509,
         "type": "Fragment",
         "children": [
           {
             "start": 0,
-            "end": 428,
+            "end": 509,
             "type": "Element",
             "name": "customSyntax",
             "attributes": [],
             "children": [
               {
                 "start": 17,
-                "end": 89,
+                "end": 88,
                 "type": "Element",
                 "name": "h1",
                 "attributes": [
@@ -403,13 +526,161 @@
                 ]
               },
               {
+                "start": 88,
+                "end": 112,
+                "type": "Element",
+                "name": "h2",
+                "attributes": null,
+                "children": [
+                  {
+                    "type": "Fragment",
+                    "start": {
+                      "offset": 93,
+                      "line": 6,
+                      "column": 6
+                    },
+                    "end": {
+                      "offset": 105,
+                      "line": 6,
+                      "column": 18
+                    },
+                    "children": [
+                      {
+                        "type": "TextNode",
+                        "value": "Sum: ",
+                        "raw": "Sum: ",
+                        "start": null,
+                        "end": {
+                          "offset": 98,
+                          "line": 6,
+                          "column": 11
+                        }
+                      },
+                      {
+                        "type": "MustacheTag",
+                        "expression": {
+                          "type": "Identifier",
+                          "start": {
+                            "offset": 100,
+                            "line": 6,
+                            "column": 13
+                          },
+                          "end": {
+                            "offset": 103,
+                            "line": 6,
+                            "column": 16
+                          },
+                          "name": "sum"
+                        },
+                        "start": null,
+                        "end": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Element",
+                "start": 112,
+                "end": 119,
+                "name": "br",
+                "attributes": null
+              },
+              {
+                "start": 119,
+                "end": 170,
+                "type": "Element",
+                "name": "button",
+                "attributes": [
+                  {
+                    "type": "EventHandler",
+                    "start": 127,
+                    "end": 144,
+                    "name": "click",
+                    "modifiers": null,
+                    "expression": {
+                      "type": "CallExpression",
+                      "start": {
+                        "offset": 135,
+                        "line": 8,
+                        "column": 17
+                      },
+                      "end": {
+                        "offset": 143,
+                        "line": 8,
+                        "column": 25
+                      },
+                      "callee": {
+                        "type": "Identifier",
+                        "start": null,
+                        "end": {
+                          "offset": 138,
+                          "line": 8,
+                          "column": 20
+                        },
+                        "name": "add"
+                      },
+                      "arguments": [
+                        {
+                          "type": "Literal",
+                          "start": {
+                            "offset": 139,
+                            "line": 8,
+                            "column": 21
+                          },
+                          "end": {
+                            "offset": 140,
+                            "line": 8,
+                            "column": 22
+                          },
+                          "value": 1,
+                          "raw": "1"
+                        },
+                        {
+                          "type": "Literal",
+                          "start": {
+                            "offset": 141,
+                            "line": 8,
+                            "column": 23
+                          },
+                          "end": {
+                            "offset": 142,
+                            "line": 8,
+                            "column": 24
+                          },
+                          "value": 2,
+                          "raw": "2"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "children": [
+                  {
+                    "type": "TextNode",
+                    "value": "Add 1 plus 2 ",
+                    "raw": "Add 1 plus 2 ",
+                    "start": {
+                      "offset": 146,
+                      "line": 8,
+                      "column": 28
+                    },
+                    "end": {
+                      "offset": 159,
+                      "line": 8,
+                      "column": 41
+                    }
+                  }
+                ]
+              },
+              {
                 "type": "Fragment",
                 "start": {
-                  "offset": 89,
-                  "line": 7,
+                  "offset": 170,
+                  "line": 10,
                   "column": 1
                 },
-                "end": 413,
+                "end": 494,
                 "children": [
                   {
                     "type": "TextNode",
@@ -417,8 +688,8 @@
                     "raw": "My Count: ",
                     "start": null,
                     "end": {
-                      "offset": 99,
-                      "line": 7,
+                      "offset": 180,
+                      "line": 10,
                       "column": 11
                     }
                   },
@@ -427,33 +698,33 @@
                     "expression": {
                       "type": "Identifier",
                       "start": {
-                        "offset": 101,
-                        "line": 7,
+                        "offset": 182,
+                        "line": 10,
                         "column": 13
                       },
                       "end": {
-                        "offset": 106,
-                        "line": 7,
+                        "offset": 187,
+                        "line": 10,
                         "column": 18
                       },
                       "name": "count"
                     },
                     "start": null,
                     "end": {
-                      "offset": 108,
-                      "line": 7,
+                      "offset": 189,
+                      "line": 10,
                       "column": 20
                     }
                   },
                   {
                     "type": "Fragment",
-                    "start": 109,
-                    "end": 413,
+                    "start": 190,
+                    "end": 494,
                     "children": [
                       {
                         "type": "Element",
-                        "start": 109,
-                        "end": 116,
+                        "start": 190,
+                        "end": 197,
                         "name": "br",
                         "attributes": null
                       },
@@ -462,13 +733,13 @@
                         "value": "Increment: ",
                         "raw": "Increment: ",
                         "start": {
-                          "offset": 116,
-                          "line": 9,
+                          "offset": 197,
+                          "line": 12,
                           "column": 1
                         },
                         "end": {
-                          "offset": 127,
-                          "line": 9,
+                          "offset": 208,
+                          "line": 12,
                           "column": 12
                         },
                         "loc": {
@@ -478,40 +749,40 @@
                       },
                       {
                         "type": "Element",
-                        "start": 127,
-                        "end": 190,
+                        "start": 208,
+                        "end": 271,
                         "name": "input",
                         "attributes": [
                           {
                             "type": "EventHandler",
-                            "start": 134,
-                            "end": 153,
+                            "start": 215,
+                            "end": 234,
                             "name": "input",
                             "modifiers": null,
                             "expression": {
                               "type": "Identifier",
                               "start": {
-                                "offset": 142,
-                                "line": 9,
+                                "offset": 223,
+                                "line": 12,
                                 "column": 27
                               },
                               "end": {
-                                "offset": 151,
-                                "line": 9,
+                                "offset": 232,
+                                "line": 12,
                                 "column": 36
                               },
                               "name": "increment"
                             }
                           },
                           {
-                            "start": 153,
-                            "end": 167,
+                            "start": 234,
+                            "end": 248,
                             "type": "KeyValueAttribute",
                             "name": "type",
                             "value": [
                               {
-                                "start": 159,
-                                "end": 165,
+                                "start": 240,
+                                "end": 246,
                                 "type": "Text",
                                 "raw": "number",
                                 "data": "number"
@@ -519,20 +790,20 @@
                             ]
                           },
                           {
-                            "start": 167,
-                            "end": 185,
+                            "start": 248,
+                            "end": 266,
                             "type": "TwoWayBindingAttribute",
                             "name": "value",
                             "expression": {
                               "type": "Identifier",
                               "start": {
-                                "offset": 179,
-                                "line": 9,
+                                "offset": 260,
+                                "line": 12,
                                 "column": 64
                               },
                               "end": {
-                                "offset": 184,
-                                "line": 9,
+                                "offset": 265,
+                                "line": 12,
                                 "column": 69
                               },
                               "name": "count"
@@ -542,19 +813,19 @@
                       },
                       {
                         "type": "Element",
-                        "start": 190,
-                        "end": 252,
+                        "start": 271,
+                        "end": 333,
                         "name": "input",
                         "attributes": [
                           {
-                            "start": 197,
-                            "end": 209,
+                            "start": 278,
+                            "end": 290,
                             "type": "KeyValueAttribute",
                             "name": "type",
                             "value": [
                               {
-                                "start": 203,
-                                "end": 207,
+                                "start": 284,
+                                "end": 288,
                                 "type": "Text",
                                 "raw": "text",
                                 "data": "text"
@@ -562,14 +833,14 @@
                             ]
                           },
                           {
-                            "start": 209,
-                            "end": 238,
+                            "start": 290,
+                            "end": 319,
                             "type": "KeyValueAttribute",
                             "name": "placeholder",
                             "value": [
                               {
-                                "start": 222,
-                                "end": 236,
+                                "start": 303,
+                                "end": 317,
                                 "type": "Text",
                                 "raw": "Disabled Input",
                                 "data": "Disabled Input"
@@ -577,8 +848,8 @@
                             ]
                           },
                           {
-                            "start": 238,
-                            "end": 247,
+                            "start": 319,
+                            "end": 328,
                             "type": "BooleanAttribute",
                             "name": "disabled",
                             "value": true
@@ -586,27 +857,27 @@
                         ]
                       },
                       {
-                        "start": 252,
-                        "end": 292,
+                        "start": 333,
+                        "end": 373,
                         "type": "Element",
                         "name": "button",
                         "attributes": [
                           {
                             "type": "EventHandler",
-                            "start": 260,
-                            "end": 278,
+                            "start": 341,
+                            "end": 359,
                             "name": "click",
                             "modifiers": null,
                             "expression": {
                               "type": "Identifier",
                               "start": {
-                                "offset": 268,
-                                "line": 14,
+                                "offset": 349,
+                                "line": 17,
                                 "column": 17
                               },
                               "end": {
-                                "offset": 277,
-                                "line": 14,
+                                "offset": 358,
+                                "line": 17,
                                 "column": 26
                               },
                               "name": "increment"
@@ -619,13 +890,13 @@
                             "value": "+ ",
                             "raw": "+ ",
                             "start": {
-                              "offset": 280,
-                              "line": 14,
+                              "offset": 361,
+                              "line": 17,
                               "column": 29
                             },
                             "end": {
-                              "offset": 282,
-                              "line": 14,
+                              "offset": 363,
+                              "line": 17,
                               "column": 31
                             }
                           }
@@ -633,33 +904,33 @@
                       },
                       {
                         "type": "Element",
-                        "start": 292,
-                        "end": 299,
+                        "start": 373,
+                        "end": 380,
                         "name": "br",
                         "attributes": null
                       },
                       {
-                        "start": 299,
-                        "end": 339,
+                        "start": 380,
+                        "end": 420,
                         "type": "Element",
                         "name": "button",
                         "attributes": [
                           {
                             "type": "EventHandler",
-                            "start": 307,
-                            "end": 325,
+                            "start": 388,
+                            "end": 406,
                             "name": "click",
                             "modifiers": null,
                             "expression": {
                               "type": "Identifier",
                               "start": {
-                                "offset": 315,
-                                "line": 16,
+                                "offset": 396,
+                                "line": 19,
                                 "column": 17
                               },
                               "end": {
-                                "offset": 324,
-                                "line": 16,
+                                "offset": 405,
+                                "line": 19,
                                 "column": 26
                               },
                               "name": "decrement"
@@ -672,13 +943,13 @@
                             "value": "- ",
                             "raw": "- ",
                             "start": {
-                              "offset": 327,
-                              "line": 16,
+                              "offset": 408,
+                              "line": 19,
                               "column": 29
                             },
                             "end": {
-                              "offset": 329,
-                              "line": 16,
+                              "offset": 410,
+                              "line": 19,
                               "column": 31
                             }
                           }
@@ -686,20 +957,20 @@
                       },
                       {
                         "type": "Element",
-                        "start": 339,
-                        "end": 347,
+                        "start": 420,
+                        "end": 428,
                         "name": "br",
                         "attributes": null
                       },
                       {
                         "type": "Element",
-                        "start": 347,
-                        "end": 413,
+                        "start": 428,
+                        "end": 494,
                         "name": "img",
                         "attributes": [
                           {
-                            "start": 352,
-                            "end": 380,
+                            "start": 433,
+                            "end": 461,
                             "type": "MustacheAttribute",
                             "name": "src",
                             "expression": {
@@ -709,13 +980,13 @@
                                 "object": {
                                   "type": "Identifier",
                                   "start": {
-                                    "offset": 357,
-                                    "line": 19,
+                                    "offset": 438,
+                                    "line": 22,
                                     "column": 11
                                   },
                                   "end": {
-                                    "offset": 361,
-                                    "line": 19,
+                                    "offset": 442,
+                                    "line": 22,
                                     "column": 15
                                   },
                                   "name": "post"
@@ -723,13 +994,13 @@
                                 "property": {
                                   "type": "Identifier",
                                   "start": {
-                                    "offset": 362,
-                                    "line": 19,
+                                    "offset": 443,
+                                    "line": 22,
                                     "column": 16
                                   },
                                   "end": {
-                                    "offset": 375,
-                                    "line": 19,
+                                    "offset": 456,
+                                    "line": 22,
                                     "column": 29
                                   },
                                   "name": "featuredImage"
@@ -740,13 +1011,13 @@
                               "property": {
                                 "type": "Identifier",
                                 "start": {
-                                  "offset": 376,
-                                  "line": 19,
+                                  "offset": 457,
+                                  "line": 22,
                                   "column": 30
                                 },
                                 "end": {
-                                  "offset": 379,
-                                  "line": 19,
+                                  "offset": 460,
+                                  "line": 22,
                                   "column": 33
                                 },
                                 "name": "url"
@@ -756,8 +1027,8 @@
                             }
                           },
                           {
-                            "start": 381,
-                            "end": 409,
+                            "start": 462,
+                            "end": 490,
                             "type": "MustacheAttribute",
                             "name": "alt",
                             "expression": {
@@ -767,13 +1038,13 @@
                                 "object": {
                                   "type": "Identifier",
                                   "start": {
-                                    "offset": 386,
-                                    "line": 19,
+                                    "offset": 467,
+                                    "line": 22,
                                     "column": 40
                                   },
                                   "end": {
-                                    "offset": 390,
-                                    "line": 19,
+                                    "offset": 471,
+                                    "line": 22,
                                     "column": 44
                                   },
                                   "name": "post"
@@ -781,13 +1052,13 @@
                                 "property": {
                                   "type": "Identifier",
                                   "start": {
-                                    "offset": 391,
-                                    "line": 19,
+                                    "offset": 472,
+                                    "line": 22,
                                     "column": 45
                                   },
                                   "end": {
-                                    "offset": 404,
-                                    "line": 19,
+                                    "offset": 485,
+                                    "line": 22,
                                     "column": 58
                                   },
                                   "name": "featuredImage"
@@ -798,13 +1069,13 @@
                               "property": {
                                 "type": "Identifier",
                                 "start": {
-                                  "offset": 405,
-                                  "line": 19,
+                                  "offset": 486,
+                                  "line": 22,
                                   "column": 59
                                 },
                                 "end": {
-                                  "offset": 408,
-                                  "line": 19,
+                                  "offset": 489,
+                                  "line": 22,
                                   "column": 62
                                 },
                                 "name": "alt"

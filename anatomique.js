@@ -324,10 +324,39 @@ export default class Anatomique {
                 break;
             }
 
+        /*
             case "EventHandler": {
                 const eventName = attr.name;
                 const eventHandlerCode = escodegen.generate(attr.expression);
                 this.transpiledJSContent += `${elementVarName}.addEventListener("${eventName}", ${eventHandlerCode});\n`;
+                break;
+            }
+
+            */
+
+        case "EventHandler": {
+                const eventName = attr.name;
+                const eventHandlerExpression = attr.expression; // This is the AST node for the expression
+
+                if (!eventHandlerExpression) {
+                    console.error("EventHandler: Missing expression for", eventName);
+                    return;
+                }
+
+                let finalHandlerCode;
+
+                // Check if the expression is a CallExpression (e.g., add(1,2))
+                if (eventHandlerExpression.type === 'CallExpression') {
+                    // Generate the call itself (e.g., "add(1, 2)")
+                    const callCode = escodegen.generate(eventHandlerExpression);
+                    // Wrap it in an anonymous arrow function: "() => add(1, 2)"
+                    finalHandlerCode = `() => ${callCode}`;
+                } else {
+                    // For simple identifiers (e.g., "increment"), just use the generated code
+                    finalHandlerCode = escodegen.generate(eventHandlerExpression);
+                }
+
+                this.transpiledJSContent += `${elementVarName}.addEventListener("${eventName}", ${finalHandlerCode});\n`;
                 break;
             }
 
