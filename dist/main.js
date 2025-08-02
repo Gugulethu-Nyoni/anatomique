@@ -1,5 +1,8 @@
 import { $state, $derived, $effect, bind, bindText, bindAttr, bindClass } from './state/index.js';
 
+
+
+// Original script content
 const isAdmin = true;
 const items = $state([
     {
@@ -19,127 +22,145 @@ const items = $state([
     }
 ]);
 
-const derived_53bf75 = $derived(() => items.value.length > 0);
+// Global Derived Declarations
+const derived_v5gfd5 = $derived(() => items.value.length > 0);
 
-const appRoot = document.getElementById('app');
+export function renderComponent(targetElement) {
+  const fragment = document.createDocumentFragment();
 
-const h1_elem_hygzqo = document.createElement("h1");
-appRoot.appendChild(h1_elem_hygzqo);
-const text_node_ctg48l = document.createTextNode("Azkhale ");
-h1_elem_hygzqo.appendChild(text_node_ctg48l);
-const if_placeholder_b083uu = document.createComment('if block');
-appRoot.appendChild(if_placeholder_b083uu);
-const create_if_fragment_b083uu = () => {
- const fragmentRoot_egp9qg = document.createDocumentFragment();
+  // Transpiled DOM creation and reactive effects
+  const appRoot = document.getElementById('app');
 
-const each_placeholder_yq4khi = document.createComment('each block');
-fragmentRoot_egp9qg.appendChild(each_placeholder_yq4khi);
-let each_items_yq4khi = [];
-let each_cleanups_yq4khi = [];
-const render_each_item_yq4khi = (item) => {
- const fragmentRoot_au81z2 = document.createDocumentFragment();
- const derived_gqok24 = $derived(() => item.active);
- const if_placeholder_qermri = document.createComment('if block');
-fragmentRoot_au81z2.appendChild(if_placeholder_qermri);
-const create_if_fragment_qermri = () => {
- const fragmentRoot_0vjjgr = document.createDocumentFragment();
-const derived_ml55u8 = $derived(() => item.name);
-const li_elem_nzz1nz = document.createElement("li");
-fragmentRoot_0vjjgr.appendChild(li_elem_nzz1nz);
-const mustache_node_7991lo = document.createTextNode('');
-li_elem_nzz1nz.appendChild(mustache_node_7991lo);
-bindText(mustache_node_7991lo, derived_ml55u8);
+const h1_elem_yyd32d = document.createElement("h1");
+appRoot.appendChild(h1_elem_yyd32d);
+const text_node_nzs5jh = document.createTextNode("Azkhale ");
+h1_elem_yyd32d.appendChild(text_node_nzs5jh);
+const if_placeholder_yuytr1 = document.createComment('if block');
+appRoot.appendChild(if_placeholder_yuytr1);
+const create_if_fragment_yuytr1 = () => {
+ const fragmentRoot_20dq12 = document.createDocumentFragment();
+
+const each_placeholder_qh422u = document.createComment('each block');
+fragmentRoot_20dq12.appendChild(each_placeholder_qh422u);
+let each_items_qh422u = [];
+let each_cleanups_qh422u = [];
+const render_each_item_qh422u = (item) => {
+ const fragmentRoot_ueuw2g = document.createDocumentFragment();
+ const derived_nawb8b = $derived(() => item.active);
+ const if_placeholder_jzzjt4 = document.createComment('if block');
+fragmentRoot_ueuw2g.appendChild(if_placeholder_jzzjt4);
+const create_if_fragment_jzzjt4 = () => {
+ const fragmentRoot_tklvrg = document.createDocumentFragment();
+const derived_q1eh5b = $derived(() => item.name);
+const li_elem_560tkv = document.createElement("li");
+fragmentRoot_tklvrg.appendChild(li_elem_560tkv);
+const mustache_node_0m6et2 = document.createTextNode('');
+li_elem_560tkv.appendChild(mustache_node_0m6et2);
+bindText(mustache_node_0m6et2, derived_q1eh5b);
  return {
-  nodes: Array.from(fragmentRoot_0vjjgr.childNodes),
+  nodes: Array.from(fragmentRoot_tklvrg.childNodes),
   cleanups: () => {  }
  };
 };
-const create_else_fragment_qermri = () => {
- const fragmentRoot_s01ccb = document.createDocumentFragment();
+const create_else_fragment_jzzjt4 = () => {
+ const fragmentRoot_jf3vjr = document.createDocumentFragment();
 
-const li_elem_ydrmzu = document.createElement("li");
-fragmentRoot_s01ccb.appendChild(li_elem_ydrmzu);
-const text_node_ag6vl0 = document.createTextNode("Member is inactive");
-li_elem_ydrmzu.appendChild(text_node_ag6vl0);
+const li_elem_19u4g2 = document.createElement("li");
+fragmentRoot_jf3vjr.appendChild(li_elem_19u4g2);
+const text_node_p09e6c = document.createTextNode("Member is inactive");
+li_elem_19u4g2.appendChild(text_node_p09e6c);
  return {
-  nodes: Array.from(fragmentRoot_s01ccb.childNodes),
+  nodes: Array.from(fragmentRoot_jf3vjr.childNodes),
   cleanups: () => {  }
  };
 };
-let if_elements_qermri = [];
-let if_element_cleanups_qermri = [];
+let if_elements_jzzjt4 = [];
+let if_element_cleanups_jzzjt4 = [];
 $effect(() => {
  // Run previous cleanups (if any)
- if_element_cleanups_qermri.forEach(fn => fn());
- if_element_cleanups_qermri.length = 0;
+ if_element_cleanups_jzzjt4.forEach(fn => fn());
+ if_element_cleanups_jzzjt4.length = 0;
  // Remove previous elements from DOM
- if_elements_qermri.forEach(el => el.remove());
- if_elements_qermri.length = 0;
+ if_elements_jzzjt4.forEach(el => el.remove());
+ if_elements_jzzjt4.length = 0;
  let fragmentData;
- if (derived_gqok24.value) {
-  fragmentData = create_if_fragment_qermri();
+ if (derived_nawb8b.value) {
+  fragmentData = create_if_fragment_jzzjt4();
  } 
 else {
-  fragmentData = create_else_fragment_qermri();
+  fragmentData = create_else_fragment_jzzjt4();
  }
  if (fragmentData) {
-  if_placeholder_qermri.after(...fragmentData.nodes);
-  if_elements_qermri.push(...fragmentData.nodes);
-  if_element_cleanups_qermri.push(fragmentData.cleanups);
+  if_placeholder_jzzjt4.after(...fragmentData.nodes);
+  if_elements_jzzjt4.push(...fragmentData.nodes);
+  if_element_cleanups_jzzjt4.push(fragmentData.cleanups);
  }
 });
- return { nodes: Array.from(fragmentRoot_au81z2.childNodes), cleanups: [] };
+ return { nodes: Array.from(fragmentRoot_ueuw2g.childNodes), cleanups: [] };
 };
 $effect(() => {
- each_cleanups_yq4khi.forEach(fn => fn());
- each_cleanups_yq4khi.length = 0;
- each_items_yq4khi.forEach(el => el.remove());
- each_items_yq4khi.length = 0;
+ each_cleanups_qh422u.forEach(fn => fn());
+ each_cleanups_qh422u.length = 0;
+ each_items_qh422u.forEach(el => el.remove());
+ each_items_qh422u.length = 0;
  const sourceArray = items?.value ?? [];
  sourceArray.forEach((item, index) => {
-  const itemData = render_each_item_yq4khi(item);
-  each_placeholder_yq4khi.after(...itemData.nodes);
-  each_items_yq4khi.push(...itemData.nodes);
-  each_cleanups_yq4khi.push(...itemData.cleanups);
+  const itemData = render_each_item_qh422u(item);
+  each_placeholder_qh422u.after(...itemData.nodes);
+  each_items_qh422u.push(...itemData.nodes);
+  each_cleanups_qh422u.push(...itemData.cleanups);
  });
 });
  return {
-  nodes: Array.from(fragmentRoot_egp9qg.childNodes),
+  nodes: Array.from(fragmentRoot_20dq12.childNodes),
   cleanups: () => {  }
  };
 };
-const create_else_fragment_b083uu = () => {
- const fragmentRoot_9trm3w = document.createDocumentFragment();
+const create_else_fragment_yuytr1 = () => {
+ const fragmentRoot_wtj858 = document.createDocumentFragment();
 
-const p_elem_x1n543 = document.createElement("p");
-fragmentRoot_9trm3w.appendChild(p_elem_x1n543);
-const text_node_lpw1jw = document.createTextNode("No items available");
-p_elem_x1n543.appendChild(text_node_lpw1jw);
+const p_elem_aktph7 = document.createElement("p");
+fragmentRoot_wtj858.appendChild(p_elem_aktph7);
+const text_node_pp3kgk = document.createTextNode("No items available");
+p_elem_aktph7.appendChild(text_node_pp3kgk);
  return {
-  nodes: Array.from(fragmentRoot_9trm3w.childNodes),
+  nodes: Array.from(fragmentRoot_wtj858.childNodes),
   cleanups: () => {  }
  };
 };
-let if_elements_b083uu = [];
-let if_element_cleanups_b083uu = [];
+let if_elements_yuytr1 = [];
+let if_element_cleanups_yuytr1 = [];
 $effect(() => {
  // Run previous cleanups (if any)
- if_element_cleanups_b083uu.forEach(fn => fn());
- if_element_cleanups_b083uu.length = 0;
+ if_element_cleanups_yuytr1.forEach(fn => fn());
+ if_element_cleanups_yuytr1.length = 0;
  // Remove previous elements from DOM
- if_elements_b083uu.forEach(el => el.remove());
- if_elements_b083uu.length = 0;
+ if_elements_yuytr1.forEach(el => el.remove());
+ if_elements_yuytr1.length = 0;
  let fragmentData;
- if (derived_53bf75.value) {
-  fragmentData = create_if_fragment_b083uu();
+ if (derived_v5gfd5.value) {
+  fragmentData = create_if_fragment_yuytr1();
  } 
 else {
-  fragmentData = create_else_fragment_b083uu();
+  fragmentData = create_else_fragment_yuytr1();
  }
  if (fragmentData) {
-  if_placeholder_b083uu.after(...fragmentData.nodes);
-  if_elements_b083uu.push(...fragmentData.nodes);
-  if_element_cleanups_b083uu.push(fragmentData.cleanups);
+  if_placeholder_yuytr1.after(...fragmentData.nodes);
+  if_elements_yuytr1.push(...fragmentData.nodes);
+  if_element_cleanups_yuytr1.push(fragmentData.cleanups);
  }
 });
 
+  // Append the fragment to the target element
+  targetElement.appendChild(fragment);
+
+  // Lifecycle management: return a cleanup function
+  return () => {
+    // Run all component-level cleanups
+    
+    // Remove all direct children added by this component
+    while (targetElement.firstChild) {
+      targetElement.removeChild(targetElement.firstChild);
+    }
+  };
+}

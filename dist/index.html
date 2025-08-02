@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Semantq Output</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semantq Output</title>
 </head>
 <body>
- <div id="app"></div>
- <script type="module" src="./main.js"></script>
+<div id="app"></div>
+<script type="module">
+ import { renderComponent } from './main.js';
+
+ const appRoot = document.getElementById('app');
+ const cleanup = renderComponent(appRoot);
+
+ // Optional: If you had a way to unmount or re-render, you'd call cleanup()
+ // For a single-page app, this might not be strictly necessary unless
+ // you're dynamically loading/unloading components.
+ // Example: setTimeout(cleanup, 5000); // Unmount after 5 seconds
+</script>
 </body>
 </html>

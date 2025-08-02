@@ -491,48 +491,93 @@ export default class Anatomique {
 
 
  // --- Output Generation ---
- async output() {
-  try {
-   await mkdir(this.distDir, { recursive: true });
+ // --- Output Generation ---
+async output() {
+ try {
+ await mkdir(this.distDir, { recursive: true });
 
-   const strippedFileName = this.filePath.replace('.ast', '');
-   const finalFileName = basename(strippedFileName);
-   const jsFilePath = join(this.distDir, `${finalFileName}.js`);
+ const strippedFileName = this.filePath.replace('.ast', '');
+ const finalFileName = basename(strippedFileName);
+ const jsFilePath = join(this.distDir, `${finalFileName}.js`);
 
-   const originalJsCode = escodegen.generate(this.jsAST.content);
+ const originalJsCode = escodegen.generate(this.jsAST.content);
 
-   const finalJsCode =
-    this.generateStateImports() +
-    originalJsCode + '\n\n' +
-    this.globalDerivedDeclarations.join('\n') + '\n\n' +
-    this.transpiledJSContent.join('\n') + '\n\n' +
-    (this.componentCleanups.length > 0 ? `// Component Cleanups\n${this.componentCleanups.join('\n')}\n` : '');
+ // Capture all top-level transpiled JS content and cleanups
+ const mainComponentJS = this.transpiledJSContent.join('\n');
+ const mainComponentCleanups = this.componentCleanups.join('\n');
 
-   await writeFile(jsFilePath, finalJsCode, 'utf8');
+ const finalJsCode = `
+${this.generateStateImports()}
 
-   const htmlContent = `
+// Original script content
+${originalJsCode}
+
+// Global Derived Declarations
+${this.globalDerivedDeclarations.join('\n')}
+
+export function renderComponent(targetElement) {
+  const fragment = document.createDocumentFragment();
+
+  // Transpiled DOM creation and reactive effects
+  ${mainComponentJS}
+
+  // Append the fragment to the target element
+  targetElement.appendChild(fragment);
+
+  // Lifecycle management: return a cleanup function
+  return () => {
+    // Run all component-level cleanups
+    ${mainComponentCleanups}
+    // Remove all direct children added by this component
+    while (targetElement.firstChild) {
+      targetElement.removeChild(targetElement.firstChild);
+    }
+  };
+}
+`.trim();
+
+ await writeFile(jsFilePath, finalJsCode, 'utf8');
+
+ const htmlContent = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8" />
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Semantq Output</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semantq Output</title>
 </head>
 <body>
- <div id="${this.appRootId}"></div>
- <script type="module" src="./${finalFileName}.js"></script>
+<div id="${this.appRootId}"></div>
+<script type="module">
+ import { renderComponent } from './${finalFileName}.js';
+
+ const appRoot = document.getElementById('${this.appRootId}');
+ const cleanup = renderComponent(appRoot);
+
+ // Optional: If you had a way to unmount or re-render, you'd call cleanup()
+ // For a single-page app, this might not be strictly necessary unless
+ // you're dynamically loading/unloading components.
+ // Example: setTimeout(cleanup, 5000); // Unmount after 5 seconds
+</script>
 </body>
 </html>
 `.trim();
 
-   const htmlFilePath = join(this.distDir, 'index.html');
-   await writeFile(htmlFilePath, htmlContent, 'utf8');
+ const htmlFilePath = join(this.distDir, 'index.html');
+ await writeFile(htmlFilePath, htmlContent, 'utf8');
 
-   console.log(`✅ Output written to ./dist (${finalFileName}.js + index.html)`);
-  } catch (err) {
-   console.error('❌ Failed to write output files:', err);
-  }
+ console.log(`✅ Output written to ./dist (${finalFileName}.js + index.html)`);
+ } catch (err) {
+ console.error('❌ Failed to write output files:', err);
  }
+}
+
+generateStateImports() {
+ return `import { $state, $derived, $effect, bind, bindText, bindAttr, bindClass } from './state/index.js';\n\n`;
+}
+
+
+
 
  generateStateImports() {
   return `import { $state, $derived, $effect, bind, bindText, bindAttr, bindClass } from './state/index.js';\n\n`;
