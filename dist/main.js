@@ -1,98 +1,172 @@
 import { $state, $derived, $effect, bind, bindText, bindAttr, bindClass } from './state/index.js';
 
-const name = 'World';
-const post = {
-    featuredImage: {
-        url: 'https://cdn.pixabay.com/photo/2017/03/17/11/38/blog-2151307_1280.png',
-        alt: 'A description of the featured image'
-    }
-};
+let isAdmin = $state(true);
+const dash_message = 'Welcome Admin';
+const guest_message = 'Welcome Guest';
+function toggle(status) {
+    isAdmin.value = status;
+}
+function alerter() {
+    alert('NAZOKE!!!!');
+}
 let count = $state(0);
-let sum = $state(0);
 function increment() {
     count.value++;
 }
-function decrement() {
-    count.value--;
-}
-function add(left, right) {
-    sum.value = left + right;
-}
 
-const h2_text_derived_e0qvyw = $derived(() => "Sum: " + sum.value);
-const text_frag_6subnc_part_d8erke_node_derived = $derived(() => "My Count: " + count.value);
+const derived_odk9y6 = $derived(() => count.value);
+const derived_46uubz = $derived(() => isAdmin.value);
+const derived_upqlg2 = $derived(() => isAdmin.value ? 'Logout' : 'Login');
+const derived_15pqoc = $derived(() => derived_upqlg2.value);
 
 const appRoot = document.getElementById('app');
 
-const h1_tq0m3p_elem = document.createElement("h1");
-appRoot.appendChild(h1_tq0m3p_elem);
-h1_tq0m3p_elem.setAttribute("id", "h1_tq0m3p_elem");
-h1_tq0m3p_elem.setAttribute("style", "color: red");
-h1_tq0m3p_elem.setAttribute("class", "header head1 two");
-h1_tq0m3p_elem.textContent = `Hello ${name}`;
+const text_node_8nah3v = document.createTextNode("Counter: ");
+appRoot.appendChild(text_node_8nah3v);
+const mustache_node_dysxz1 = document.createTextNode('');
+appRoot.appendChild(mustache_node_dysxz1);
+bindText(mustache_node_dysxz1, derived_odk9y6);
+const br_elem_w06wts = document.createElement("br");
+appRoot.appendChild(br_elem_w06wts);
 
-const h2_e0qvyw_elem = document.createElement("h2");
-appRoot.appendChild(h2_e0qvyw_elem);
-h2_e0qvyw_elem.setAttribute("id", "h2_e0qvyw_elem");
-bindText(h2_e0qvyw_elem, h2_text_derived_e0qvyw);
 
-const br_gfujoa_elem = document.createElement("br");
-appRoot.appendChild(br_gfujoa_elem);
-br_gfujoa_elem.setAttribute("id", "br_gfujoa_elem");
+const input_elem_umj5bi = document.createElement("input");
+appRoot.appendChild(input_elem_umj5bi);
+input_elem_umj5bi.addEventListener("input", () => increment());
+input_elem_umj5bi.setAttribute("type", "number");
+bind(input_elem_umj5bi, count);
 
-const button_ialb76_elem = document.createElement("button");
-appRoot.appendChild(button_ialb76_elem);
-button_ialb76_elem.setAttribute("id", "button_ialb76_elem");
-button_ialb76_elem.addEventListener("click", () => add(1, 2));
-button_ialb76_elem.textContent = "Add 1 plus 2 ";
 
-const text_frag_6subnc_part_d8erke_node = document.createTextNode('');
-appRoot.appendChild(text_frag_6subnc_part_d8erke_node);
-bindText(text_frag_6subnc_part_d8erke_node, text_frag_6subnc_part_d8erke_node_derived);
-const br_n7foyk_elem = document.createElement("br");
-appRoot.appendChild(br_n7foyk_elem);
-br_n7foyk_elem.setAttribute("id", "br_n7foyk_elem");
+const h1_elem_mmo0jj = document.createElement("h1");
+appRoot.appendChild(h1_elem_mmo0jj);
+h1_elem_mmo0jj.setAttribute("style", "color: red");
+h1_elem_mmo0jj.setAttribute("class", "container grid something");
+h1_elem_mmo0jj.textContent = "Node Stuff ";
 
-const text_frag_43g8tn_part_izvcvs_node = document.createTextNode("Increment: ");
-appRoot.appendChild(text_frag_43g8tn_part_izvcvs_node);
-const input_xb4vrs_elem = document.createElement("input");
-appRoot.appendChild(input_xb4vrs_elem);
-input_xb4vrs_elem.setAttribute("id", "input_xb4vrs_elem");
-input_xb4vrs_elem.addEventListener("input", increment);
-input_xb4vrs_elem.setAttribute("type", "number");
-input_xb4vrs_elem.value = count.value;
-bind(input_xb4vrs_elem, count);
 
-const input_i3qonh_elem = document.createElement("input");
-appRoot.appendChild(input_i3qonh_elem);
-input_i3qonh_elem.setAttribute("id", "input_i3qonh_elem");
-input_i3qonh_elem.setAttribute("type", "text");
-input_i3qonh_elem.setAttribute("placeholder", "Disabled Input");
-input_i3qonh_elem.toggleAttribute("disabled", true);
+const input_elem_bldpbw = document.createElement("input");
+appRoot.appendChild(input_elem_bldpbw);
+input_elem_bldpbw.setAttribute("type", "text");
+input_elem_bldpbw.setAttribute("placeholder", "DISABLED TEXT");
+input_elem_bldpbw.toggleAttribute("disabled", true);
 
-const button_oaabpx_elem = document.createElement("button");
-appRoot.appendChild(button_oaabpx_elem);
-button_oaabpx_elem.setAttribute("id", "button_oaabpx_elem");
-button_oaabpx_elem.addEventListener("click", increment);
-button_oaabpx_elem.textContent = "+ ";
 
-const br_w1ko6a_elem = document.createElement("br");
-appRoot.appendChild(br_w1ko6a_elem);
-br_w1ko6a_elem.setAttribute("id", "br_w1ko6a_elem");
+const button_elem_6uryo7 = document.createElement("button");
+appRoot.appendChild(button_elem_6uryo7);
+button_elem_6uryo7.addEventListener("click", () => alerter());
+button_elem_6uryo7.textContent = "Click Me ";
 
-const button_jvc9dv_elem = document.createElement("button");
-appRoot.appendChild(button_jvc9dv_elem);
-button_jvc9dv_elem.setAttribute("id", "button_jvc9dv_elem");
-button_jvc9dv_elem.addEventListener("click", decrement);
-button_jvc9dv_elem.textContent = "- ";
 
-const br_ey19gq_elem = document.createElement("br");
-appRoot.appendChild(br_ey19gq_elem);
-br_ey19gq_elem.setAttribute("id", "br_ey19gq_elem");
+const if_placeholder_7pfx7l = document.createComment('if block');
+appRoot.appendChild(if_placeholder_7pfx7l);
+const create_if_fragment_7pfx7l = () => {
 
-const img_xsum4f_elem = document.createElement("img");
-appRoot.appendChild(img_xsum4f_elem);
-img_xsum4f_elem.setAttribute("id", "img_xsum4f_elem");
-img_xsum4f_elem.setAttribute("src", post.featuredImage.url);
-img_xsum4f_elem.setAttribute("alt", post.featuredImage.alt);
+const fragmentRoot_jc7olo = document.createDocumentFragment();
+const div_elem_fezbfd = document.createElement("div");
+fragmentRoot_jc7olo.appendChild(div_elem_fezbfd);
+div_elem_fezbfd.setAttribute("class", "premium-banner");
+div_elem_fezbfd.textContent = "Welcome back, Admin!";
+
+
+    return {
+        nodes: Array.from(fragmentRoot_jc7olo.childNodes),
+        cleanups: () => {  }
+    };
+};
+let if_elements_7pfx7l = [];
+let if_element_cleanups_7pfx7l = [];
+$effect(() => {
+    // Run previous cleanups (if any)
+    if_element_cleanups_7pfx7l.forEach(fn => fn());
+    if_element_cleanups_7pfx7l.length = 0;
+    // Remove previous elements from DOM
+    if_elements_7pfx7l.forEach(el => el.remove());
+    if_elements_7pfx7l.length = 0;
+    let fragmentData;
+    if (derived_46uubz.value) {
+        fragmentData = create_if_fragment_7pfx7l();
+    } 
+else {
+        fragmentData = null;
+    }
+    if (fragmentData) {
+        if_placeholder_7pfx7l.after(...fragmentData.nodes);
+        if_elements_7pfx7l.push(...fragmentData.nodes);
+        if_element_cleanups_7pfx7l.push(fragmentData.cleanups);
+    }
+});
+const if_placeholder_lwxk3r = document.createComment('if block');
+appRoot.appendChild(if_placeholder_lwxk3r);
+const create_if_fragment_lwxk3r = () => {
+
+const fragmentRoot_w6uzjy = document.createDocumentFragment();
+const h1_elem_zr06jw = document.createElement("h1");
+fragmentRoot_w6uzjy.appendChild(h1_elem_zr06jw);
+h1_elem_zr06jw.textContent = `${dash_message}`;
+
+
+const br_elem_922b36 = document.createElement("br");
+fragmentRoot_w6uzjy.appendChild(br_elem_922b36);
+
+
+const button_elem_bkxh0t = document.createElement("button");
+fragmentRoot_w6uzjy.appendChild(button_elem_bkxh0t);
+button_elem_bkxh0t.addEventListener("click", () => toggle(false));
+bindText(button_elem_bkxh0t, derived_15pqoc);
+
+
+    return {
+        nodes: Array.from(fragmentRoot_w6uzjy.childNodes),
+        cleanups: () => {  }
+    };
+};
+const create_else_fragment_lwxk3r = () => {
+
+const fragmentRoot_huv0f9 = document.createDocumentFragment();
+const h1_elem_lxmuez = document.createElement("h1");
+fragmentRoot_huv0f9.appendChild(h1_elem_lxmuez);
+h1_elem_lxmuez.textContent = `${guest_message}`;
+
+
+const br_elem_q5jl5k = document.createElement("br");
+fragmentRoot_huv0f9.appendChild(br_elem_q5jl5k);
+
+
+const button_elem_47fset = document.createElement("button");
+fragmentRoot_huv0f9.appendChild(button_elem_47fset);
+button_elem_47fset.addEventListener("click", () => toggle(true));
+bindText(button_elem_47fset, derived_15pqoc);
+
+
+    return {
+        nodes: Array.from(fragmentRoot_huv0f9.childNodes),
+        cleanups: () => {  }
+    };
+};
+let if_elements_lwxk3r = [];
+let if_element_cleanups_lwxk3r = [];
+$effect(() => {
+    // Run previous cleanups (if any)
+    if_element_cleanups_lwxk3r.forEach(fn => fn());
+    if_element_cleanups_lwxk3r.length = 0;
+    // Remove previous elements from DOM
+    if_elements_lwxk3r.forEach(el => el.remove());
+    if_elements_lwxk3r.length = 0;
+    let fragmentData;
+    if (derived_46uubz.value) {
+        fragmentData = create_if_fragment_lwxk3r();
+    } 
+else {
+        fragmentData = create_else_fragment_lwxk3r();
+    }
+    if (fragmentData) {
+        if_placeholder_lwxk3r.after(...fragmentData.nodes);
+        if_elements_lwxk3r.push(...fragmentData.nodes);
+        if_element_cleanups_lwxk3r.push(fragmentData.cleanups);
+    }
+});
+const br_elem_hriwkz = document.createElement("br");
+appRoot.appendChild(br_elem_hriwkz);
+
+
 

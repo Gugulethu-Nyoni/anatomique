@@ -4,158 +4,40 @@
     "content": {
       "type": "Program",
       "start": 0,
-      "end": 380,
+      "end": 273,
       "body": [
         {
           "type": "VariableDeclaration",
           "start": 1,
-          "end": 22,
+          "end": 28,
           "declarations": [
             {
               "type": "VariableDeclarator",
-              "start": 7,
-              "end": 21,
+              "start": 5,
+              "end": 27,
               "id": {
                 "type": "Identifier",
-                "start": 7,
-                "end": 11,
-                "name": "name"
-              },
-              "init": {
-                "type": "Literal",
-                "start": 14,
-                "end": 21,
-                "value": "World",
-                "raw": "'World'"
-              }
-            }
-          ],
-          "kind": "const"
-        },
-        {
-          "type": "VariableDeclaration",
-          "start": 24,
-          "end": 180,
-          "declarations": [
-            {
-              "type": "VariableDeclarator",
-              "start": 30,
-              "end": 179,
-              "id": {
-                "type": "Identifier",
-                "start": 30,
-                "end": 34,
-                "name": "post"
-              },
-              "init": {
-                "type": "ObjectExpression",
-                "start": 37,
-                "end": 179,
-                "properties": [
-                  {
-                    "type": "Property",
-                    "start": 39,
-                    "end": 177,
-                    "method": false,
-                    "shorthand": false,
-                    "computed": false,
-                    "key": {
-                      "type": "Identifier",
-                      "start": 39,
-                      "end": 52,
-                      "name": "featuredImage"
-                    },
-                    "value": {
-                      "type": "ObjectExpression",
-                      "start": 54,
-                      "end": 177,
-                      "properties": [
-                        {
-                          "type": "Property",
-                          "start": 56,
-                          "end": 131,
-                          "method": false,
-                          "shorthand": false,
-                          "computed": false,
-                          "key": {
-                            "type": "Identifier",
-                            "start": 56,
-                            "end": 59,
-                            "name": "url"
-                          },
-                          "value": {
-                            "type": "Literal",
-                            "start": 61,
-                            "end": 131,
-                            "value": "https://cdn.pixabay.com/photo/2017/03/17/11/38/blog-2151307_1280.png",
-                            "raw": "\"https://cdn.pixabay.com/photo/2017/03/17/11/38/blog-2151307_1280.png\""
-                          },
-                          "kind": "init"
-                        },
-                        {
-                          "type": "Property",
-                          "start": 133,
-                          "end": 175,
-                          "method": false,
-                          "shorthand": false,
-                          "computed": false,
-                          "key": {
-                            "type": "Identifier",
-                            "start": 133,
-                            "end": 136,
-                            "name": "alt"
-                          },
-                          "value": {
-                            "type": "Literal",
-                            "start": 138,
-                            "end": 175,
-                            "value": "A description of the featured image",
-                            "raw": "\"A description of the featured image\""
-                          },
-                          "kind": "init"
-                        }
-                      ]
-                    },
-                    "kind": "init"
-                  }
-                ]
-              }
-            }
-          ],
-          "kind": "const"
-        },
-        {
-          "type": "VariableDeclaration",
-          "start": 184,
-          "end": 206,
-          "declarations": [
-            {
-              "type": "VariableDeclarator",
-              "start": 188,
-              "end": 205,
-              "id": {
-                "type": "Identifier",
-                "start": 188,
-                "end": 193,
-                "name": "count"
+                "start": 5,
+                "end": 12,
+                "name": "isAdmin"
               },
               "init": {
                 "type": "CallExpression",
-                "start": 196,
-                "end": 205,
+                "start": 15,
+                "end": 27,
                 "callee": {
                   "type": "Identifier",
-                  "start": 196,
-                  "end": 202,
+                  "start": 15,
+                  "end": 21,
                   "name": "$state"
                 },
                 "arguments": [
                   {
                     "type": "Literal",
-                    "start": 203,
-                    "end": 204,
-                    "value": 0,
-                    "raw": "0"
+                    "start": 22,
+                    "end": 26,
+                    "value": true,
+                    "raw": "true"
                   }
                 ],
                 "optional": false
@@ -166,34 +48,199 @@
         },
         {
           "type": "VariableDeclaration",
-          "start": 207,
-          "end": 227,
+          "start": 30,
+          "end": 67,
           "declarations": [
             {
               "type": "VariableDeclarator",
-              "start": 211,
-              "end": 226,
+              "start": 36,
+              "end": 66,
               "id": {
                 "type": "Identifier",
-                "start": 211,
-                "end": 214,
-                "name": "sum"
+                "start": 36,
+                "end": 48,
+                "name": "dash_message"
+              },
+              "init": {
+                "type": "Literal",
+                "start": 51,
+                "end": 66,
+                "value": "Welcome Admin",
+                "raw": "\"Welcome Admin\""
+              }
+            }
+          ],
+          "kind": "const"
+        },
+        {
+          "type": "VariableDeclaration",
+          "start": 68,
+          "end": 106,
+          "declarations": [
+            {
+              "type": "VariableDeclarator",
+              "start": 74,
+              "end": 105,
+              "id": {
+                "type": "Identifier",
+                "start": 74,
+                "end": 87,
+                "name": "guest_message"
+              },
+              "init": {
+                "type": "Literal",
+                "start": 90,
+                "end": 105,
+                "value": "Welcome Guest",
+                "raw": "\"Welcome Guest\""
+              }
+            }
+          ],
+          "kind": "const"
+        },
+        {
+          "type": "FunctionDeclaration",
+          "start": 108,
+          "end": 159,
+          "id": {
+            "type": "Identifier",
+            "start": 117,
+            "end": 123,
+            "name": "toggle"
+          },
+          "expression": false,
+          "generator": false,
+          "async": false,
+          "params": [
+            {
+              "type": "Identifier",
+              "start": 124,
+              "end": 130,
+              "name": "status"
+            }
+          ],
+          "body": {
+            "type": "BlockStatement",
+            "start": 132,
+            "end": 159,
+            "body": [
+              {
+                "type": "ExpressionStatement",
+                "start": 134,
+                "end": 157,
+                "expression": {
+                  "type": "AssignmentExpression",
+                  "start": 134,
+                  "end": 156,
+                  "operator": "=",
+                  "left": {
+                    "type": "MemberExpression",
+                    "start": 134,
+                    "end": 147,
+                    "object": {
+                      "type": "Identifier",
+                      "start": 134,
+                      "end": 141,
+                      "name": "isAdmin"
+                    },
+                    "property": {
+                      "type": "Identifier",
+                      "start": 142,
+                      "end": 147,
+                      "name": "value"
+                    },
+                    "computed": false,
+                    "optional": false
+                  },
+                  "right": {
+                    "type": "Identifier",
+                    "start": 150,
+                    "end": 156,
+                    "name": "status"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "FunctionDeclaration",
+          "start": 162,
+          "end": 206,
+          "id": {
+            "type": "Identifier",
+            "start": 171,
+            "end": 178,
+            "name": "alerter"
+          },
+          "expression": false,
+          "generator": false,
+          "async": false,
+          "params": [],
+          "body": {
+            "type": "BlockStatement",
+            "start": 182,
+            "end": 206,
+            "body": [
+              {
+                "type": "ExpressionStatement",
+                "start": 185,
+                "end": 204,
+                "expression": {
+                  "type": "CallExpression",
+                  "start": 185,
+                  "end": 204,
+                  "callee": {
+                    "type": "Identifier",
+                    "start": 185,
+                    "end": 190,
+                    "name": "alert"
+                  },
+                  "arguments": [
+                    {
+                      "type": "Literal",
+                      "start": 191,
+                      "end": 203,
+                      "value": "NAZOKE!!!!",
+                      "raw": "\"NAZOKE!!!!\""
+                    }
+                  ],
+                  "optional": false
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "VariableDeclaration",
+          "start": 208,
+          "end": 230,
+          "declarations": [
+            {
+              "type": "VariableDeclarator",
+              "start": 212,
+              "end": 229,
+              "id": {
+                "type": "Identifier",
+                "start": 212,
+                "end": 217,
+                "name": "count"
               },
               "init": {
                 "type": "CallExpression",
-                "start": 217,
-                "end": 226,
+                "start": 220,
+                "end": 229,
                 "callee": {
                   "type": "Identifier",
-                  "start": 217,
-                  "end": 223,
+                  "start": 220,
+                  "end": 226,
                   "name": "$state"
                 },
                 "arguments": [
                   {
                     "type": "Literal",
-                    "start": 224,
-                    "end": 225,
+                    "start": 227,
+                    "end": 228,
                     "value": 0,
                     "raw": "0"
                   }
@@ -206,12 +253,12 @@
         },
         {
           "type": "FunctionDeclaration",
-          "start": 229,
-          "end": 270,
+          "start": 232,
+          "end": 272,
           "id": {
             "type": "Identifier",
-            "start": 238,
-            "end": 247,
+            "start": 241,
+            "end": 250,
             "name": "increment"
           },
           "expression": false,
@@ -220,173 +267,37 @@
           "params": [],
           "body": {
             "type": "BlockStatement",
-            "start": 251,
-            "end": 270,
+            "start": 253,
+            "end": 272,
             "body": [
               {
                 "type": "ExpressionStatement",
-                "start": 254,
-                "end": 268,
+                "start": 255,
+                "end": 269,
                 "expression": {
                   "type": "UpdateExpression",
-                  "start": 254,
-                  "end": 267,
+                  "start": 255,
+                  "end": 268,
                   "operator": "++",
                   "prefix": false,
                   "argument": {
                     "type": "MemberExpression",
-                    "start": 254,
-                    "end": 265,
+                    "start": 255,
+                    "end": 266,
                     "object": {
                       "type": "Identifier",
-                      "start": 254,
-                      "end": 259,
+                      "start": 255,
+                      "end": 260,
                       "name": "count"
                     },
                     "property": {
                       "type": "Identifier",
-                      "start": 260,
-                      "end": 265,
+                      "start": 261,
+                      "end": 266,
                       "name": "value"
                     },
                     "computed": false,
                     "optional": false
-                  }
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "FunctionDeclaration",
-          "start": 274,
-          "end": 315,
-          "id": {
-            "type": "Identifier",
-            "start": 283,
-            "end": 292,
-            "name": "decrement"
-          },
-          "expression": false,
-          "generator": false,
-          "async": false,
-          "params": [],
-          "body": {
-            "type": "BlockStatement",
-            "start": 296,
-            "end": 315,
-            "body": [
-              {
-                "type": "ExpressionStatement",
-                "start": 299,
-                "end": 313,
-                "expression": {
-                  "type": "UpdateExpression",
-                  "start": 299,
-                  "end": 312,
-                  "operator": "--",
-                  "prefix": false,
-                  "argument": {
-                    "type": "MemberExpression",
-                    "start": 299,
-                    "end": 310,
-                    "object": {
-                      "type": "Identifier",
-                      "start": 299,
-                      "end": 304,
-                      "name": "count"
-                    },
-                    "property": {
-                      "type": "Identifier",
-                      "start": 305,
-                      "end": 310,
-                      "name": "value"
-                    },
-                    "computed": false,
-                    "optional": false
-                  }
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "FunctionDeclaration",
-          "start": 318,
-          "end": 377,
-          "id": {
-            "type": "Identifier",
-            "start": 327,
-            "end": 330,
-            "name": "add"
-          },
-          "expression": false,
-          "generator": false,
-          "async": false,
-          "params": [
-            {
-              "type": "Identifier",
-              "start": 332,
-              "end": 336,
-              "name": "left"
-            },
-            {
-              "type": "Identifier",
-              "start": 338,
-              "end": 343,
-              "name": "right"
-            }
-          ],
-          "body": {
-            "type": "BlockStatement",
-            "start": 345,
-            "end": 377,
-            "body": [
-              {
-                "type": "ExpressionStatement",
-                "start": 348,
-                "end": 373,
-                "expression": {
-                  "type": "AssignmentExpression",
-                  "start": 348,
-                  "end": 372,
-                  "operator": "=",
-                  "left": {
-                    "type": "MemberExpression",
-                    "start": 348,
-                    "end": 357,
-                    "object": {
-                      "type": "Identifier",
-                      "start": 348,
-                      "end": 351,
-                      "name": "sum"
-                    },
-                    "property": {
-                      "type": "Identifier",
-                      "start": 352,
-                      "end": 357,
-                      "name": "value"
-                    },
-                    "computed": false,
-                    "optional": false
-                  },
-                  "right": {
-                    "type": "BinaryExpression",
-                    "start": 360,
-                    "end": 372,
-                    "left": {
-                      "type": "Identifier",
-                      "start": 360,
-                      "end": 364,
-                      "name": "left"
-                    },
-                    "operator": "+",
-                    "right": {
-                      "type": "Identifier",
-                      "start": 367,
-                      "end": 372,
-                      "name": "right"
-                    }
                   }
                 }
               }
@@ -401,17 +312,42 @@
     "type": "CSS",
     "content": {
       "raws": {
-        "after": "\n\n"
+        "semicolon": false,
+        "after": "\n"
       },
       "type": "root",
-      "nodes": [],
+      "nodes": [
+        {
+          "raws": {
+            "before": "\n",
+            "left": " ",
+            "right": " "
+          },
+          "type": "comment",
+          "parent": null,
+          "source": {
+            "input": {
+              "css": "\n/* Add your styles here */\n",
+              "hasBOM": false,
+              "document": "\n/* Add your styles here */\n",
+              "file": "/Users/gugulethu/code/semantq_sites/gram/style"
+            },
+            "start": {
+              "column": 1,
+              "line": 2,
+              "offset": 1
+            },
+            "end": {
+              "column": 26,
+              "line": 2,
+              "offset": 27
+            }
+          },
+          "text": "Add your styles here"
+        }
+      ],
       "source": {
-        "input": {
-          "css": "\n\n",
-          "hasBOM": false,
-          "document": "\n\n",
-          "file": "/Users/gugulethu/code/semantq_sites/gram/style"
-        },
+        "input": null,
         "start": {
           "column": 1,
           "line": 1,
@@ -420,7 +356,7 @@
         "end": {
           "column": 1,
           "line": 3,
-          "offset": 2
+          "offset": 28
         }
       }
     }
@@ -430,267 +366,34 @@
     "content": {
       "html": {
         "start": 0,
-        "end": 509,
+        "end": 629,
         "type": "Fragment",
         "children": [
           {
             "start": 0,
-            "end": 509,
+            "end": 629,
             "type": "Element",
             "name": "customSyntax",
             "attributes": [],
             "children": [
               {
-                "start": 17,
-                "end": 88,
-                "type": "Element",
-                "name": "h1",
-                "attributes": [
-                  {
-                    "start": 21,
-                    "end": 40,
-                    "type": "KeyValueAttribute",
-                    "name": "style",
-                    "value": [
-                      {
-                        "start": 28,
-                        "end": 38,
-                        "type": "Text",
-                        "raw": "color: red",
-                        "data": "color: red"
-                      }
-                    ]
-                  },
-                  {
-                    "start": 40,
-                    "end": 64,
-                    "type": "KeyValueAttribute",
-                    "name": "class",
-                    "value": [
-                      {
-                        "start": 47,
-                        "end": 63,
-                        "type": "Text",
-                        "raw": "header head1 two",
-                        "data": "header head1 two"
-                      }
-                    ]
-                  }
-                ],
-                "children": [
-                  {
-                    "type": "Fragment",
-                    "start": {
-                      "offset": 66,
-                      "line": 4,
-                      "column": 50
-                    },
-                    "end": {
-                      "offset": 80,
-                      "line": 4,
-                      "column": 64
-                    },
-                    "children": [
-                      {
-                        "type": "TextNode",
-                        "value": "Hello ",
-                        "raw": "Hello ",
-                        "start": null,
-                        "end": {
-                          "offset": 72,
-                          "line": 4,
-                          "column": 56
-                        }
-                      },
-                      {
-                        "type": "MustacheTag",
-                        "expression": {
-                          "type": "Identifier",
-                          "start": {
-                            "offset": 74,
-                            "line": 4,
-                            "column": 58
-                          },
-                          "end": {
-                            "offset": 78,
-                            "line": 4,
-                            "column": 62
-                          },
-                          "name": "name"
-                        },
-                        "start": null,
-                        "end": null
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "start": 88,
-                "end": 112,
-                "type": "Element",
-                "name": "h2",
-                "attributes": null,
-                "children": [
-                  {
-                    "type": "Fragment",
-                    "start": {
-                      "offset": 93,
-                      "line": 6,
-                      "column": 6
-                    },
-                    "end": {
-                      "offset": 105,
-                      "line": 6,
-                      "column": 18
-                    },
-                    "children": [
-                      {
-                        "type": "TextNode",
-                        "value": "Sum: ",
-                        "raw": "Sum: ",
-                        "start": null,
-                        "end": {
-                          "offset": 98,
-                          "line": 6,
-                          "column": 11
-                        }
-                      },
-                      {
-                        "type": "MustacheTag",
-                        "expression": {
-                          "type": "Identifier",
-                          "start": {
-                            "offset": 100,
-                            "line": 6,
-                            "column": 13
-                          },
-                          "end": {
-                            "offset": 103,
-                            "line": 6,
-                            "column": 16
-                          },
-                          "name": "sum"
-                        },
-                        "start": null,
-                        "end": null
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "Element",
-                "start": 112,
-                "end": 119,
-                "name": "br",
-                "attributes": null
-              },
-              {
-                "start": 119,
-                "end": 170,
-                "type": "Element",
-                "name": "button",
-                "attributes": [
-                  {
-                    "type": "EventHandler",
-                    "start": 127,
-                    "end": 144,
-                    "name": "click",
-                    "modifiers": null,
-                    "expression": {
-                      "type": "CallExpression",
-                      "start": {
-                        "offset": 135,
-                        "line": 8,
-                        "column": 17
-                      },
-                      "end": {
-                        "offset": 143,
-                        "line": 8,
-                        "column": 25
-                      },
-                      "callee": {
-                        "type": "Identifier",
-                        "start": null,
-                        "end": {
-                          "offset": 138,
-                          "line": 8,
-                          "column": 20
-                        },
-                        "name": "add"
-                      },
-                      "arguments": [
-                        {
-                          "type": "Literal",
-                          "start": {
-                            "offset": 139,
-                            "line": 8,
-                            "column": 21
-                          },
-                          "end": {
-                            "offset": 140,
-                            "line": 8,
-                            "column": 22
-                          },
-                          "value": 1,
-                          "raw": "1"
-                        },
-                        {
-                          "type": "Literal",
-                          "start": {
-                            "offset": 141,
-                            "line": 8,
-                            "column": 23
-                          },
-                          "end": {
-                            "offset": 142,
-                            "line": 8,
-                            "column": 24
-                          },
-                          "value": 2,
-                          "raw": "2"
-                        }
-                      ]
-                    }
-                  }
-                ],
-                "children": [
-                  {
-                    "type": "TextNode",
-                    "value": "Add 1 plus 2 ",
-                    "raw": "Add 1 plus 2 ",
-                    "start": {
-                      "offset": 146,
-                      "line": 8,
-                      "column": 28
-                    },
-                    "end": {
-                      "offset": 159,
-                      "line": 8,
-                      "column": 41
-                    }
-                  }
-                ]
-              },
-              {
                 "type": "Fragment",
                 "start": {
-                  "offset": 170,
-                  "line": 10,
+                  "offset": 17,
+                  "line": 4,
                   "column": 1
                 },
-                "end": 494,
+                "end": 614,
                 "children": [
                   {
                     "type": "TextNode",
-                    "value": "My Count: ",
-                    "raw": "My Count: ",
+                    "value": "Counter: ",
+                    "raw": "Counter: ",
                     "start": null,
                     "end": {
-                      "offset": 180,
-                      "line": 10,
-                      "column": 11
+                      "offset": 26,
+                      "line": 4,
+                      "column": 10
                     }
                   },
                   {
@@ -698,91 +401,72 @@
                     "expression": {
                       "type": "Identifier",
                       "start": {
-                        "offset": 182,
-                        "line": 10,
-                        "column": 13
+                        "offset": 28,
+                        "line": 4,
+                        "column": 12
                       },
                       "end": {
-                        "offset": 187,
-                        "line": 10,
-                        "column": 18
+                        "offset": 33,
+                        "line": 4,
+                        "column": 17
                       },
                       "name": "count"
                     },
                     "start": null,
                     "end": {
-                      "offset": 189,
-                      "line": 10,
-                      "column": 20
+                      "offset": 35,
+                      "line": 4,
+                      "column": 19
                     }
                   },
                   {
                     "type": "Fragment",
-                    "start": 190,
-                    "end": 494,
+                    "start": 36,
+                    "end": 614,
                     "children": [
                       {
                         "type": "Element",
-                        "start": 190,
-                        "end": 197,
+                        "start": 36,
+                        "end": 44,
                         "name": "br",
                         "attributes": null
                       },
                       {
-                        "type": "TextNode",
-                        "value": "Increment: ",
-                        "raw": "Increment: ",
-                        "start": {
-                          "offset": 197,
-                          "line": 12,
-                          "column": 1
-                        },
-                        "end": {
-                          "offset": 208,
-                          "line": 12,
-                          "column": 12
-                        },
-                        "loc": {
-                          "start": null,
-                          "end": null
-                        }
-                      },
-                      {
                         "type": "Element",
-                        "start": 208,
-                        "end": 271,
+                        "start": 44,
+                        "end": 107,
                         "name": "input",
                         "attributes": [
                           {
                             "type": "EventHandler",
-                            "start": 215,
-                            "end": 234,
+                            "start": 51,
+                            "end": 70,
                             "name": "input",
                             "modifiers": null,
                             "expression": {
                               "type": "Identifier",
                               "start": {
-                                "offset": 223,
-                                "line": 12,
-                                "column": 27
+                                "offset": 59,
+                                "line": 6,
+                                "column": 16
                               },
                               "end": {
-                                "offset": 232,
-                                "line": 12,
-                                "column": 36
+                                "offset": 68,
+                                "line": 6,
+                                "column": 25
                               },
                               "name": "increment"
                             }
                           },
                           {
-                            "start": 234,
-                            "end": 248,
+                            "start": 70,
+                            "end": 84,
                             "type": "KeyValueAttribute",
                             "name": "type",
                             "value": [
                               {
-                                "start": 240,
-                                "end": 246,
+                                "start": 76,
+                                "end": 82,
                                 "type": "Text",
                                 "raw": "number",
                                 "data": "number"
@@ -790,21 +474,21 @@
                             ]
                           },
                           {
-                            "start": 248,
-                            "end": 266,
+                            "start": 84,
+                            "end": 102,
                             "type": "TwoWayBindingAttribute",
                             "name": "value",
                             "expression": {
                               "type": "Identifier",
                               "start": {
-                                "offset": 260,
-                                "line": 12,
-                                "column": 64
+                                "offset": 96,
+                                "line": 6,
+                                "column": 53
                               },
                               "end": {
-                                "offset": 265,
-                                "line": 12,
-                                "column": 69
+                                "offset": 101,
+                                "line": 6,
+                                "column": 58
                               },
                               "name": "count"
                             }
@@ -812,20 +496,75 @@
                         ]
                       },
                       {
+                        "start": 107,
+                        "end": 182,
                         "type": "Element",
-                        "start": 271,
-                        "end": 333,
+                        "name": "h1",
+                        "attributes": [
+                          {
+                            "start": 111,
+                            "end": 130,
+                            "type": "KeyValueAttribute",
+                            "name": "style",
+                            "value": [
+                              {
+                                "start": 118,
+                                "end": 128,
+                                "type": "Text",
+                                "raw": "color: red",
+                                "data": "color: red"
+                              }
+                            ]
+                          },
+                          {
+                            "start": 130,
+                            "end": 162,
+                            "type": "KeyValueAttribute",
+                            "name": "class",
+                            "value": [
+                              {
+                                "start": 137,
+                                "end": 161,
+                                "type": "Text",
+                                "raw": "container grid something",
+                                "data": "container grid something"
+                              }
+                            ]
+                          }
+                        ],
+                        "children": [
+                          {
+                            "type": "TextNode",
+                            "value": "Node Stuff ",
+                            "raw": "Node Stuff ",
+                            "start": {
+                              "offset": 164,
+                              "line": 8,
+                              "column": 58
+                            },
+                            "end": {
+                              "offset": 175,
+                              "line": 8,
+                              "column": 69
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Element",
+                        "start": 182,
+                        "end": 243,
                         "name": "input",
                         "attributes": [
                           {
-                            "start": 278,
-                            "end": 290,
+                            "start": 189,
+                            "end": 201,
                             "type": "KeyValueAttribute",
                             "name": "type",
                             "value": [
                               {
-                                "start": 284,
-                                "end": 288,
+                                "start": 195,
+                                "end": 199,
                                 "type": "Text",
                                 "raw": "text",
                                 "data": "text"
@@ -833,23 +572,23 @@
                             ]
                           },
                           {
-                            "start": 290,
-                            "end": 319,
+                            "start": 201,
+                            "end": 229,
                             "type": "KeyValueAttribute",
                             "name": "placeholder",
                             "value": [
                               {
-                                "start": 303,
-                                "end": 317,
+                                "start": 214,
+                                "end": 227,
                                 "type": "Text",
-                                "raw": "Disabled Input",
-                                "data": "Disabled Input"
+                                "raw": "DISABLED TEXT",
+                                "data": "DISABLED TEXT"
                               }
                             ]
                           },
                           {
-                            "start": 319,
-                            "end": 328,
+                            "start": 229,
+                            "end": 238,
                             "type": "BooleanAttribute",
                             "name": "disabled",
                             "value": true
@@ -857,234 +596,491 @@
                         ]
                       },
                       {
-                        "start": 333,
-                        "end": 373,
+                        "start": 243,
+                        "end": 291,
                         "type": "Element",
                         "name": "button",
                         "attributes": [
                           {
                             "type": "EventHandler",
-                            "start": 341,
-                            "end": 359,
+                            "start": 251,
+                            "end": 267,
                             "name": "click",
                             "modifiers": null,
                             "expression": {
                               "type": "Identifier",
                               "start": {
-                                "offset": 349,
-                                "line": 17,
+                                "offset": 259,
+                                "line": 13,
                                 "column": 17
                               },
                               "end": {
-                                "offset": 358,
-                                "line": 17,
-                                "column": 26
+                                "offset": 266,
+                                "line": 13,
+                                "column": 24
                               },
-                              "name": "increment"
+                              "name": "alerter"
                             }
                           }
                         ],
                         "children": [
                           {
                             "type": "TextNode",
-                            "value": "+ ",
-                            "raw": "+ ",
+                            "value": "Click Me ",
+                            "raw": "Click Me ",
                             "start": {
-                              "offset": 361,
-                              "line": 17,
-                              "column": 29
+                              "offset": 269,
+                              "line": 13,
+                              "column": 27
                             },
                             "end": {
-                              "offset": 363,
-                              "line": 17,
-                              "column": 31
+                              "offset": 278,
+                              "line": 13,
+                              "column": 36
                             }
                           }
                         ]
                       },
                       {
-                        "type": "Element",
-                        "start": 373,
-                        "end": 380,
-                        "name": "br",
-                        "attributes": null
-                      },
-                      {
-                        "start": 380,
-                        "end": 420,
-                        "type": "Element",
-                        "name": "button",
-                        "attributes": [
-                          {
-                            "type": "EventHandler",
-                            "start": 388,
-                            "end": 406,
-                            "name": "click",
-                            "modifiers": null,
-                            "expression": {
-                              "type": "Identifier",
-                              "start": {
-                                "offset": 396,
-                                "line": 19,
-                                "column": 17
-                              },
-                              "end": {
-                                "offset": 405,
-                                "line": 19,
-                                "column": 26
-                              },
-                              "name": "decrement"
-                            }
-                          }
-                        ],
-                        "children": [
-                          {
-                            "type": "TextNode",
-                            "value": "- ",
-                            "raw": "- ",
-                            "start": {
-                              "offset": 408,
-                              "line": 19,
-                              "column": 29
-                            },
-                            "end": {
-                              "offset": 410,
-                              "line": 19,
-                              "column": 31
-                            }
-                          }
-                        ]
-                      },
-                      {
-                        "type": "Element",
-                        "start": 420,
-                        "end": 428,
-                        "name": "br",
-                        "attributes": null
-                      },
-                      {
-                        "type": "Element",
-                        "start": 428,
-                        "end": 494,
-                        "name": "img",
-                        "attributes": [
-                          {
-                            "start": 433,
-                            "end": 461,
-                            "type": "MustacheAttribute",
-                            "name": "src",
-                            "expression": {
-                              "type": "MemberExpression",
-                              "object": {
-                                "type": "MemberExpression",
-                                "object": {
-                                  "type": "Identifier",
-                                  "start": {
-                                    "offset": 438,
-                                    "line": 22,
-                                    "column": 11
-                                  },
-                                  "end": {
-                                    "offset": 442,
-                                    "line": 22,
-                                    "column": 15
-                                  },
-                                  "name": "post"
-                                },
-                                "property": {
-                                  "type": "Identifier",
-                                  "start": {
-                                    "offset": 443,
-                                    "line": 22,
-                                    "column": 16
-                                  },
-                                  "end": {
-                                    "offset": 456,
-                                    "line": 22,
-                                    "column": 29
-                                  },
-                                  "name": "featuredImage"
-                                },
-                                "computed": false,
-                                "optional": false
-                              },
-                              "property": {
-                                "type": "Identifier",
-                                "start": {
-                                  "offset": 457,
-                                  "line": 22,
-                                  "column": 30
-                                },
-                                "end": {
-                                  "offset": 460,
-                                  "line": 22,
-                                  "column": 33
-                                },
-                                "name": "url"
-                              },
-                              "computed": false,
-                              "optional": false
-                            }
+                        "type": "IfStatement",
+                        "start": {
+                          "offset": 291,
+                          "line": 17,
+                          "column": 1
+                        },
+                        "end": {
+                          "offset": 370,
+                          "line": 24,
+                          "column": 1
+                        },
+                        "test": {
+                          "type": "Identifier",
+                          "start": {
+                            "offset": 295,
+                            "line": 17,
+                            "column": 5
                           },
-                          {
-                            "start": 462,
-                            "end": 490,
-                            "type": "MustacheAttribute",
-                            "name": "alt",
-                            "expression": {
-                              "type": "MemberExpression",
-                              "object": {
-                                "type": "MemberExpression",
-                                "object": {
-                                  "type": "Identifier",
+                          "end": {
+                            "offset": 302,
+                            "line": 17,
+                            "column": 12
+                          },
+                          "name": "isAdmin"
+                        },
+                        "consequent": {
+                          "type": "BlockStatement",
+                          "start": null,
+                          "end": null,
+                          "body": [
+                            {
+                              "start": 304,
+                              "end": 361,
+                              "type": "Element",
+                              "name": "div",
+                              "attributes": [
+                                {
+                                  "start": 309,
+                                  "end": 331,
+                                  "type": "KeyValueAttribute",
+                                  "name": "class",
+                                  "value": [
+                                    {
+                                      "start": 316,
+                                      "end": 330,
+                                      "type": "Text",
+                                      "raw": "premium-banner",
+                                      "data": "premium-banner"
+                                    }
+                                  ]
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "type": "TextNode",
+                                  "value": "Welcome back, Admin!",
+                                  "raw": "Welcome back, Admin!",
                                   "start": {
-                                    "offset": 467,
-                                    "line": 22,
-                                    "column": 40
+                                    "offset": 333,
+                                    "line": 19,
+                                    "column": 1
                                   },
                                   "end": {
-                                    "offset": 471,
-                                    "line": 22,
-                                    "column": 44
-                                  },
-                                  "name": "post"
-                                },
-                                "property": {
-                                  "type": "Identifier",
-                                  "start": {
-                                    "offset": 472,
-                                    "line": 22,
-                                    "column": 45
-                                  },
-                                  "end": {
-                                    "offset": 485,
-                                    "line": 22,
-                                    "column": 58
-                                  },
-                                  "name": "featuredImage"
-                                },
-                                "computed": false,
-                                "optional": false
-                              },
-                              "property": {
-                                "type": "Identifier",
-                                "start": {
-                                  "offset": 486,
-                                  "line": 22,
-                                  "column": 59
-                                },
-                                "end": {
-                                  "offset": 489,
-                                  "line": 22,
-                                  "column": 62
-                                },
-                                "name": "alt"
-                              },
-                              "computed": false,
-                              "optional": false
+                                    "offset": 353,
+                                    "line": 19,
+                                    "column": 21
+                                  }
+                                }
+                              ]
                             }
-                          }
-                        ]
+                          ]
+                        },
+                        "alternate": null
+                      },
+                      {
+                        "type": "IfStatement",
+                        "start": null,
+                        "end": {
+                          "offset": 608,
+                          "line": 33,
+                          "column": 1
+                        },
+                        "test": {
+                          "type": "Identifier",
+                          "start": {
+                            "offset": 374,
+                            "line": 24,
+                            "column": 5
+                          },
+                          "end": {
+                            "offset": 381,
+                            "line": 24,
+                            "column": 12
+                          },
+                          "name": "isAdmin"
+                        },
+                        "consequent": {
+                          "type": "BlockStatement",
+                          "start": null,
+                          "end": null,
+                          "body": [
+                            {
+                              "start": 383,
+                              "end": 409,
+                              "type": "Element",
+                              "name": "h1",
+                              "attributes": null,
+                              "children": [
+                                {
+                                  "type": "MustacheTag",
+                                  "expression": {
+                                    "type": "Identifier",
+                                    "start": {
+                                      "offset": 389,
+                                      "line": 25,
+                                      "column": 7
+                                    },
+                                    "end": {
+                                      "offset": 401,
+                                      "line": 25,
+                                      "column": 19
+                                    },
+                                    "name": "dash_message"
+                                  },
+                                  "start": {
+                                    "offset": 387,
+                                    "line": 25,
+                                    "column": 5
+                                  },
+                                  "end": {
+                                    "offset": 403,
+                                    "line": 25,
+                                    "column": 21
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Element",
+                              "start": 409,
+                              "end": 415,
+                              "name": "br",
+                              "attributes": null
+                            },
+                            {
+                              "start": 415,
+                              "end": 488,
+                              "type": "Element",
+                              "name": "button",
+                              "attributes": [
+                                {
+                                  "type": "EventHandler",
+                                  "start": 423,
+                                  "end": 445,
+                                  "name": "click",
+                                  "modifiers": null,
+                                  "expression": {
+                                    "type": "CallExpression",
+                                    "start": {
+                                      "offset": 431,
+                                      "line": 26,
+                                      "column": 17
+                                    },
+                                    "end": {
+                                      "offset": 444,
+                                      "line": 26,
+                                      "column": 30
+                                    },
+                                    "callee": {
+                                      "type": "Identifier",
+                                      "start": null,
+                                      "end": {
+                                        "offset": 437,
+                                        "line": 26,
+                                        "column": 23
+                                      },
+                                      "name": "toggle"
+                                    },
+                                    "arguments": [
+                                      {
+                                        "type": "Identifier",
+                                        "start": {
+                                          "offset": 438,
+                                          "line": 26,
+                                          "column": 24
+                                        },
+                                        "end": {
+                                          "offset": 443,
+                                          "line": 26,
+                                          "column": 29
+                                        },
+                                        "name": "false"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "type": "MustacheTag",
+                                  "expression": {
+                                    "type": "ConditionalExpression",
+                                    "start": {
+                                      "offset": 448,
+                                      "line": 26,
+                                      "column": 34
+                                    },
+                                    "end": {
+                                      "offset": 476,
+                                      "line": 26,
+                                      "column": 62
+                                    },
+                                    "test": {
+                                      "type": "Identifier",
+                                      "start": null,
+                                      "end": {
+                                        "offset": 455,
+                                        "line": 26,
+                                        "column": 41
+                                      },
+                                      "name": "isAdmin"
+                                    },
+                                    "consequent": {
+                                      "type": "Literal",
+                                      "start": {
+                                        "offset": 458,
+                                        "line": 26,
+                                        "column": 44
+                                      },
+                                      "end": {
+                                        "offset": 466,
+                                        "line": 26,
+                                        "column": 52
+                                      },
+                                      "value": "Logout",
+                                      "raw": "\"Logout\""
+                                    },
+                                    "alternate": {
+                                      "type": "Literal",
+                                      "start": {
+                                        "offset": 469,
+                                        "line": 26,
+                                        "column": 55
+                                      },
+                                      "end": null,
+                                      "value": "Login",
+                                      "raw": "\"Login\""
+                                    }
+                                  },
+                                  "start": {
+                                    "offset": 446,
+                                    "line": 26,
+                                    "column": 32
+                                  },
+                                  "end": {
+                                    "offset": 478,
+                                    "line": 26,
+                                    "column": 64
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "alternate": {
+                          "type": "BlockStatement",
+                          "start": null,
+                          "end": null,
+                          "body": [
+                            {
+                              "start": 494,
+                              "end": 521,
+                              "type": "Element",
+                              "name": "h1",
+                              "attributes": null,
+                              "children": [
+                                {
+                                  "type": "MustacheTag",
+                                  "expression": {
+                                    "type": "Identifier",
+                                    "start": {
+                                      "offset": 500,
+                                      "line": 28,
+                                      "column": 7
+                                    },
+                                    "end": {
+                                      "offset": 513,
+                                      "line": 28,
+                                      "column": 20
+                                    },
+                                    "name": "guest_message"
+                                  },
+                                  "start": {
+                                    "offset": 498,
+                                    "line": 28,
+                                    "column": 5
+                                  },
+                                  "end": {
+                                    "offset": 515,
+                                    "line": 28,
+                                    "column": 22
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Element",
+                              "start": 521,
+                              "end": 527,
+                              "name": "br",
+                              "attributes": null
+                            },
+                            {
+                              "start": 527,
+                              "end": 599,
+                              "type": "Element",
+                              "name": "button",
+                              "attributes": [
+                                {
+                                  "type": "EventHandler",
+                                  "start": 535,
+                                  "end": 556,
+                                  "name": "click",
+                                  "modifiers": null,
+                                  "expression": {
+                                    "type": "CallExpression",
+                                    "start": {
+                                      "offset": 543,
+                                      "line": 29,
+                                      "column": 17
+                                    },
+                                    "end": {
+                                      "offset": 555,
+                                      "line": 29,
+                                      "column": 29
+                                    },
+                                    "callee": {
+                                      "type": "Identifier",
+                                      "start": null,
+                                      "end": {
+                                        "offset": 549,
+                                        "line": 29,
+                                        "column": 23
+                                      },
+                                      "name": "toggle"
+                                    },
+                                    "arguments": [
+                                      {
+                                        "type": "Identifier",
+                                        "start": {
+                                          "offset": 550,
+                                          "line": 29,
+                                          "column": 24
+                                        },
+                                        "end": {
+                                          "offset": 554,
+                                          "line": 29,
+                                          "column": 28
+                                        },
+                                        "name": "true"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "type": "MustacheTag",
+                                  "expression": {
+                                    "type": "ConditionalExpression",
+                                    "start": {
+                                      "offset": 559,
+                                      "line": 29,
+                                      "column": 33
+                                    },
+                                    "end": {
+                                      "offset": 587,
+                                      "line": 29,
+                                      "column": 61
+                                    },
+                                    "test": {
+                                      "type": "Identifier",
+                                      "start": null,
+                                      "end": {
+                                        "offset": 566,
+                                        "line": 29,
+                                        "column": 40
+                                      },
+                                      "name": "isAdmin"
+                                    },
+                                    "consequent": {
+                                      "type": "Literal",
+                                      "start": {
+                                        "offset": 569,
+                                        "line": 29,
+                                        "column": 43
+                                      },
+                                      "end": {
+                                        "offset": 577,
+                                        "line": 29,
+                                        "column": 51
+                                      },
+                                      "value": "Logout",
+                                      "raw": "\"Logout\""
+                                    },
+                                    "alternate": {
+                                      "type": "Literal",
+                                      "start": {
+                                        "offset": 580,
+                                        "line": 29,
+                                        "column": 54
+                                      },
+                                      "end": null,
+                                      "value": "Login",
+                                      "raw": "\"Login\""
+                                    }
+                                  },
+                                  "start": {
+                                    "offset": 557,
+                                    "line": 29,
+                                    "column": 31
+                                  },
+                                  "end": {
+                                    "offset": 589,
+                                    "line": 29,
+                                    "column": 63
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "type": "Element",
+                        "start": 608,
+                        "end": 614,
+                        "name": "br",
+                        "attributes": null
                       }
                     ]
                   }

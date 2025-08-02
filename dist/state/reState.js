@@ -1,46 +1,44 @@
-// reState.js (Corrected)
-import { PulseCore, getCurrentEffect, setCurrentEffect } from './PulseCore.js';
+// reState.js
+// No need to import getCurrentEffect, setCurrentEffect here directly,
+// as $effect (from effect.js) will handle that.
+import { PulseCore } from './PulseCore.js';
+import { $effect } from './effect.js'; // Ensure this path is correct relative to reState.js
 
+/**
+ * Creates a reactive derived value.
+ * Its value is computed from other reactive states ($state) or other derived values ($derived).
+ * It automatically recomputes when its dependencies change and notifies its own subscribers.
+ * @param {Function} computation A function that computes the derived value. This function
+ * should read from other reactive states/deriveds.
+ * @returns {PulseCore} A PulseCore instance that holds the derived value.
+ */
 export function reState(computation) {
-    // Create a PulseCore instance to hold the derived value
-    const derivedSignal = new PulseCore(undefined); // Initial value will be immediately updated by the first effect run
+    // 1. Create the PulseCore instance to hold the derived value.
+    // This `derivedPulse` instance will also manage its own dependents ($effect blocks
+    // that read this derived value).
+    const derivedPulse = new PulseCore(undefined); // Initialize with undefined, its value will be set by computation()
 
-    // Define the effect that re-computes the derived value.
-    // This effect will run whenever any of its dependencies (e.g., 'count' in your example) change.
-    const derivedEffect = () => {
-        setCurrentEffect(derivedEffect); // Set the current effect for dependency tracking
-        const newValue = computation(); // Execute the computation. This will read 'count.value'
-                                        // and add 'derivedEffect' to 'count's dependents.
-        setCurrentEffect(null); // Clear the current effect
+    // 2. Wrap the `computation` function inside an $effect.
+    // This internal $effect will automatically track the dependencies (other $state or $derived
+    // values) that are accessed when `computation` is executed.
+    $effect(() => {
+        // When this internal effect runs, it recomputes the derived value.
+        const newValue = computation();
 
-        // *** THE CRITICAL CHANGE IS HERE ***
-        // Use the setter of the PulseCore instance to update its value.
-        // This will automatically handle:
-        // 1. Checking if the value has actually changed.
-        // 2. Updating derivedSignal._value.
-        // 3. Notifying all effects that depend on this 'derivedSignal'.
-        derivedSignal.value = newValue; // <-- Use the setter here!
-    };
-
-    // Run the effect immediately to:
-    // 1. Initialize the derived value.
-    // 2. Collect initial dependencies (e.g., make 'derivedEffect' a dependent of 'count').
-    derivedEffect();
-
-    // Return a Proxy to interact with the derived signal.
-    // This ensures that when derived.value is accessed (e.g., by bindText),
-    // PulseCore's getter is called, and the accessing effect is added as a dependent.
-    return new Proxy(derivedSignal, {
-        get(target, prop) {
-            if (prop === 'value') return target.value; // Accesses PulseCore's getter
-            return Reflect.get(target, prop);
-        },
-        // Derived states should typically be read-only. You can optionally enforce this.
-        set(target, prop, value) {
-            console.warn(`Attempted to set a derived state's '${String(prop)}'. Derived states are read-only.`);
-            return true; // Or throw an error if strict enforcement is desired
+        // 3. Update the value of the `derivedPulse` ONLY IF it has changed.
+        // Importantly, setting `derivedPulse.value` will trigger the setter logic
+        // in `PulseCore`, which then notifies *its own* subscribers (the $effect blocks
+        // that depend on this derived value, like your if_condition_X variables).
+        // This is crucial for propagating the change.
+        if (derivedPulse.value !== newValue) {
+            derivedPulse.value = newValue;
         }
     });
+
+    // Return the PulseCore instance directly.
+    // It already has a `value` getter/setter, so a Proxy is not needed for basic access.
+    return derivedPulse;
 }
 
+// Export as $derived for use in your transpiled code
 export const $derived = reState;
