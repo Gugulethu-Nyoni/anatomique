@@ -16,10 +16,8 @@ export default class Anatomique {
         this.transpiledHTML = '';
         this.distDir = './dist';
         this.addState = true;
-        // New: Store reactive variable names
         this.reactiveVariables = new Set();
 
-        // Analyze JS AST to identify reactive variables
         this.analyzeJsAST();
 
         this.nodeToTranspilerMap = {
@@ -30,6 +28,9 @@ export default class Anatomique {
             TwoWayBindingAttribute: this.Attribute.bind(this),
             MustacheAttribute: this.Attribute.bind(this),
             BooleanIdentifierAttribute: this.Attribute.bind(this),
+            Fragment: this.Fragment.bind(this),
+            TextNode: this.TextNode.bind(this),
+            MustacheTag: this.MustacheTag.bind(this),
         };
 
         this.transpiledJSContent += `const appRoot = document.getElementById('${this.appRootId}');\n\n`;
@@ -37,7 +38,6 @@ export default class Anatomique {
         this.output();
     }
 
-    // New method: Analyze the JavaScript AST to identify reactive variables
     analyzeJsAST() {
         const jsBody = this.jsAST.content.body;
         for (const node of jsBody) {
@@ -54,27 +54,40 @@ export default class Anatomique {
         }
     }
 
-    // New method: Check if a variable is reactive
     isReactiveVariable(varName) {
         return this.reactiveVariables.has(varName);
     }
 
     traverse() {
-        const children = this.customAST?.content?.html?.children;
-        if (!Array.isArray(children)) return;
+        const htmlFragment = this.customAST?.content?.html;
+        if (!htmlFragment || !Array.isArray(htmlFragment.children)) {
+            console.warn("customAST.content.html or its children not found.");
+            return;
+        }
 
-        for (const node of children) {
-            if (node.name === 'customSyntax' && Array.isArray(node.children)) {
-                for (const child of node.children) {
-                    const transpileFn = this.nodeToTranspilerMap[child.type];
-                    if (transpileFn) transpileFn(child, 'appRoot');
-                }
+        // Find the 'customSyntax' element within the top-level fragment children
+        const customSyntaxNode = htmlFragment.children.find(
+            child => child.type === 'Element' && child.name === 'customSyntax'
+        );
+
+        if (!customSyntaxNode || !Array.isArray(customSyntaxNode.children)) {
+            console.error("Custom syntax wrapper element 'customSyntax' not found or has no children.");
+            return;
+        }
+
+        // Now, iterate through the children of the 'customSyntax' node
+        for (const child of customSyntaxNode.children) {
+            if (child.type === 'CommentBlock') continue; // Skip CommentBlock nodes
+
+            const transpileFn = this.nodeToTranspilerMap[child.type];
+            if (transpileFn) {
+                transpileFn(child, 'appRoot');
             } else {
-                const transpileFn = this.nodeToTranspilerMap[node.type];
-                if (transpileFn) transpileFn(node, 'appRoot');
+                console.warn(`No transpiler function found for node type: ${child.type}`);
             }
         }
     }
+
 
     Element(node, parentVar) {
         const id = Math.random().toString(36).slice(2, 8);
@@ -105,8 +118,8 @@ export default class Anatomique {
         }
 
         let textParts = [];
-        let hasMustacheTag = false; // Renamed to accurately reflect the presence of *any* mustache tag
-        let allPartsStatic = true; // New: Flag to check if all parts are static
+        let hasMustacheTag = false;
+        let hasReactiveText = false; // Tracks if any reactive variable is in text content
 
         const processChildren = (children) => {
             if (!Array.isArray(children)) return;
@@ -121,15 +134,12 @@ export default class Anatomique {
                     if (exprName) {
                         if (this.isReactiveVariable(exprName)) {
                             textParts.push({ type: 'reactive', value: exprName });
-                            allPartsStatic = false; // If there's a reactive part, it's not all static
+                            hasReactiveText = true;
                         } else {
                             textParts.push({ type: 'static_variable', value: exprName });
-                            // If it's a static variable, it contributes to overall static text content
-                            // but still means we need to evaluate the expression once.
                         }
                     } else {
                         console.error("MustacheTag: Expected an identifier for expression, but got:", child.expression);
-                        // Fallback: treat as empty or error string
                         textParts.push({ type: 'static', value: "''" });
                     }
                 } else {
@@ -142,52 +152,127 @@ export default class Anatomique {
         processChildren(node.children);
 
         if (textParts.length > 0) {
-            if (hasMustacheTag && !allPartsStatic) {
-                // At least one mustache tag and at least one reactive variable
+            if (hasReactiveText) {
                 const derivedExpressionString = textParts.map(part => {
                     if (part.type === 'static') {
                         return part.value;
                     } else if (part.type === 'reactive') {
-                        return `${part.value}.value`; // Access .value for reactive variables
+                        return `${part.value}.value`;
                     } else if (part.type === 'static_variable') {
-                        return part.value; // Access static variable directly
+                        return part.value;
                     }
                 }).join(' + ');
 
                 const derivedVarName = `${node.name}_text_derived_${id}`;
                 this.derivedDeclarations.push(`const ${derivedVarName} = $derived(() => ${derivedExpressionString});`);
-                this.transpiledJSContent += `bindText('#' + ${varName}.id, ${derivedVarName});\n`;
+                this.transpiledJSContent += `bindText(${varName}, ${derivedVarName});\n`;
 
             } else {
-                // No mustache tags OR mustache tags only contain static variables
-                // In this case, calculate the final content once and set textContent
                 const staticContentParts = [];
                 for (const part of textParts) {
                     if (part.type === 'static') {
                         staticContentParts.push(JSON.parse(part.value));
                     } else if (part.type === 'static_variable') {
-                        // This assumes the static variable is a simple identifier directly in scope
-                        // For more complex expressions, `escodegen.generate` would be needed.
-                        staticContentParts.push(`\$\{${part.value}\}`); // Use template literal for evaluation
+                        staticContentParts.push(`\$\{${part.value}\}`);
                     } else {
-                        // This case should ideally not happen if allPartsStatic is true
-                        // but as a fallback, include its raw value
                         staticContentParts.push(part.value);
                     }
                 }
                 const finalStaticContent = staticContentParts.join('');
 
-                // If any static_variable was found, use template literal for evaluation
                 if (textParts.some(p => p.type === 'static_variable')) {
-                     this.transpiledJSContent += `${varName}.textContent = \`${finalStaticContent}\`;\n`;
+                    this.transpiledJSContent += `${varName}.textContent = \`${finalStaticContent}\`;\n`;
                 } else {
-                     this.transpiledJSContent += `${varName}.textContent = ${JSON.stringify(finalStaticContent)};\n`;
+                    this.transpiledJSContent += `${varName}.textContent = ${JSON.stringify(finalStaticContent)};\n`;
                 }
             }
         }
 
         this.transpiledJSContent += '\n';
     }
+
+    Fragment(node, parentVar) {
+        const id = Math.random().toString(36).slice(2, 8);
+        let currentTextParts = [];
+        let hasReactiveContentInFragment = false;
+
+        const processFragmentChild = (child) => {
+            if (child.type === 'TextNode') {
+                currentTextParts.push({ type: 'static', value: JSON.stringify(child.value) });
+            } else if (child.type === 'MustacheTag') {
+                const exprName = child.expression?.name;
+                if (exprName) {
+                    if (this.isReactiveVariable(exprName)) {
+                        currentTextParts.push({ type: 'reactive', value: exprName });
+                        hasReactiveContentInFragment = true;
+                    } else {
+                        currentTextParts.push({ type: 'static_variable', value: exprName });
+                    }
+                } else {
+                    console.error("Fragment MustacheTag: Expected an identifier for expression, but got:", child.expression);
+                    currentTextParts.push({ type: 'static', value: "''" });
+                }
+            } else {
+                this.outputFragmentTextContent(currentTextParts, hasReactiveContentInFragment, parentVar, id);
+                currentTextParts = [];
+                hasReactiveContentInFragment = false;
+
+                const transpileFn = this.nodeToTranspilerMap[child.type];
+                if (transpileFn) transpileFn(child, parentVar);
+            }
+        };
+
+        for (const child of node.children) {
+            if (child.type === 'CommentBlock') continue;
+            processFragmentChild(child);
+        }
+
+        this.outputFragmentTextContent(currentTextParts, hasReactiveContentInFragment, parentVar, id);
+    }
+
+    outputFragmentTextContent(textParts, hasReactiveText, parentVar, fragmentId) {
+        if (textParts.length === 0) return;
+
+        if (hasReactiveText) {
+            const derivedExpressionString = textParts.map(part => {
+                if (part.type === 'static') {
+                    return part.value;
+                } else if (part.type === 'reactive') {
+                    return `${part.value}.value`;
+                } else if (part.type === 'static_variable') {
+                    return part.value;
+                }
+            }).join(' + ');
+
+            const textNodeVarName = `text_frag_${fragmentId}_part_${Math.random().toString(36).slice(2, 8)}_node`;
+            this.transpiledJSContent += `const ${textNodeVarName} = document.createTextNode('');\n`;
+            this.transpiledJSContent += `${parentVar}.appendChild(${textNodeVarName});\n`;
+            this.derivedDeclarations.push(`const ${textNodeVarName}_derived = $derived(() => ${derivedExpressionString});`);
+            this.transpiledJSContent += `bindText(${textNodeVarName}, ${textNodeVarName}_derived);\n`;
+
+        } else {
+            const staticContentParts = [];
+            for (const part of textParts) {
+                if (part.type === 'static') {
+                    staticContentParts.push(JSON.parse(part.value));
+                } else if (part.type === 'static_variable') {
+                    staticContentParts.push(`\$\{${part.value}\}`);
+                }
+            }
+            const finalStaticContent = staticContentParts.join('');
+
+            const textNodeVarName = `text_frag_${fragmentId}_part_${Math.random().toString(36).slice(2, 8)}_node`;
+            this.transpiledJSContent += `const ${textNodeVarName} = document.createTextNode(`;
+            if (textParts.some(p => p.type === 'static_variable')) {
+                this.transpiledJSContent += `\`${finalStaticContent}\``;
+            } else {
+                this.transpiledJSContent += `${JSON.stringify(finalStaticContent)}`;
+            }
+            this.transpiledJSContent += `);\n`;
+            this.transpiledJSContent += `${parentVar}.appendChild(${textNodeVarName});\n`;
+        }
+    }
+
 
     Attribute(attr, elementVarName) {
         switch (attr.type) {
@@ -201,30 +286,25 @@ export default class Anatomique {
             case "TwoWayBindingAttribute": {
                 const bindProp = attr.name;
                 const bindVarName = attr.expression?.name || "undefinedVar";
-                // Ensure we access .value for reactive variables
                 const valueAccess = this.isReactiveVariable(bindVarName) ? `${bindVarName}.value` : bindVarName;
                 this.transpiledJSContent += `${elementVarName}.${bindProp} = ${valueAccess};\n`;
-                this.transpiledJSContent += `bind('#' + ${elementVarName}.id, ${bindVarName});\n`;
+                this.transpiledJSContent += `bind(${elementVarName}, ${bindVarName});\n`;
                 break;
             }
-            
+
             case "MustacheAttribute": {
                 const dynAttr = attr.name;
                 const expression = attr.expression;
-                
+
                 if (!expression) {
                     console.error("MustacheAttribute: Missing expression for", dynAttr);
                     return;
                 }
 
-                // Generate code for the expression, handling reactive variables correctly
-                // This requires a deeper analysis if the expression itself contains reactive variables.
-                // For now, assuming simple identifier expressions within MustacheAttribute.
                 const dynValueCode = escodegen.generate(expression);
                 const variableUsedInExpression = expression.type === 'Identifier' ? expression.name : null;
 
                 if (dynAttr === 'value') {
-                    // Reactive 'value' attribute
                     if (variableUsedInExpression && this.isReactiveVariable(variableUsedInExpression)) {
                         this.transpiledJSContent += `
                             $effect(() => {
@@ -232,11 +312,9 @@ export default class Anatomique {
                             });
                         `;
                     } else {
-                        // If it's not a reactive variable, set it once
                         this.transpiledJSContent += `${elementVarName}.value = ${dynValueCode};\n`;
                     }
                 } else {
-                    // For other attributes, use bindAttr if it contains a reactive variable, otherwise set directly
                     if (variableUsedInExpression && this.isReactiveVariable(variableUsedInExpression)) {
                         this.transpiledJSContent += `bindAttr(${elementVarName}, "${dynAttr}", () => ${variableUsedInExpression}.value);\n`;
                     } else {
@@ -256,12 +334,10 @@ export default class Anatomique {
             case "BooleanAttribute":
             case "BooleanIdentifierAttribute": {
                 const attrName = attr.name;
-                const attrValue = attr.value; // This should be a boolean literal or an identifier
-                // If attrValue is an identifier, check its reactivity
+                const attrValue = attr.value;
                 let toggleValue = attrValue;
                 if (typeof attrValue === 'string' && this.isReactiveVariable(attrValue)) {
                     toggleValue = `${attrValue}.value`;
-                    // If it's a reactive boolean, use $effect to update
                     this.transpiledJSContent += `$effect(() => { ${elementVarName}.toggleAttribute("${attrName}", ${toggleValue}); });\n`;
                 } else {
                     this.transpiledJSContent += `${elementVarName}.toggleAttribute("${attrName}", ${toggleValue});\n`;
@@ -274,7 +350,7 @@ export default class Anatomique {
         }
     }
 
-    TextNode(node, parentVar = 'appRoot') {
+    TextNode(node, parentVar) {
         const id = Math.random().toString(36).slice(2, 8);
         const varName = `text_${id}_node`;
         const content = JSON.stringify(node.value);
@@ -283,22 +359,24 @@ export default class Anatomique {
         this.transpiledJSContent += `${parentVar}.appendChild(${varName});\n`;
     }
 
-    // This method is now effectively handled by the Element's text processing,
-    // as it combines TextNodes and MustacheTags.
-    // If a standalone MustacheTag ever appears outside an element, this would be relevant.
-    // For now, it's safer to leave it as it might be called in other contexts.
     MustacheTag(node, parentVar) {
+        const id = Math.random().toString(36).slice(2, 8);
+        const varName = `mustache_text_${id}_node`;
         const exprName = node.expression.name;
+
         if (!exprName) {
             console.error("MustacheTag: Expected an identifier for expression, but got:", node.expression);
             return;
         }
 
+        this.transpiledJSContent += `const ${varName} = document.createTextNode('');\n`;
+        this.transpiledJSContent += `${parentVar}.appendChild(${varName});\n`;
+
         if (this.isReactiveVariable(exprName)) {
-            this.transpiledJSContent += `bindText('#' + ${parentVar}.id, ${exprName});\n`;
+            this.derivedDeclarations.push(`const ${varName}_derived = $derived(() => ${exprName}.value);`);
+            this.transpiledJSContent += `bindText(${varName}, ${varName}_derived);\n`;
         } else {
-            // For a standalone mustache tag that is static, set textContent directly
-            this.transpiledJSContent += `${parentVar}.textContent = ${exprName};\n`;
+            this.transpiledJSContent += `${varName}.textContent = ${exprName};\n`;
         }
     }
 

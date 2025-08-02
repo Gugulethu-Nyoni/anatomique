@@ -4,7 +4,7 @@
     "content": {
       "type": "Program",
       "start": 0,
-      "end": 23,
+      "end": 297,
       "body": [
         {
           "type": "VariableDeclaration",
@@ -31,6 +31,244 @@
             }
           ],
           "kind": "const"
+        },
+        {
+          "type": "VariableDeclaration",
+          "start": 24,
+          "end": 180,
+          "declarations": [
+            {
+              "type": "VariableDeclarator",
+              "start": 30,
+              "end": 179,
+              "id": {
+                "type": "Identifier",
+                "start": 30,
+                "end": 34,
+                "name": "post"
+              },
+              "init": {
+                "type": "ObjectExpression",
+                "start": 37,
+                "end": 179,
+                "properties": [
+                  {
+                    "type": "Property",
+                    "start": 39,
+                    "end": 177,
+                    "method": false,
+                    "shorthand": false,
+                    "computed": false,
+                    "key": {
+                      "type": "Identifier",
+                      "start": 39,
+                      "end": 52,
+                      "name": "featuredImage"
+                    },
+                    "value": {
+                      "type": "ObjectExpression",
+                      "start": 54,
+                      "end": 177,
+                      "properties": [
+                        {
+                          "type": "Property",
+                          "start": 56,
+                          "end": 131,
+                          "method": false,
+                          "shorthand": false,
+                          "computed": false,
+                          "key": {
+                            "type": "Identifier",
+                            "start": 56,
+                            "end": 59,
+                            "name": "url"
+                          },
+                          "value": {
+                            "type": "Literal",
+                            "start": 61,
+                            "end": 131,
+                            "value": "https://cdn.pixabay.com/photo/2017/03/17/11/38/blog-2151307_1280.png",
+                            "raw": "\"https://cdn.pixabay.com/photo/2017/03/17/11/38/blog-2151307_1280.png\""
+                          },
+                          "kind": "init"
+                        },
+                        {
+                          "type": "Property",
+                          "start": 133,
+                          "end": 175,
+                          "method": false,
+                          "shorthand": false,
+                          "computed": false,
+                          "key": {
+                            "type": "Identifier",
+                            "start": 133,
+                            "end": 136,
+                            "name": "alt"
+                          },
+                          "value": {
+                            "type": "Literal",
+                            "start": 138,
+                            "end": 175,
+                            "value": "A description of the featured image",
+                            "raw": "\"A description of the featured image\""
+                          },
+                          "kind": "init"
+                        }
+                      ]
+                    },
+                    "kind": "init"
+                  }
+                ]
+              }
+            }
+          ],
+          "kind": "const"
+        },
+        {
+          "type": "VariableDeclaration",
+          "start": 184,
+          "end": 206,
+          "declarations": [
+            {
+              "type": "VariableDeclarator",
+              "start": 188,
+              "end": 205,
+              "id": {
+                "type": "Identifier",
+                "start": 188,
+                "end": 193,
+                "name": "count"
+              },
+              "init": {
+                "type": "CallExpression",
+                "start": 196,
+                "end": 205,
+                "callee": {
+                  "type": "Identifier",
+                  "start": 196,
+                  "end": 202,
+                  "name": "$state"
+                },
+                "arguments": [
+                  {
+                    "type": "Literal",
+                    "start": 203,
+                    "end": 204,
+                    "value": 0,
+                    "raw": "0"
+                  }
+                ],
+                "optional": false
+              }
+            }
+          ],
+          "kind": "let"
+        },
+        {
+          "type": "FunctionDeclaration",
+          "start": 208,
+          "end": 249,
+          "id": {
+            "type": "Identifier",
+            "start": 217,
+            "end": 226,
+            "name": "increment"
+          },
+          "expression": false,
+          "generator": false,
+          "async": false,
+          "params": [],
+          "body": {
+            "type": "BlockStatement",
+            "start": 230,
+            "end": 249,
+            "body": [
+              {
+                "type": "ExpressionStatement",
+                "start": 233,
+                "end": 247,
+                "expression": {
+                  "type": "UpdateExpression",
+                  "start": 233,
+                  "end": 246,
+                  "operator": "++",
+                  "prefix": false,
+                  "argument": {
+                    "type": "MemberExpression",
+                    "start": 233,
+                    "end": 244,
+                    "object": {
+                      "type": "Identifier",
+                      "start": 233,
+                      "end": 238,
+                      "name": "count"
+                    },
+                    "property": {
+                      "type": "Identifier",
+                      "start": 239,
+                      "end": 244,
+                      "name": "value"
+                    },
+                    "computed": false,
+                    "optional": false
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "FunctionDeclaration",
+          "start": 253,
+          "end": 294,
+          "id": {
+            "type": "Identifier",
+            "start": 262,
+            "end": 271,
+            "name": "decrement"
+          },
+          "expression": false,
+          "generator": false,
+          "async": false,
+          "params": [],
+          "body": {
+            "type": "BlockStatement",
+            "start": 275,
+            "end": 294,
+            "body": [
+              {
+                "type": "ExpressionStatement",
+                "start": 278,
+                "end": 292,
+                "expression": {
+                  "type": "UpdateExpression",
+                  "start": 278,
+                  "end": 291,
+                  "operator": "--",
+                  "prefix": false,
+                  "argument": {
+                    "type": "MemberExpression",
+                    "start": 278,
+                    "end": 289,
+                    "object": {
+                      "type": "Identifier",
+                      "start": 278,
+                      "end": 283,
+                      "name": "count"
+                    },
+                    "property": {
+                      "type": "Identifier",
+                      "start": 284,
+                      "end": 289,
+                      "name": "value"
+                    },
+                    "computed": false,
+                    "optional": false
+                  }
+                }
+              }
+            ]
+          }
         }
       ],
       "sourceType": "module"
@@ -69,34 +307,65 @@
     "content": {
       "html": {
         "start": 0,
-        "end": 58,
+        "end": 428,
         "type": "Fragment",
         "children": [
           {
             "start": 0,
-            "end": 58,
+            "end": 428,
             "type": "Element",
             "name": "customSyntax",
             "attributes": [],
             "children": [
               {
                 "start": 17,
-                "end": 43,
+                "end": 89,
                 "type": "Element",
                 "name": "h1",
-                "attributes": null,
+                "attributes": [
+                  {
+                    "start": 21,
+                    "end": 40,
+                    "type": "KeyValueAttribute",
+                    "name": "style",
+                    "value": [
+                      {
+                        "start": 28,
+                        "end": 38,
+                        "type": "Text",
+                        "raw": "color: red",
+                        "data": "color: red"
+                      }
+                    ]
+                  },
+                  {
+                    "start": 40,
+                    "end": 64,
+                    "type": "KeyValueAttribute",
+                    "name": "class",
+                    "value": [
+                      {
+                        "start": 47,
+                        "end": 63,
+                        "type": "Text",
+                        "raw": "header head1 two",
+                        "data": "header head1 two"
+                      }
+                    ]
+                  }
+                ],
                 "children": [
                   {
                     "type": "Fragment",
                     "start": {
-                      "offset": 22,
+                      "offset": 66,
                       "line": 4,
-                      "column": 6
+                      "column": 50
                     },
                     "end": {
-                      "offset": 36,
+                      "offset": 80,
                       "line": 4,
-                      "column": 20
+                      "column": 64
                     },
                     "children": [
                       {
@@ -105,9 +374,9 @@
                         "raw": "Hello ",
                         "start": null,
                         "end": {
-                          "offset": 28,
+                          "offset": 72,
                           "line": 4,
-                          "column": 12
+                          "column": 56
                         }
                       },
                       {
@@ -115,19 +384,436 @@
                         "expression": {
                           "type": "Identifier",
                           "start": {
-                            "offset": 30,
+                            "offset": 74,
                             "line": 4,
-                            "column": 14
+                            "column": 58
                           },
                           "end": {
-                            "offset": 34,
+                            "offset": 78,
                             "line": 4,
-                            "column": 18
+                            "column": 62
                           },
                           "name": "name"
                         },
                         "start": null,
                         "end": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "Fragment",
+                "start": {
+                  "offset": 89,
+                  "line": 7,
+                  "column": 1
+                },
+                "end": 413,
+                "children": [
+                  {
+                    "type": "TextNode",
+                    "value": "My Count: ",
+                    "raw": "My Count: ",
+                    "start": null,
+                    "end": {
+                      "offset": 99,
+                      "line": 7,
+                      "column": 11
+                    }
+                  },
+                  {
+                    "type": "MustacheTag",
+                    "expression": {
+                      "type": "Identifier",
+                      "start": {
+                        "offset": 101,
+                        "line": 7,
+                        "column": 13
+                      },
+                      "end": {
+                        "offset": 106,
+                        "line": 7,
+                        "column": 18
+                      },
+                      "name": "count"
+                    },
+                    "start": null,
+                    "end": {
+                      "offset": 108,
+                      "line": 7,
+                      "column": 20
+                    }
+                  },
+                  {
+                    "type": "Fragment",
+                    "start": 109,
+                    "end": 413,
+                    "children": [
+                      {
+                        "type": "Element",
+                        "start": 109,
+                        "end": 116,
+                        "name": "br",
+                        "attributes": null
+                      },
+                      {
+                        "type": "TextNode",
+                        "value": "Increment: ",
+                        "raw": "Increment: ",
+                        "start": {
+                          "offset": 116,
+                          "line": 9,
+                          "column": 1
+                        },
+                        "end": {
+                          "offset": 127,
+                          "line": 9,
+                          "column": 12
+                        },
+                        "loc": {
+                          "start": null,
+                          "end": null
+                        }
+                      },
+                      {
+                        "type": "Element",
+                        "start": 127,
+                        "end": 190,
+                        "name": "input",
+                        "attributes": [
+                          {
+                            "type": "EventHandler",
+                            "start": 134,
+                            "end": 153,
+                            "name": "input",
+                            "modifiers": null,
+                            "expression": {
+                              "type": "Identifier",
+                              "start": {
+                                "offset": 142,
+                                "line": 9,
+                                "column": 27
+                              },
+                              "end": {
+                                "offset": 151,
+                                "line": 9,
+                                "column": 36
+                              },
+                              "name": "increment"
+                            }
+                          },
+                          {
+                            "start": 153,
+                            "end": 167,
+                            "type": "KeyValueAttribute",
+                            "name": "type",
+                            "value": [
+                              {
+                                "start": 159,
+                                "end": 165,
+                                "type": "Text",
+                                "raw": "number",
+                                "data": "number"
+                              }
+                            ]
+                          },
+                          {
+                            "start": 167,
+                            "end": 185,
+                            "type": "TwoWayBindingAttribute",
+                            "name": "value",
+                            "expression": {
+                              "type": "Identifier",
+                              "start": {
+                                "offset": 179,
+                                "line": 9,
+                                "column": 64
+                              },
+                              "end": {
+                                "offset": 184,
+                                "line": 9,
+                                "column": 69
+                              },
+                              "name": "count"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Element",
+                        "start": 190,
+                        "end": 252,
+                        "name": "input",
+                        "attributes": [
+                          {
+                            "start": 197,
+                            "end": 209,
+                            "type": "KeyValueAttribute",
+                            "name": "type",
+                            "value": [
+                              {
+                                "start": 203,
+                                "end": 207,
+                                "type": "Text",
+                                "raw": "text",
+                                "data": "text"
+                              }
+                            ]
+                          },
+                          {
+                            "start": 209,
+                            "end": 238,
+                            "type": "KeyValueAttribute",
+                            "name": "placeholder",
+                            "value": [
+                              {
+                                "start": 222,
+                                "end": 236,
+                                "type": "Text",
+                                "raw": "Disabled Input",
+                                "data": "Disabled Input"
+                              }
+                            ]
+                          },
+                          {
+                            "start": 238,
+                            "end": 247,
+                            "type": "BooleanAttribute",
+                            "name": "disabled",
+                            "value": true
+                          }
+                        ]
+                      },
+                      {
+                        "start": 252,
+                        "end": 292,
+                        "type": "Element",
+                        "name": "button",
+                        "attributes": [
+                          {
+                            "type": "EventHandler",
+                            "start": 260,
+                            "end": 278,
+                            "name": "click",
+                            "modifiers": null,
+                            "expression": {
+                              "type": "Identifier",
+                              "start": {
+                                "offset": 268,
+                                "line": 14,
+                                "column": 17
+                              },
+                              "end": {
+                                "offset": 277,
+                                "line": 14,
+                                "column": 26
+                              },
+                              "name": "increment"
+                            }
+                          }
+                        ],
+                        "children": [
+                          {
+                            "type": "TextNode",
+                            "value": "+ ",
+                            "raw": "+ ",
+                            "start": {
+                              "offset": 280,
+                              "line": 14,
+                              "column": 29
+                            },
+                            "end": {
+                              "offset": 282,
+                              "line": 14,
+                              "column": 31
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Element",
+                        "start": 292,
+                        "end": 299,
+                        "name": "br",
+                        "attributes": null
+                      },
+                      {
+                        "start": 299,
+                        "end": 339,
+                        "type": "Element",
+                        "name": "button",
+                        "attributes": [
+                          {
+                            "type": "EventHandler",
+                            "start": 307,
+                            "end": 325,
+                            "name": "click",
+                            "modifiers": null,
+                            "expression": {
+                              "type": "Identifier",
+                              "start": {
+                                "offset": 315,
+                                "line": 16,
+                                "column": 17
+                              },
+                              "end": {
+                                "offset": 324,
+                                "line": 16,
+                                "column": 26
+                              },
+                              "name": "decrement"
+                            }
+                          }
+                        ],
+                        "children": [
+                          {
+                            "type": "TextNode",
+                            "value": "- ",
+                            "raw": "- ",
+                            "start": {
+                              "offset": 327,
+                              "line": 16,
+                              "column": 29
+                            },
+                            "end": {
+                              "offset": 329,
+                              "line": 16,
+                              "column": 31
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Element",
+                        "start": 339,
+                        "end": 347,
+                        "name": "br",
+                        "attributes": null
+                      },
+                      {
+                        "type": "Element",
+                        "start": 347,
+                        "end": 413,
+                        "name": "img",
+                        "attributes": [
+                          {
+                            "start": 352,
+                            "end": 380,
+                            "type": "MustacheAttribute",
+                            "name": "src",
+                            "expression": {
+                              "type": "MemberExpression",
+                              "object": {
+                                "type": "MemberExpression",
+                                "object": {
+                                  "type": "Identifier",
+                                  "start": {
+                                    "offset": 357,
+                                    "line": 19,
+                                    "column": 11
+                                  },
+                                  "end": {
+                                    "offset": 361,
+                                    "line": 19,
+                                    "column": 15
+                                  },
+                                  "name": "post"
+                                },
+                                "property": {
+                                  "type": "Identifier",
+                                  "start": {
+                                    "offset": 362,
+                                    "line": 19,
+                                    "column": 16
+                                  },
+                                  "end": {
+                                    "offset": 375,
+                                    "line": 19,
+                                    "column": 29
+                                  },
+                                  "name": "featuredImage"
+                                },
+                                "computed": false,
+                                "optional": false
+                              },
+                              "property": {
+                                "type": "Identifier",
+                                "start": {
+                                  "offset": 376,
+                                  "line": 19,
+                                  "column": 30
+                                },
+                                "end": {
+                                  "offset": 379,
+                                  "line": 19,
+                                  "column": 33
+                                },
+                                "name": "url"
+                              },
+                              "computed": false,
+                              "optional": false
+                            }
+                          },
+                          {
+                            "start": 381,
+                            "end": 409,
+                            "type": "MustacheAttribute",
+                            "name": "alt",
+                            "expression": {
+                              "type": "MemberExpression",
+                              "object": {
+                                "type": "MemberExpression",
+                                "object": {
+                                  "type": "Identifier",
+                                  "start": {
+                                    "offset": 386,
+                                    "line": 19,
+                                    "column": 40
+                                  },
+                                  "end": {
+                                    "offset": 390,
+                                    "line": 19,
+                                    "column": 44
+                                  },
+                                  "name": "post"
+                                },
+                                "property": {
+                                  "type": "Identifier",
+                                  "start": {
+                                    "offset": 391,
+                                    "line": 19,
+                                    "column": 45
+                                  },
+                                  "end": {
+                                    "offset": 404,
+                                    "line": 19,
+                                    "column": 58
+                                  },
+                                  "name": "featuredImage"
+                                },
+                                "computed": false,
+                                "optional": false
+                              },
+                              "property": {
+                                "type": "Identifier",
+                                "start": {
+                                  "offset": 405,
+                                  "line": 19,
+                                  "column": 59
+                                },
+                                "end": {
+                                  "offset": 408,
+                                  "line": 19,
+                                  "column": 62
+                                },
+                                "name": "alt"
+                              },
+                              "computed": false,
+                              "optional": false
+                            }
+                          }
+                        ]
                       }
                     ]
                   }
